@@ -140,10 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb4b501476634915ab06bd99bfec5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: {fileID: 1410734793399856, guid: 6f284240fee944118abf8d09adc51cf6, type: 2}
   boundary: {fileID: 1262039396991894, guid: db190bca1f9e24cff9eecbd4a8b3cd81, type: 2}
   wall: {fileID: 1262039396991894, guid: db190bca1f9e24cff9eecbd4a8b3cd81, type: 2}
   bossWall: {fileID: 1262039396991894, guid: db190bca1f9e24cff9eecbd4a8b3cd81, type: 2}
+  debug: {fileID: 1410734793399856, guid: 6f284240fee944118abf8d09adc51cf6, type: 2}
   layoutSize: {x: 3, y: 5}
   roomMinSize: {x: 11, y: 7}
   roomMaxSize: {x: 11, y: 7}
