@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e72cd602f2a34e0fa3b69994c402b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundTile: {fileID: 1255551429071452, guid: 872735cd375434252997688a8d9483d5, type: 2}
   boundaryBlock: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad,
     type: 2}
   standardWallBlock: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad,
