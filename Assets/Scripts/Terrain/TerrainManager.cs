@@ -2,21 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorLayout : GridLayout {
-    public GameObject bossWall;
-    public GameObject debug;
-
-    public Vector2Int layoutSize;
-    public Vector2Int roomMinSize;
-    public Vector2Int roomMaxSize;
-    public Vector2Int roomMaxOffset;
-    public Vector2Int roomGap;
-    public int roomCount;
+// Script which manages the floor generation and terrain manipulation .
+public class TerrainManager : LayoutGrid {
+    public GameObject bossWallBlock; // block that encases the boss room
+    public Vector2Int layoutSize; // size of the floor in rooms
+    public Vector2Int roomMinSize; // minimum room size
+    public Vector2Int roomMaxSize; // maximum room size
+    public Vector2Int roomMaxOffset; // maximum room grid position offset
+    public Vector2Int roomGap; // gap between room rows/columns
+    public int roomCount; // number of room the generate in the floor
     
-    public readonly List<Room> rooms = new List<Room>();
+    // list of the floor's rooms
+    public readonly List<Room> rooms = new List<Room>(); 
+    // list of the room positions
     private List<Vector2Int> roomLayoutPositions = new List<Vector2Int>();
+    // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
 
+    protected override void Start() {
+        base.Start();
+        GenerateFloor();
+    }
+
+    // Generate a new floor according to the size settings set in the editor.
+    //
+    // The rooms are first placed on the layout, then a maze is created in the
+    // remaining space. Finally, the rooms are connected to the maze through
+    // entrances.
     public void GenerateFloor() {
         gridSize = new Vector2Int(
             layoutSize.x * roomMaxSize.x + roomGap.x * (layoutSize.x + 1) + 2,
@@ -41,6 +53,20 @@ public class FloorLayout : GridLayout {
         ConnectRooms();
     }
 
+    // Return the position of the center grid cell in the floor layout.
+    public Vector2Int FindCenterPosition() {
+        return new Vector2Int(gridSize.x / 2, gridSize.y / 2);
+    }
+
+    // Return the corresponding grid position of a room layout position.
+    private Vector2Int ToGridPosition(Vector2Int layoutPosition) {
+        return new Vector2Int(
+            layoutPosition.x * roomMaxSize.x + roomGap.x * (layoutPosition.x + 1) + 1,
+            layoutPosition.y * roomMaxSize.y + roomGap.y * (layoutPosition.y + 1) + 1
+        );
+    }
+
+    // Generate a random layout of rooms for the floor.
     private void GenerateRoomLayout() {
         rooms.Clear();
         roomLayoutPositions.Clear();
@@ -51,15 +77,17 @@ public class FloorLayout : GridLayout {
                 availableRoomPositions.Add(position);
             }
         }
-        GenerateRoom(wall, centered:true, minSize:true); // spawn room
-        GenerateRoom(bossWall, maxSize:true, singleEntrance:true); // boss room
+        GenerateRoom(standardWallBlock, centered:true, minSize:true); // spawn room
+        GenerateRoom(bossWallBlock, maxSize:true, singleEntrance:true); // boss room
         while (rooms.Count < roomCount) {
-            GenerateRoom(wall); // regular rooms
+            GenerateRoom(standardWallBlock); // regular rooms
         }
     }
 
-    // Check if the layout is balanced.
-    // This is used to prevent the random generation from skewing the room distribution too much.
+    // Check if the floor layout is balanced.
+    //
+    // This is used to prevent the random generation from skewing the room
+    // distribution too much.
     private bool IsLayoutBalanced(int margin=1) {
         var expectedRowRooms = (float)(rooms.Count) / layoutSize.y;
         var expectedColumnRooms = (float)(rooms.Count) / layoutSize.x;
@@ -84,6 +112,10 @@ public class FloorLayout : GridLayout {
         return true;
     }
 
+    // Generate a random new room to insert into the floor layout.
+    //
+    // The optional parameters can be set to inforce certain characteristiccs
+    // during the generation.
     private void GenerateRoom(GameObject wall,
                               bool centered=false,
                               bool minSize=false,
@@ -100,7 +132,8 @@ public class FloorLayout : GridLayout {
             layoutPosition = new Vector2Int(layoutSize.x / 2, layoutSize.y / 2);
             positionOffset = new Vector2Int(0, 0);
         } else {
-            layoutPosition = availableRoomPositions[Random.Range(0, availableRoomPositions.Count)];
+            var index = Random.Range(0, availableRoomPositions.Count);
+            layoutPosition = availableRoomPositions[index];
             positionOffset = new Vector2Int(
                 Random.Range(-roomMaxOffset.x / 2, roomMaxOffset.x / 2) * 2,
                 Random.Range(-roomMaxOffset.y / 2, roomMaxOffset.y / 2) * 2
@@ -144,6 +177,10 @@ public class FloorLayout : GridLayout {
         rooms.Add(room);
     }
 
+    // Create the rooms in the layout grid.
+    //
+    // Walls are placed on the bounds of the room and the inside of the room is
+    // carved out.
     private void CreateRooms() {
         foreach (Room room in rooms) {
             var from = room.position;
@@ -164,6 +201,8 @@ public class FloorLayout : GridLayout {
         }
     }
 
+    // Connect the created rooms to the recently generated maze layout by
+    // inserting the rooms' entrances on the rooms' perimeters.
     private void ConnectRooms() {
         foreach (Room room in rooms) {
             foreach (Vector2Int entrance in room.entrances) {
@@ -172,10 +211,33 @@ public class FloorLayout : GridLayout {
         }
     }
 
-    private Vector2Int ToGridPosition(Vector2Int layoutPosition) {
-        return new Vector2Int(
-            layoutPosition.x * roomMaxSize.x + roomGap.x * (layoutPosition.x + 1) + 1,
-            layoutPosition.y * roomMaxSize.y + roomGap.y * (layoutPosition.y + 1) + 1
-        );
+    // Generate a maze to fill in the remaining grid space.
+    //
+    // The maze is generated using the `Growing Tree` algorithm.
+    // The maze starts generating from the given list of cells.
+    // The split determines the chance that the next cell generated is next to
+    // the most recent cell (like the `Recursive Backtrack algorithm`), as
+    // opposed to a random one (like `Prim's algorithm`).
+    protected void GenerateMaze(List<Vector2Int> cells, float split=0.5f) {
+        while (cells.Count > 0) {
+            int index;
+            if (Random.value > 0.5) {
+                index = cells.Count - 1;
+            } else {
+                index = Random.Range(0, cells.Count);
+            }
+            var cell = cells[index];
+            var neighbors = FindUnvisitedNeighbors(cell);
+            if (neighbors.Count == 0) {
+                cells.RemoveAt(index);
+                continue;
+            }
+            var neighbor = neighbors[Random.Range(0, neighbors.Count)];
+            var delta = neighbor - cell;
+            var wall = cell + new Vector2Int(delta.x / 2, delta.y / 2);
+            Remove(wall);
+            Remove(neighbor);
+            cells.Add(neighbor);
+        }
     }
 }

@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-
 	public float speed;
+	private TerrainManager terrain;
+
+	void Start() {
+		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
+		var center = terrain.FindCenterPosition();
+		transform.Translate(new Vector3(center.x, center.y, 0.0f));
+	}
 	
-	void Update () {
+	void Update() {
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			GameObject.Find("Terrain").GetComponent<Terrain>().GenerateFloor();
+			terrain.GenerateFloor();
 		}
 
 		var direction = new Vector3(0.0f, 0.0f, 0.0f);

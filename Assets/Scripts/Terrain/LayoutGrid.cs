@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridLayout : MonoBehaviour {
-    public GameObject boundary;
-    public GameObject wall;
-    protected Vector2Int gridSize;
-    private GameObject[,] grid;
-    private HashSet<Vector2Int> unvisited;
+// Layout grid that the terrain system is based on.
+public class LayoutGrid : MonoBehaviour {
+    public GameObject boundaryBlock; // block that delimits the playable zone
+    public GameObject standardWallBlock; // standard wall block that the grid places
+    protected Vector2Int gridSize; // size of the grid in cells
+    private GameObject[,] grid; // grid which contains the instances of blocks
+    private HashSet<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
+    private Transform ground; // parent object for ground tiles
+    private Transform walls; // parent object for wall blocks
 
-    public static Vector3 ToWorldPosition(Vector2Int position) {
-        return new Vector3(position.x, 0.0f, position.y);
+    protected virtual void Start() {
+        ground = transform.Find("Ground");
+        walls = transform.Find("Walls");
     }
-    
+
+    // Create an empty grid layout.
+    // The walls can be removed afterwards to create rooms and paths.    
     public void InitializeGrid() {
         Clear();
         grid = new GameObject[gridSize.x, gridSize.y];
@@ -21,23 +27,30 @@ public class GridLayout : MonoBehaviour {
             for (int y = 0; y < gridSize.y; ++y) {
                 var position = new Vector2Int(x, y);
                 if (x == 0 || x == gridSize.x - 1 || y == 0 || y == gridSize.y - 1) {
-                    Place(boundary, position);
+                    Place(boundaryBlock, position);
                 } else if (x % 2 == 0 || y % 2 == 0) {
-                    Place(wall, position);
+                    Place(standardWallBlock, position);
                 } else {
                     unvisited.Add(position);
                 }
             }
         }
     }
+    
+    // Convert a Vector2Int grid position into a Vector3 world position.
+    public static Vector3 ToWorldPosition(Vector2Int position) {
+        return new Vector3(position.x, 0.0f, position.y);
+    }
 
+    // Place (an instance of) a block at the given position.
     public void Place(GameObject block, Vector2Int position) {
         Remove(position);
         var instance = Instantiate(block, ToWorldPosition(position), Quaternion.identity);
-        instance.transform.parent = transform;
+        instance.transform.parent = walls;
         grid[position.x, position.y] = instance;
     }
 
+    // Remove the block at the given position, if any.
     public void Remove(Vector2Int position) {
         var instance = grid[position.x, position.y];
         if (instance != null) {
@@ -47,6 +60,7 @@ public class GridLayout : MonoBehaviour {
         unvisited.Remove(position);
     }
 
+    // Destroy all of the grid's block game objects.
     public void Clear() {
         if (grid != null) {
             for (int x = 0; x < grid.GetLength(0); ++x) {
@@ -58,6 +72,7 @@ public class GridLayout : MonoBehaviour {
         }
     }
 
+    // Check if the given position is within the grid.
     protected bool IsInbounds(Vector2Int position) {
         return position.x >= 0
             && position.x < gridSize.x
@@ -65,10 +80,12 @@ public class GridLayout : MonoBehaviour {
             && position.y < gridSize.y;
     }
 
+    // Check if the given position has not been visited yet.
     protected bool IsUnvisited(Vector2Int position) {
         return unvisited.Contains(position);
     }
 
+    // Return the list of unvisited neighboring positions .
     protected List<Vector2Int> FindUnvisitedNeighbors(Vector2Int position) {
         var unvisitedNeighbors = new List<Vector2Int>();
         var neighbors = new Vector2Int[] {
@@ -83,35 +100,5 @@ public class GridLayout : MonoBehaviour {
             }
         }
         return unvisitedNeighbors;
-    }
-
-    // Generate a maze to fill in the remaining grid space.
-    // 
-    // The maze is generated using the `Growing Tree` algorithm.
-    // The maze starts generating from the given list of cells.
-    // The split determines the chance that the next cell generated is next to
-    // the most recent cell (like the `Recursive Backtrack algorithm`), as
-    // opposed to a random one (like `Prim's algorithm`).
-    protected void GenerateMaze(List<Vector2Int> cells, float split=0.5f) {
-        while (cells.Count > 0) {
-            int index;
-            if (Random.value > 0.5) {
-                index = cells.Count - 1;
-            } else {
-                index = Random.Range(0, cells.Count);
-            }
-            var cell = cells[index];
-            var neighbors = FindUnvisitedNeighbors(cell);
-            if (neighbors.Count == 0) {
-                cells.RemoveAt(index);
-                continue;
-            }
-            var neighbor = neighbors[Random.Range(0, neighbors.Count)];
-            var delta = neighbor - cell;
-            var wall = cell + new Vector2Int(delta.x / 2, delta.y / 2);
-            Remove(wall);
-            Remove(neighbor);
-            cells.Add(neighbor);
-        }
     }
 }
