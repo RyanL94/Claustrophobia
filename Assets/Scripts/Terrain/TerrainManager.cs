@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Script which manages the floor generation and terrain manipulation .
 public class TerrainManager : LayoutGrid {
-    public GameObject bossWallBlock; // block that encases the boss room
+    public GameObject bossBlock; // block that encases the boss room
     public Vector2Int layoutSize; // size of the floor in rooms
     public Vector2Int roomMinSize; // minimum room size
     public Vector2Int roomMaxSize; // maximum room size
@@ -88,10 +88,10 @@ public class TerrainManager : LayoutGrid {
                 availableRoomPositions.Add(position);
             }
         }
-        GenerateRoom(standardWallBlock, centered:true, minSize:true); // spawn room
-        GenerateRoom(bossWallBlock, maxSize:true, singleEntrance:true); // boss room
+        GenerateRoom(standardBlock, centered:true, minSize:true); // spawn room
+        GenerateRoom(bossBlock, maxSize:true, singleEntrance:true); // boss room
         while (rooms.Count < roomCount) {
-            GenerateRoom(standardWallBlock); // regular rooms
+            GenerateRoom(standardBlock); // regular rooms
         }
     }
 
@@ -206,6 +206,7 @@ public class TerrainManager : LayoutGrid {
                         Place(room.wall, position);
                     } else {
                         Remove(position);
+                        Place(room.wall, position, true);
                     }
                 }
             }

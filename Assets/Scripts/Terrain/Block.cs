@@ -5,4 +5,5 @@ using UnityEngine;
 // Wall block of a floor layout.
 public class Block : MonoBehaviour {
 	public bool breakable; // whether the block can be broken by the player
+	public GameObject ground; // ground under the block
 }

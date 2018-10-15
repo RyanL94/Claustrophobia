@@ -4,9 +4,8 @@ using UnityEngine;
 
 // Layout grid that the terrain system is based on.
 public class LayoutGrid : MonoBehaviour {
-    public GameObject groundTile; // tile that constitutes the ground
     public GameObject boundaryBlock; // block that delimits the playable zone
-    public GameObject standardWallBlock; // standard wall block that the grid places
+    public GameObject standardBlock; // standard wall block that the grid places
     protected Vector2Int gridSize; // size of the grid in cells
     protected GameObject[,] grid; // grid which contains the instances of blocks
     private HashSet<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
@@ -30,9 +29,9 @@ public class LayoutGrid : MonoBehaviour {
                 if (x == 0 || x == gridSize.x - 1 || y == 0 || y == gridSize.y - 1) {
                     Place(boundaryBlock, position);
                 } else if (x % 2 == 0 || y % 2 == 0) {
-                    Place(standardWallBlock, position);
+                    Place(standardBlock, position);
                 } else {
-                    Place(groundTile, position, true);
+                    Place(standardBlock, position, true);
                     unvisited.Add(position);
                 }
             }
@@ -47,6 +46,9 @@ public class LayoutGrid : MonoBehaviour {
     // Place (an instance of) a block or tile at the given position.
     public void Place(GameObject block, Vector2Int position, bool onGround=false) {
         Empty(position);
+        if (onGround) {
+            block = block.GetComponent<Block>().ground;
+        }
         var instance = Instantiate(block, ToWorldPosition(position), Quaternion.identity);
         instance.transform.parent = onGround? ground : walls;
         grid[position.x, position.y] = instance;
@@ -54,7 +56,13 @@ public class LayoutGrid : MonoBehaviour {
 
     // Remove the block at the given position, if any.
     public void Remove(Vector2Int position) {
-        Place(groundTile, position, true);
+        var instance = grid[position.x, position.y];
+        var block = instance.GetComponent<Block>();
+        if (block != null) {
+            Place(instance, position, true);
+        } else {
+            Place(standardBlock, position, true);
+        }
         unvisited.Remove(position);
     }
 

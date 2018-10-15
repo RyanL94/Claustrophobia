@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour {
 			terrain.GenerateFloor();
 		}
 		if (Input.GetKeyDown(KeyCode.X)) {
-			terrain.Place(terrain.standardWallBlock, terrain.FindCenterPosition());
+			terrain.Place(terrain.standardBlock, terrain.FindCenterPosition());
 		}
 		if (Input.GetKeyDown(KeyCode.Z)) {
 			terrain.Break(terrain.FindCenterPosition());
