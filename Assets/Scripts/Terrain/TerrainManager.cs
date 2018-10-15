@@ -53,6 +53,17 @@ public class TerrainManager : LayoutGrid {
         ConnectRooms();
     }
 
+    // Break the block at the given position, if possible.
+    public void Break(Vector2Int position) {
+        var instance = grid[position.x, position.y];
+        if (instance != null) {
+            var block = instance.GetComponent<Block>();
+            if (block != null && block.breakable == true) {
+                Remove(position);
+            }
+        }
+    }
+
     // Return the position of the center grid cell in the floor layout.
     public Vector2Int FindCenterPosition() {
         return new Vector2Int(gridSize.x / 2, gridSize.y / 2);
