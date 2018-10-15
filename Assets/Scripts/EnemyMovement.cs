@@ -44,16 +44,16 @@ public class EnemyMovement : MonoBehaviour {
         Vector3 forward = transform.position + transform.forward * rayCastOffset;
         Vector3 backward = transform.position - transform.forward * rayCastOffset;
 
-        Debug.DrawRay(left, transform.forward * rayDistance, Color.green);
-        Debug.DrawRay(right, -transform.right * rayDistance, Color.green);
-        Debug.DrawRay(forward, transform.right * rayDistance, Color.green);
+        Debug.DrawRay(left, -transform.right * rayDistance, Color.green);
+        Debug.DrawRay(right, transform.right * rayDistance, Color.green);
+        Debug.DrawRay(forward, transform.forward * rayDistance, Color.green);
         Debug.DrawRay(backward, -transform.forward * rayDistance, Color.green);
 
-        if(Physics.Raycast(left, transform.forward, out hit, rayDistance))
+        if(Physics.Raycast(left, -transform.right, out hit, rayDistance))
         {
             
         }
-        else if(Physics.Raycast(right, transform.forward, out hit, rayDistance))
+        else if(Physics.Raycast(right, transform.right, out hit, rayDistance))
         {
             
         }
@@ -62,7 +62,7 @@ public class EnemyMovement : MonoBehaviour {
         {
             
         }
-        else if (Physics.Raycast(backward, transform.forward, out hit, rayDistance))
+        else if (Physics.Raycast(backward, -transform.forward, out hit, rayDistance))
         {
             
         }
