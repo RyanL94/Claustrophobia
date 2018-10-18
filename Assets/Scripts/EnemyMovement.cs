@@ -14,16 +14,18 @@ public class EnemyMovement : MonoBehaviour
     float rayCastOffset;
     [SerializeField]
     float rayDistance;
+    [SerializeField]
+    float rotate;
 	
 	void Update ()
     {
         if (target != null)
         {
-            Turn();
-            Move();
             Pathfinding();
+            Move();
+            //Turn();
         }
-	}
+    }
 
     void OnCollisionEnter(Collision col)
     {
@@ -38,18 +40,18 @@ public class EnemyMovement : MonoBehaviour
         Vector3 pos = (target.position - transform.position).normalized;
         Quaternion rotation = Quaternion.LookRotation(pos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
-        Debug.Log(pos);
     }
 
     void Move()
     {
-        movementSpeed += 0.001f;
+        //movementSpeed += 0.001f;
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
-        Debug.Log(movementSpeed);
+        //Debug.Log(movementSpeed);
     }
 
     void Pathfinding()
     {
+        float leftRay = 0.99f * rayDistance;
         RaycastHit hit;
         Vector3 raycastOffset = Vector3.zero;
 
@@ -58,18 +60,19 @@ public class EnemyMovement : MonoBehaviour
         Vector3 forward = transform.position + transform.forward * rayCastOffset;
         Vector3 backward = transform.position - transform.forward * rayCastOffset;
 
-        Debug.DrawRay(left, -transform.right * rayDistance, Color.green);
-        Debug.DrawRay(right, transform.right * rayDistance, Color.green);
+        Debug.DrawRay(left, transform.forward * rayDistance, Color.green);
+        Debug.DrawRay(right, transform.forward * rayDistance, Color.green);
         Debug.DrawRay(forward, transform.forward * rayDistance, Color.green);
         Debug.DrawRay(backward, -transform.forward * rayDistance, Color.green);
 
-        if(Physics.Raycast(left, -transform.right, out hit, rayDistance))
+        if(Physics.Raycast(left, transform.forward, out hit, leftRay))
         {
-            
+            raycastOffset += Vector3.up;
         }
-        else if(Physics.Raycast(right, transform.right, out hit, rayDistance))
+        else if(Physics.Raycast(right, transform.forward, out hit, rayDistance))
         {
-            
+            Debug.Log("Ray collision2");
+            raycastOffset -= Vector3.up;
         }
 
         if (Physics.Raycast(forward, transform.forward, out hit, rayDistance))
@@ -83,11 +86,11 @@ public class EnemyMovement : MonoBehaviour
 
         if(raycastOffset != Vector3.zero)
         {
-            
+            transform.Rotate(raycastOffset * rotate * Time.deltaTime);
         }
         else
         {
-
+            Turn();
         }
     }
 }
