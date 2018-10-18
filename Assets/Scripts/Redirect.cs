@@ -15,7 +15,7 @@ public class Redirect : MonoBehaviour {
     {
         if (other.name == "Baddie")
         {
-            EnemyBehavior toChange = other.GetComponent<EnemyBehavior>();
+            EnemyMovement toChange = other.GetComponent<EnemyMovement>();
             toChange.direction = redirector;
         }
         
