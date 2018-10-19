@@ -48,11 +48,10 @@ public class PlayerMovementScript : MonoBehaviour {
         }
 
         //if fired
-        if (Input.GetMouseButton(0))
+        if (Input.GetButton("Fire1"))
         {
 
-            //decelerate
-            speed = minSpeed;
+            Decelarate();
         }
 
     }
@@ -83,5 +82,13 @@ public class PlayerMovementScript : MonoBehaviour {
 
         }
     }
+
+    public void Decelarate(){
+
+        speed = minSpeed;
+
+
+    }
+
 
 }
