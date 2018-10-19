@@ -1,8 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 6bfb273f801e44e7f8f787d12017c854
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
+=======
+guid: a4ddef97c4e009f40a7053fe5c2164f4
+folderAsset: yes
+timeCreated: 1462207539
+licenseType: Store
+DefaultImporter:
+>>>>>>> feature-terrain-generation
   userData: 
   assetBundleName: 
   assetBundleVariant: 

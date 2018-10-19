@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 3e4a63c0154e5f24789c0fb7ab6979ea
+=======
+guid: 2bc63a28f31bf4d5e90ce14ddeb04d88
+>>>>>>> feature-terrain-generation
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
