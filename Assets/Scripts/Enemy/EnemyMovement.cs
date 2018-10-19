@@ -19,13 +19,13 @@ public class EnemyMovement : MonoBehaviour
 
     //val stuff
     public Vector3 direction;
-    public GameObject toChase;
-    public float speed;
+    //public GameObject toChase;
 
     static Vector3 destination;
     private float distanceToTarget;
 
     //together stuff
+    [SerializeField]
     private bool inRoom = false;
 	
 	void Update ()
@@ -85,7 +85,6 @@ public class EnemyMovement : MonoBehaviour
             }
             else if(Physics.Raycast(right, transform.forward, out hit, rayDistance))
             {
-                Debug.Log("Ray collision2");
                 raycastOffset -= Vector3.up;
             }
 
@@ -110,21 +109,21 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             RaycastHit hit;
-            destination = toChase.transform.position;
+            //destination = toChase.transform.position;
             distanceToTarget = (destination - transform.position).magnitude;
             if (distanceToTarget < 0.15) Debug.Log("case 1"); //attack
             else if (distanceToTarget < 0.4f && Physics.Linecast(transform.position, destination, out hit))
             {
                 if (hit.transform.name == "Target")
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, destination, speed*Time.deltaTime);
-                    Debug.Log(toChase.transform.position);
+                    transform.position = Vector3.MoveTowards(transform.position, destination, movementSpeed*Time.deltaTime);
+                    //Debug.Log(toChase.transform.position);
                     Debug.Log("ww" + destination);
                 }
             }
             else
             {
-                transform.Translate(direction * speed * Time.deltaTime);
+                transform.Translate(direction * movementSpeed * Time.deltaTime);
                 Debug.Log("case 3");
             }
         }
