@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour {
 	void Start() {
 		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
 		var center = terrain.FindCenterPosition();
-		transform.Translate(new Vector3(center.x, center.y, 0.0f));
+		transform.Translate(new Vector3(center.x, center.y, 0.0f) + new Vector3(0.5f, 0.5f, 0.0f));
 	}
 	
 	void Update() {
