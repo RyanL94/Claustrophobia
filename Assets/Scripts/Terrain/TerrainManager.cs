@@ -69,8 +69,10 @@ public class TerrainManager : LayoutGrid {
         return new Vector2Int(gridSize.x / 2, gridSize.y / 2);
     }
 
-    // Return the current room that the player is in according to their position, if any.
-    public Room FindCurrentRoom(Vector2Int position) {
+    // Return the room which contains the position, if any.
+    //
+    // Useful for finding the room that the player is currently in.
+    public Room FindRoomAtPosition(Vector2Int position) {
         foreach (Room room in rooms) {
             if (room.Contains(position)) {
                 return room;
@@ -83,14 +85,14 @@ public class TerrainManager : LayoutGrid {
     //
     // Useful for keeping the player in a room until a event is finished, such as a boss fight.
     // This only blocks standard room entrances, not entrances dug by the player.
-    public void BlockEntrances(Room room) {
+    public void BlockRoomEntrances(Room room) {
         foreach (Vector2Int entrance in room.entrances) {
             Place(room.wall, entrance);
         }
     }
 
     // Clear the entrance of a room.
-    public void ClearEntrances(Room room) {
+    public void ClearRoomEntrances(Room room) {
         foreach (Vector2Int entrance in room.entrances) {
             Place(room.wall, entrance, true);
         }
