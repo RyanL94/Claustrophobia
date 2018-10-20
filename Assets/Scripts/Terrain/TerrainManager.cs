@@ -98,10 +98,10 @@ public class TerrainManager : LayoutGrid {
                 availableRoomPositions.Add(position);
             }
         }
-        GenerateRoom(standardBlock, centered:true, minSize:true); // spawn room
-        GenerateRoom(bossBlock, maxSize:true, singleEntrance:true); // boss room
+        GenerateRoom(RoomType.Spawn, standardBlock, centered:true, minSize:true);
+        GenerateRoom(RoomType.Boss, bossBlock, maxSize:true, singleEntrance:true);
         while (rooms.Count < roomCount) {
-            GenerateRoom(standardBlock); // regular rooms
+            GenerateRoom(RoomType.Enemy, standardBlock); // regular rooms
         }
     }
 
@@ -137,7 +137,8 @@ public class TerrainManager : LayoutGrid {
     //
     // The optional parameters can be set to inforce certain characteristiccs
     // during the generation.
-    private void GenerateRoom(GameObject wall,
+    private void GenerateRoom(RoomType type,
+                              GameObject wall,
                               bool centered=false,
                               bool minSize=false,
                               bool maxSize=false,
@@ -194,7 +195,7 @@ public class TerrainManager : LayoutGrid {
                 }
             }
         }
-        var room = new Room(wall, gridPosition, size, entrances);
+        var room = new Room(type, wall, gridPosition, size, entrances);
         rooms.Add(room);
     }
 
