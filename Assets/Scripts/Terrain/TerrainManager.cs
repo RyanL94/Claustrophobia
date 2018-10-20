@@ -69,6 +69,16 @@ public class TerrainManager : LayoutGrid {
         return new Vector2Int(gridSize.x / 2, gridSize.y / 2);
     }
 
+    // Return the current room that the player is in according to their position, if any.
+    public Room FindCurrentRoom(Vector2Int position) {
+        foreach (Room room in rooms) {
+            if (room.Contains(position)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
     // Return the corresponding grid position of a room layout position.
     private Vector2Int ToGridPosition(Vector2Int layoutPosition) {
         return new Vector2Int(

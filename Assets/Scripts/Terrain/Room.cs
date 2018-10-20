@@ -16,4 +16,17 @@ public class Room {
 		this.size = size;
 		this.entrances = entrances;
 	}
+
+	// Check if the given position is contained within the room.
+	//
+	// The walls surrounding the room are considered outside.
+	public bool Contains(Vector2Int position) {
+		if (position.x > this.position.x + 1 &&
+			position.x <= this.position.x + size.x - 1 &&
+			position.y > this.position.y + 1 &&
+			position.y <= this.position.y + size.y - 1) {
+			return true;
+		}
+		return false;
+	}
 }
