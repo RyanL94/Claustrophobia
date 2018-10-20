@@ -79,6 +79,23 @@ public class TerrainManager : LayoutGrid {
         return null;
     }
 
+    // Block the entrances of a room.
+    //
+    // Useful for keeping the player in a room until a event is finished, such as a boss fight.
+    // This only blocks standard room entrances, not entrances dug by the player.
+    public void BlockEntrances(Room room) {
+        foreach (Vector2Int entrance in room.entrances) {
+            Place(room.wall, entrance);
+        }
+    }
+
+    // Clear the entrance of a room.
+    public void ClearEntrances(Room room) {
+        foreach (Vector2Int entrance in room.entrances) {
+            Place(room.wall, entrance, true);
+        }
+    }
+
     // Return the corresponding grid position of a room layout position.
     private Vector2Int ToGridPosition(Vector2Int layoutPosition) {
         return new Vector2Int(
