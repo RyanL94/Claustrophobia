@@ -92,6 +92,15 @@ public class LayoutGrid : MonoBehaviour {
         }
     }
 
+    // Check if the given grid position is a wall.
+    public bool IsWall(Vector2Int position) {
+        var instance = grid[position.x, position.y];
+        if (instance != null && instance.transform.parent.name == "Walls") {
+            return true;
+        }
+        return false;
+    }
+
     // Check if the given position is within the grid.
     protected bool IsInbounds(Vector2Int position) {
         return position.x >= 0
