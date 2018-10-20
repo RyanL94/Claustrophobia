@@ -69,6 +69,35 @@ public class TerrainManager : LayoutGrid {
         return new Vector2Int(gridSize.x / 2, gridSize.y / 2);
     }
 
+    // Return the room which contains the position, if any.
+    //
+    // Useful for finding the room that the player is currently in.
+    public Room FindRoomAtPosition(Vector2Int position) {
+        foreach (Room room in rooms) {
+            if (room.Contains(position)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    // Block the entrances of a room.
+    //
+    // Useful for keeping the player in a room until a event is finished, such as a boss fight.
+    // This only blocks standard room entrances, not entrances dug by the player.
+    public void BlockRoomEntrances(Room room) {
+        foreach (Vector2Int entrance in room.entrances) {
+            Place(room.wall, entrance);
+        }
+    }
+
+    // Clear the entrance of a room.
+    public void ClearRoomEntrances(Room room) {
+        foreach (Vector2Int entrance in room.entrances) {
+            Place(room.wall, entrance, true);
+        }
+    }
+
     // Return the corresponding grid position of a room layout position.
     private Vector2Int ToGridPosition(Vector2Int layoutPosition) {
         return new Vector2Int(
@@ -88,10 +117,10 @@ public class TerrainManager : LayoutGrid {
                 availableRoomPositions.Add(position);
             }
         }
-        GenerateRoom(standardBlock, centered:true, minSize:true); // spawn room
-        GenerateRoom(bossBlock, maxSize:true, singleEntrance:true); // boss room
+        GenerateRoom(RoomType.Spawn, standardBlock, centered:true, minSize:true);
+        GenerateRoom(RoomType.Boss, bossBlock, maxSize:true, singleEntrance:true);
         while (rooms.Count < roomCount) {
-            GenerateRoom(standardBlock); // regular rooms
+            GenerateRoom(RoomType.Enemy, standardBlock); // regular rooms
         }
     }
 
@@ -127,7 +156,8 @@ public class TerrainManager : LayoutGrid {
     //
     // The optional parameters can be set to inforce certain characteristiccs
     // during the generation.
-    private void GenerateRoom(GameObject wall,
+    private void GenerateRoom(RoomType type,
+                              GameObject wall,
                               bool centered=false,
                               bool minSize=false,
                               bool maxSize=false,
@@ -184,7 +214,7 @@ public class TerrainManager : LayoutGrid {
                 }
             }
         }
-        var room = new Room(wall, gridPosition, size, entrances);
+        var room = new Room(type, wall, gridPosition, size, entrances);
         rooms.Add(room);
     }
 

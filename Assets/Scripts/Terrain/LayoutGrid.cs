@@ -43,6 +43,11 @@ public class LayoutGrid : MonoBehaviour {
         return new Vector3(position.x, 0.0f, position.y);
     }
 
+    // Convert a Vector3 world position into a Vector2Int grid position.
+    public static Vector2Int FromWorldPosition(Vector3 position) {
+        return new Vector2Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.z));
+    }
+
     // Place (an instance of) a block or tile at the given position.
     public void Place(GameObject block, Vector2Int position, bool onGround=false) {
         Empty(position);
@@ -85,6 +90,15 @@ public class LayoutGrid : MonoBehaviour {
                 }
             }
         }
+    }
+
+    // Check if the given grid position is a wall.
+    public bool IsWall(Vector2Int position) {
+        var instance = grid[position.x, position.y];
+        if (instance != null && instance.transform.parent.name == "Walls") {
+            return true;
+        }
+        return false;
     }
 
     // Check if the given position is within the grid.
