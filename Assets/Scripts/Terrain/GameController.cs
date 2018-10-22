@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
 
 	void Start() {
 		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
-		playerPosition = LayoutGrid.ToWorldPosition(terrain.FindCenterPosition()); // TODO: remove once the game controller has an actual player
+		playerPosition = LayoutGrid.ToWorldPosition(terrain.floorConfiguration.FindCenterPosition()); // TODO: remove once the game controller has an actual player
 	}
 
 	void FixedUpdate() {

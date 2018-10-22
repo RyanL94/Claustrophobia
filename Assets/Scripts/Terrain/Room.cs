@@ -7,9 +7,9 @@ using UnityEngine;
 // Different rooms may behave differently upon certain events.
 public enum RoomType {
 	Spawn,
+	Item,
 	Enemy,
-	Boss,
-	Item
+	Boss
 }
 
 // Floor room.

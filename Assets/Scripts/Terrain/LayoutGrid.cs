@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class GridBlocks {
+    public GameObject standard;
+    public GameObject boundary;
+}
+
 // Layout grid that the terrain system is based on.
 public class LayoutGrid : MonoBehaviour {
-    public GameObject boundaryBlock; // block that delimits the playable zone
-    public GameObject standardBlock; // standard wall block that the grid places
+    public GridBlocks gridBlocks; // blocks to place in the layout
     protected Vector2Int gridSize; // size of the grid in cells
     protected GameObject[,] grid; // grid which contains the instances of blocks
     private HashSet<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
@@ -27,11 +32,11 @@ public class LayoutGrid : MonoBehaviour {
             for (int y = 0; y < gridSize.y; ++y) {
                 var position = new Vector2Int(x, y);
                 if (x == 0 || x == gridSize.x - 1 || y == 0 || y == gridSize.y - 1) {
-                    Place(boundaryBlock, position);
+                    Place(gridBlocks.boundary, position);
                 } else if (x % 2 == 0 || y % 2 == 0) {
-                    Place(standardBlock, position);
+                    Place(gridBlocks.standard, position);
                 } else {
-                    Place(standardBlock, position, true);
+                    Place(gridBlocks.standard, position, true);
                     unvisited.Add(position);
                 }
             }
@@ -66,7 +71,7 @@ public class LayoutGrid : MonoBehaviour {
         if (block != null) {
             Place(instance, position, true);
         } else {
-            Place(standardBlock, position, true);
+            Place(gridBlocks.standard, position, true);
         }
         unvisited.Remove(position);
     }

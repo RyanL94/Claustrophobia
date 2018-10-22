@@ -168,17 +168,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e72cd602f2a34e0fa3b69994c402b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundaryBlock: {fileID: 1464559982521406, guid: 0713722ad67bd460e9ff372411d0697f,
-    type: 2}
-  standardBlock: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad,
-    type: 2}
-  bossBlock: {fileID: 1984487090759462, guid: 05a5d103808b64493a01432439b01df3, type: 2}
-  layoutSize: {x: 3, y: 5}
-  roomMinSize: {x: 11, y: 7}
-  roomMaxSize: {x: 11, y: 7}
-  roomMaxOffset: {x: 2, y: 2}
-  roomGap: {x: 5, y: 5}
-  roomCount: 10
+  gridBlocks:
+    standard: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad, type: 2}
+    boundary: {fileID: 1464559982521406, guid: 0713722ad67bd460e9ff372411d0697f, type: 2}
+  terrainBlocks:
+    room: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad, type: 2}
+    itemRoom: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad, type: 2}
+    boss: {fileID: 1984487090759462, guid: 05a5d103808b64493a01432439b01df3, type: 2}
+  floorConfiguration:
+    layoutSize: {x: 3, y: 5}
+    roomMinSize: {x: 11, y: 7}
+    roomMaxSize: {x: 11, y: 7}
+    roomMaxOffset: {x: 2, y: 2}
+    roomGap: {x: 5, y: 5}
+    roomCount: 10
 --- !u!4 &336564001
 Transform:
   m_ObjectHideFlags: 0
