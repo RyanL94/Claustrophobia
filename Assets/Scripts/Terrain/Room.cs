@@ -8,7 +8,8 @@ using UnityEngine;
 public enum RoomType {
 	Spawn,
 	Enemy,
-	Boss
+	Boss,
+	Item
 }
 
 // Floor room.

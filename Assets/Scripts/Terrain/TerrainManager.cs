@@ -119,8 +119,9 @@ public class TerrainManager : LayoutGrid {
         }
         GenerateRoom(RoomType.Spawn, standardBlock, centered:true, minSize:true);
         GenerateRoom(RoomType.Boss, bossBlock, maxSize:true, singleEntrance:true);
+        GenerateRoom(RoomType.Item, standardBlock, singleEntrance:true);
         while (rooms.Count < roomCount) {
-            GenerateRoom(RoomType.Enemy, standardBlock); // regular rooms
+            GenerateRoom(RoomType.Enemy, standardBlock);
         }
     }
 
