@@ -51,14 +51,22 @@ public class LayoutGrid : MonoBehaviour {
     public void Place(GameObject wallBlock, Vector2Int position, bool ground=false) {
         Empty(position);
         var worldPosition = ToWorldPosition(position);
+        
+        // place ground block
         var groundBlock = wallBlock.GetComponent<Block>().ground;
-        var groundInstance = Instantiate(groundBlock, worldPosition, Quaternion.identity);
-        if (!ground) {
-            var wallInstance = Instantiate(wallBlock, worldPosition, Quaternion.identity);
-            wallInstance.transform.parent = groundInstance.transform;
-        }
+        var blockPosition = worldPosition + groundBlock.transform.position;
+        var blockRotation = groundBlock.transform.rotation;
+        var groundInstance = Instantiate(groundBlock, blockPosition, blockRotation);
         groundInstance.transform.parent = transform;
         grid[position.x, position.y] = groundInstance;
+       
+        // place wall block
+        if (!ground) {
+            blockPosition = worldPosition + wallBlock.transform.position;
+            blockRotation = wallBlock.transform.rotation;
+            var wallInstance = Instantiate(wallBlock, blockPosition, blockRotation);
+            wallInstance.transform.parent = groundInstance.transform;
+        }
     }
 
     // Remove the block at the given position, if any.

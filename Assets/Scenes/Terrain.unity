@@ -141,12 +141,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridBlocks:
-    standard: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad, type: 2}
-    boundary: {fileID: 1464559982521406, guid: 0713722ad67bd460e9ff372411d0697f, type: 2}
+    standard: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
+    boundary: {fileID: 1638153039684244, guid: 0713722ad67bd460e9ff372411d0697f, type: 2}
   terrainBlocks:
-    room: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad, type: 2}
-    itemRoom: {fileID: 1749125828047236, guid: 119aa7dcedcdd48678c8371d912fc0ad, type: 2}
-    boss: {fileID: 1984487090759462, guid: 05a5d103808b64493a01432439b01df3, type: 2}
+    room: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
+    itemRoom: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
+    boss: {fileID: 1888137021351378, guid: 05a5d103808b64493a01432439b01df3, type: 2}
   terrainProps:
     chest: {fileID: 1240842163839304, guid: 227d0d886d71b4775a4df925d5b49945, type: 2}
   floorConfiguration:
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1852134842}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7d37c09c1b84e5793a401037e65abd, type: 3}
   m_Name: 

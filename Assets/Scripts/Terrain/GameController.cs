@@ -54,11 +54,14 @@ public class GameController : MonoBehaviour {
 	private void StartBossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
 		// TODO: initiate boss fight
+		Invoke("EndBossFight", 2.0f);
 	}
 
 	// Signal the game controller that the boss fight has ended.
 	private void EndBossFight() {
 		terrain.ClearRoomEntrances(currentRoom);
 		// TODO: add trap door/end game
+		var centerPosition = currentRoom.centerPosition;
+		terrain.Empty(centerPosition);
 	}
 }
