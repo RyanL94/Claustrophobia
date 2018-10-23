@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,13 +15,6 @@ public class LayoutGrid : MonoBehaviour {
     protected Vector2Int gridSize; // size of the grid in cells
     protected GameObject[,] grid; // grid which contains the instances of blocks
     private HashSet<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
-    private Transform ground; // parent object for ground tiles
-    private Transform walls; // parent object for wall blocks
-
-    protected virtual void Start() {
-        ground = transform.Find("Ground");
-        walls = transform.Find("Walls");
-    }
 
     // Create an empty grid layout.
     // The walls can be removed afterwards to create rooms and paths.    
@@ -53,15 +47,37 @@ public class LayoutGrid : MonoBehaviour {
         return new Vector2Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.z));
     }
 
-    // Place (an instance of) a block or tile at the given position.
-    public void Place(GameObject block, Vector2Int position, bool onGround=false) {
+    // Place a block at the given position.
+    // Use the ground parameter to place a ground block without covering it with a wall.
+    public void Place(GameObject block, Vector2Int position, bool ground=false) {
         Empty(position);
-        if (onGround) {
-            block = block.GetComponent<Block>().ground;
+        var worldPosition = ToWorldPosition(position);
+        try {
+            // place ground block
+            var groundBlock = block.GetComponent<Block>().ground;
+            var blockPosition = worldPosition + groundBlock.transform.position;
+            var blockRotation = groundBlock.transform.rotation;
+            var groundInstance = Instantiate(groundBlock, blockPosition, blockRotation);
+            groundInstance.transform.parent = transform;
+            grid[position.x, position.y] = groundInstance;
+            
+            // place wall block
+            if (!ground) {
+                blockPosition = worldPosition + block.transform.position;
+                blockRotation = block.transform.rotation;
+                var wallInstance = Instantiate(block, blockPosition, blockRotation);
+                wallInstance.transform.parent = groundInstance.transform;
+            }
         }
-        var instance = Instantiate(block, ToWorldPosition(position), Quaternion.identity);
-        instance.transform.parent = onGround? ground : walls;
-        grid[position.x, position.y] = instance;
+
+        // if the game object to place is not an actual terrain block
+        catch (NullReferenceException) {
+            var blockPosition = worldPosition + block.transform.position;
+            var blockRotation = block.transform.rotation;
+            var instance = Instantiate(block, blockPosition, blockRotation);
+            instance.transform.parent = transform;
+            grid[position.x, position.y] = instance;
+        }
     }
 
     // Remove the block at the given position, if any.
@@ -87,14 +103,12 @@ public class LayoutGrid : MonoBehaviour {
 
     // Destroy all of the grid's block game objects.
     public virtual void Clear() {
-        if (grid != null) {
-            for (int x = 0; x < grid.GetLength(0); ++x) {
-                for (int y = 0; y < grid.GetLength(1); ++y) {
-                    var position = new Vector2Int(x, y);
-                    Empty(position);
-                }
-            }
+        while (transform.childCount > 0) {
+            var child = transform.GetChild(0);
+            child.parent = null;
+            Destroy(child.gameObject);
         }
+        grid = null;
     }
 
     // Check if the given grid position is a wall.
