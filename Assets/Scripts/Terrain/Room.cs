@@ -24,14 +24,7 @@ public class Room {
 	//
 	// This is notably useful to determine if enemies should spawn in the room,
 	// since this can only occur upon the first entry of the room.
-	public bool hasBeenEntered {
-		get {
-			return hasBeenEntered;
-		}
-		set {
-			hasBeenEntered = value;
-		}
-	}
+	public bool hasBeenEntered;
 
 	// The list of ground tile positions in the room.
 	//
@@ -99,9 +92,9 @@ public class Room {
 	//
 	// The walls surrounding the room are considered outside.
 	public bool Contains(Vector2Int position) {
-		if (position.x > this.position.x + 1 &&
+		if (position.x >= this.position.x + 1 &&
 			position.x <= this.position.x + size.x - 1 &&
-			position.y > this.position.y + 1 &&
+			position.y >= this.position.y + 1 &&
 			position.y <= this.position.y + size.y - 1) {
 			return true;
 		}

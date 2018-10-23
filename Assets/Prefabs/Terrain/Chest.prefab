@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 4544682259679934}
   - component: {fileID: 33765495319062046}
   - component: {fileID: 23434570486305360}
+  - component: {fileID: 64542503344255882}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -56,6 +57,7 @@ GameObject:
   - component: {fileID: 4799007384445470}
   - component: {fileID: 33493210993489350}
   - component: {fileID: 23866478350248382}
+  - component: {fileID: 64231007352885180}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -188,6 +190,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1707909669330922}
   m_Mesh: {fileID: 4300000, guid: 403213619793a6c409ddcd827f06776e, type: 3}
+--- !u!64 &64231007352885180
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877736420582372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 403213619793a6c409ddcd827f06776e, type: 3}
+--- !u!64 &64542503344255882
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1707909669330922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 403213619793a6c409ddcd827f06776e, type: 3}
 --- !u!95 &95101620796132758
 Animator:
   serializedVersion: 3
@@ -217,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f942eabeb018c42ba8eaff17d0def6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openAnimationDuration: 0.75
+  openAnimationDuration: 0.5
 --- !u!135 &135808572298192620
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -225,7 +255,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240842163839304}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.25

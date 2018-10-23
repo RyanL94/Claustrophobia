@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	private GameObject player;
 	private TerrainManager terrain; // game terrain
 	private Room currentRoom; // room that the player is currently in
 
-	private Vector2 playerPosition; // TODO: remove once the game controller has an actual player
-
 	void Start() {
+		player = GameObject.FindWithTag("Player");
 		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
-		playerPosition = LayoutGrid.ToWorldPosition(terrain.floorConfiguration.FindCenterPosition()); // TODO: remove once the game controller has an actual player
 	}
 
 	void FixedUpdate() {
@@ -20,7 +19,7 @@ public class GameController : MonoBehaviour {
 
 	// Find the room that the player is in, if any, and perform actions upon room entry.
 	private void UpdatePlayerRoom() {
-		var playerGridPosition = LayoutGrid.FromWorldPosition(playerPosition);
+		var playerGridPosition = LayoutGrid.FromWorldPosition(player.transform.position);
 		currentRoom = terrain.FindRoomAtPosition(playerGridPosition);
 		if (currentRoom != null) {
 			if (!currentRoom.hasBeenEntered) {
