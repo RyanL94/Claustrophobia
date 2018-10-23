@@ -27,7 +27,6 @@ public class TerrainManager : LayoutGrid {
     protected override void Start() {
         base.Start();
         props = transform.Find("Props");
-        GenerateFloor();
     }
 
     // Generate a new floor according to the size settings set in the editor.

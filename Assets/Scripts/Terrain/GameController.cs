@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	void Start() {
 		player = GameObject.FindWithTag("Player");
 		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
+		CreateNewFloor();
 	}
 
 	void FixedUpdate() {
@@ -33,6 +34,15 @@ public class GameController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	// Create a new floor.
+	private void CreateNewFloor() {
+		terrain.GenerateFloor();
+		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
+		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition);
+		var centerOffset = new Vector3(0.5f, 0.0f, 0.5f);
+		player.transform.position = worldCenterPosition + centerOffset;
 	}
 
 	// Spawn enemies in the current room.
