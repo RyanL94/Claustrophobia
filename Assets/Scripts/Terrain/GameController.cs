@@ -18,6 +18,15 @@ public class GameController : MonoBehaviour {
 		UpdatePlayerRoom();
 	}
 
+	// Create a new floor.
+	public void CreateNewFloor() {
+		terrain.GenerateFloor();
+		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
+		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition);
+		var centerOffset = new Vector3(0.5f, 0.0f, 0.5f);
+		player.transform.position = worldCenterPosition + centerOffset;
+	}
+
 	// Find the room that the player is in, if any, and perform actions upon room entry.
 	private void UpdatePlayerRoom() {
 		var playerGridPosition = LayoutGrid.FromWorldPosition(player.transform.position);
@@ -36,15 +45,6 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	// Create a new floor.
-	private void CreateNewFloor() {
-		terrain.GenerateFloor();
-		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
-		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition);
-		var centerOffset = new Vector3(0.5f, 0.0f, 0.5f);
-		player.transform.position = worldCenterPosition + centerOffset;
-	}
-
 	// Spawn enemies in the current room.
 	private void SpawnEnemies() {
 		// TODO: spawn room enemies
@@ -54,14 +54,12 @@ public class GameController : MonoBehaviour {
 	private void StartBossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
 		// TODO: initiate boss fight
-		Invoke("EndBossFight", 2.0f);
+		Invoke("EndBossFight", 2.0f); // TODO: call function after boss death instead
 	}
 
 	// Signal the game controller that the boss fight has ended.
 	private void EndBossFight() {
-		terrain.ClearRoomEntrances(currentRoom);
-		// TODO: add trap door/end game
 		var centerPosition = currentRoom.centerPosition;
-		terrain.Empty(centerPosition);
+		terrain.Place(terrain.terrainBlocks.passage, centerPosition);
 	}
 }

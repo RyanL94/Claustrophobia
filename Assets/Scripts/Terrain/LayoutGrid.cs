@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,24 +49,34 @@ public class LayoutGrid : MonoBehaviour {
 
     // Place a block at the given position.
     // Use the ground parameter to place a ground block without covering it with a wall.
-    public void Place(GameObject wallBlock, Vector2Int position, bool ground=false) {
+    public void Place(GameObject block, Vector2Int position, bool ground=false) {
         Empty(position);
         var worldPosition = ToWorldPosition(position);
-        
-        // place ground block
-        var groundBlock = wallBlock.GetComponent<Block>().ground;
-        var blockPosition = worldPosition + groundBlock.transform.position;
-        var blockRotation = groundBlock.transform.rotation;
-        var groundInstance = Instantiate(groundBlock, blockPosition, blockRotation);
-        groundInstance.transform.parent = transform;
-        grid[position.x, position.y] = groundInstance;
-       
-        // place wall block
-        if (!ground) {
-            blockPosition = worldPosition + wallBlock.transform.position;
-            blockRotation = wallBlock.transform.rotation;
-            var wallInstance = Instantiate(wallBlock, blockPosition, blockRotation);
-            wallInstance.transform.parent = groundInstance.transform;
+        try {
+            // place ground block
+            var groundBlock = block.GetComponent<Block>().ground;
+            var blockPosition = worldPosition + groundBlock.transform.position;
+            var blockRotation = groundBlock.transform.rotation;
+            var groundInstance = Instantiate(groundBlock, blockPosition, blockRotation);
+            groundInstance.transform.parent = transform;
+            grid[position.x, position.y] = groundInstance;
+            
+            // place wall block
+            if (!ground) {
+                blockPosition = worldPosition + block.transform.position;
+                blockRotation = block.transform.rotation;
+                var wallInstance = Instantiate(block, blockPosition, blockRotation);
+                wallInstance.transform.parent = groundInstance.transform;
+            }
+        }
+
+        // if the game object to place is not an actual terrain block
+        catch (NullReferenceException) {
+            var blockPosition = worldPosition + block.transform.position;
+            var blockRotation = block.transform.rotation;
+            var instance = Instantiate(block, blockPosition, blockRotation);
+            instance.transform.parent = transform;
+            grid[position.x, position.y] = instance;
         }
     }
 

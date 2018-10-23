@@ -147,6 +147,7 @@ MonoBehaviour:
     room: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
     itemRoom: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
     boss: {fileID: 1888137021351378, guid: 05a5d103808b64493a01432439b01df3, type: 2}
+    passage: {fileID: 1626591207572800, guid: 18add034e17a144ff8f12460c0d89e6d, type: 2}
   terrainProps:
     chest: {fileID: 1240842163839304, guid: 227d0d886d71b4775a4df925d5b49945, type: 2}
   floorConfiguration:

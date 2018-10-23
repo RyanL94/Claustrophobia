@@ -7,6 +7,7 @@ public class TerrainBlocks {
     public GameObject room;
     public GameObject itemRoom;
     public GameObject boss;
+    public GameObject passage;
 }
 
 // Script which manages the floor generation and terrain manipulation.
