@@ -12,6 +12,7 @@ public class TerrainBlocks {
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place
+    public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
     
     // list of the floor's rooms
@@ -20,9 +21,12 @@ public class TerrainManager : LayoutGrid {
     private List<Vector2Int> roomLayoutPositions = new List<Vector2Int>();
     // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
+    // list of props inserted into the terrain (e.g. chests, traps)
+    private Transform props;
 
     protected override void Start() {
         base.Start();
+        props = transform.Find("Props");
         GenerateFloor();
     }
 
@@ -89,6 +93,23 @@ public class TerrainManager : LayoutGrid {
     public void ClearRoomEntrances(Room room) {
         foreach (Vector2Int entrance in room.entrances) {
             Place(room.wall, entrance, true);
+        }
+    }
+
+    // Place the prop at the given position.
+    public void PlaceProp(GameObject prop, Vector2Int position) {
+        var instancePosition = LayoutGrid.ToWorldPosition(position) + prop.transform.position;
+        var instanceRotation = prop.transform.rotation;
+        var instance = Instantiate(prop, instancePosition, instanceRotation);
+        instance.transform.parent = props;
+    }
+
+    // Clear the terrain grid of all tiles.
+    public override void Clear() {
+        base.Clear();
+        foreach (Transform prop in props) {
+            prop.parent = null;
+            Destroy(prop.gameObject);
         }
     }
 
@@ -235,6 +256,9 @@ public class TerrainManager : LayoutGrid {
                         Place(room.wall, position, true);
                     }
                 }
+            }
+            if (room.type == RoomType.Item) {
+                PlaceProp(terrainProps.chest, room.centerPosition);
             }
         }
     }

@@ -86,7 +86,7 @@ public class LayoutGrid : MonoBehaviour {
     }
 
     // Destroy all of the grid's block game objects.
-    public void Clear() {
+    public virtual void Clear() {
         if (grid != null) {
             for (int x = 0; x < grid.GetLength(0); ++x) {
                 for (int y = 0; y < grid.GetLength(1); ++y) {

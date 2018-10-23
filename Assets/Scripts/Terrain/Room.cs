@@ -73,6 +73,15 @@ public class Room {
 		}
 	}
 
+	// The center position of the room.
+	//
+	// Useful when needing to place an object in the center of a room (e.g. item drop).
+	public Vector2Int centerPosition {
+		get {
+			return position + new Vector2Int(size.x / 2, size.y / 2);
+		}
+	}
+
 	// Create a new room.
 	public Room(RoomType type,
 				GameObject wall,
