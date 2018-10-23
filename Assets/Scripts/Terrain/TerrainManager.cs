@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Script which manages the floor generation and terrain manipulation .
+[System.Serializable]
+public class TerrainBlocks {
+    public GameObject room;
+    public GameObject itemRoom;
+    public GameObject boss;
+}
+
+// Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
-    public GameObject bossBlock; // block that encases the boss room
-    public Vector2Int layoutSize; // size of the floor in rooms
-    public Vector2Int roomMinSize; // minimum room size
-    public Vector2Int roomMaxSize; // maximum room size
-    public Vector2Int roomMaxOffset; // maximum room grid position offset
-    public Vector2Int roomGap; // gap between room rows/columns
-    public int roomCount; // number of room the generate in the floor
+    public TerrainBlocks terrainBlocks; // terrain blocks to place
+    public TerrainProps terrainProps; // props that can be placed on the terrain
+    public FloorConfiguration floorConfiguration; // configuration of the floor
     
     // list of the floor's rooms
     public readonly List<Room> rooms = new List<Room>(); 
@@ -18,10 +21,12 @@ public class TerrainManager : LayoutGrid {
     private List<Vector2Int> roomLayoutPositions = new List<Vector2Int>();
     // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
+    // list of props inserted into the terrain (e.g. chests, traps)
+    private Transform props;
 
     protected override void Start() {
         base.Start();
-        GenerateFloor();
+        props = transform.Find("Props");
     }
 
     // Generate a new floor according to the size settings set in the editor.
@@ -30,10 +35,7 @@ public class TerrainManager : LayoutGrid {
     // remaining space. Finally, the rooms are connected to the maze through
     // entrances.
     public void GenerateFloor() {
-        gridSize = new Vector2Int(
-            layoutSize.x * roomMaxSize.x + roomGap.x * (layoutSize.x + 1) + 2,
-            layoutSize.y * roomMaxSize.y + roomGap.y * (layoutSize.y + 1) + 2
-        );
+        gridSize = floorConfiguration.gridSize;
         InitializeGrid();
         do {
             GenerateRoomLayout();
@@ -62,11 +64,6 @@ public class TerrainManager : LayoutGrid {
                 Remove(position);
             }
         }
-    }
-
-    // Return the position of the center grid cell in the floor layout.
-    public Vector2Int FindCenterPosition() {
-        return new Vector2Int(gridSize.x / 2, gridSize.y / 2);
     }
 
     // Return the room which contains the position, if any.
@@ -98,12 +95,21 @@ public class TerrainManager : LayoutGrid {
         }
     }
 
-    // Return the corresponding grid position of a room layout position.
-    private Vector2Int ToGridPosition(Vector2Int layoutPosition) {
-        return new Vector2Int(
-            layoutPosition.x * roomMaxSize.x + roomGap.x * (layoutPosition.x + 1) + 1,
-            layoutPosition.y * roomMaxSize.y + roomGap.y * (layoutPosition.y + 1) + 1
-        );
+    // Place the prop at the given position.
+    public void PlaceProp(GameObject prop, Vector2Int position) {
+        var instancePosition = LayoutGrid.ToWorldPosition(position) + prop.transform.position;
+        var instanceRotation = prop.transform.rotation;
+        var instance = Instantiate(prop, instancePosition, instanceRotation);
+        instance.transform.parent = props;
+    }
+
+    // Clear the terrain grid of all tiles.
+    public override void Clear() {
+        base.Clear();
+        foreach (Transform prop in props) {
+            prop.parent = null;
+            Destroy(prop.gameObject);
+        }
     }
 
     // Generate a random layout of rooms for the floor.
@@ -111,16 +117,17 @@ public class TerrainManager : LayoutGrid {
         rooms.Clear();
         roomLayoutPositions.Clear();
         availableRoomPositions.Clear();
-        for (int x = 0; x < layoutSize.x; ++x) {
-            for (int y = 0; y < layoutSize.y; ++y) {
+        for (int x = 0; x < floorConfiguration.layoutSize.x; ++x) {
+            for (int y = 0; y < floorConfiguration.layoutSize.y; ++y) {
                 var position = new Vector2Int(x, y);
                 availableRoomPositions.Add(position);
             }
         }
-        GenerateRoom(RoomType.Spawn, standardBlock, centered:true, minSize:true);
-        GenerateRoom(RoomType.Boss, bossBlock, maxSize:true, singleEntrance:true);
-        while (rooms.Count < roomCount) {
-            GenerateRoom(RoomType.Enemy, standardBlock); // regular rooms
+        GenerateRoom(RoomType.Spawn, terrainBlocks.room, centered:true, minSize:true);
+        GenerateRoom(RoomType.Item, terrainBlocks.room, singleEntrance:true);
+        GenerateRoom(RoomType.Boss, terrainBlocks.boss, maxSize:true, singleEntrance:true);
+        while (rooms.Count < floorConfiguration.roomCount) {
+            GenerateRoom(RoomType.Enemy, terrainBlocks.room);
         }
     }
 
@@ -129,10 +136,10 @@ public class TerrainManager : LayoutGrid {
     // This is used to prevent the random generation from skewing the room
     // distribution too much.
     private bool IsLayoutBalanced(int margin=1) {
-        var expectedRowRooms = (float)(rooms.Count) / layoutSize.y;
-        var expectedColumnRooms = (float)(rooms.Count) / layoutSize.x;
-        var rowRooms = new int[layoutSize.y];
-        var columnRooms = new int[layoutSize.x];
+        var expectedRowRooms = (float)(rooms.Count) / floorConfiguration.layoutSize.y;
+        var expectedColumnRooms = (float)(rooms.Count) / floorConfiguration.layoutSize.x;
+        var rowRooms = new int[floorConfiguration.layoutSize.y];
+        var columnRooms = new int[floorConfiguration.layoutSize.x];
         foreach (Vector2Int roomLayoutPosition in roomLayoutPositions) {
             rowRooms[roomLayoutPosition.y] += 1;
             columnRooms[roomLayoutPosition.x] += 1;
@@ -170,26 +177,35 @@ public class TerrainManager : LayoutGrid {
         Vector2Int size;
         List<Vector2Int> entrances = new List<Vector2Int>();
         if (centered) {
-            layoutPosition = new Vector2Int(layoutSize.x / 2, layoutSize.y / 2);
+            layoutPosition = new Vector2Int(
+                floorConfiguration.layoutSize.x / 2,
+                floorConfiguration.layoutSize.y / 2
+            );
             positionOffset = new Vector2Int(0, 0);
         } else {
             var index = Random.Range(0, availableRoomPositions.Count);
             layoutPosition = availableRoomPositions[index];
             positionOffset = new Vector2Int(
-                Random.Range(-roomMaxOffset.x / 2, roomMaxOffset.x / 2) * 2,
-                Random.Range(-roomMaxOffset.y / 2, roomMaxOffset.y / 2) * 2
+                Random.Range(
+                    -floorConfiguration.roomMaxOffset.x / 2,
+                    floorConfiguration.roomMaxOffset.x / 2
+                ) * 2,
+                Random.Range(
+                    -floorConfiguration.roomMaxOffset.y / 2,
+                    floorConfiguration.roomMaxOffset.y / 2
+                ) * 2
             );
         }
         roomLayoutPositions.Add(layoutPosition);
         availableRoomPositions.Remove(layoutPosition);
-        var gridPosition = ToGridPosition(layoutPosition) + positionOffset;
+        var gridPosition = floorConfiguration.ToGridPosition(layoutPosition) + positionOffset;
         if (minSize) {
-            size = roomMinSize;
+            size = floorConfiguration.roomMinSize;
         } else if (maxSize) {
-            size = roomMaxSize;
+            size = floorConfiguration.roomMaxSize;
         } else {
-            var sizeDelta = roomMaxSize - roomMinSize;
-            size = roomMinSize + new Vector2Int(
+            var sizeDelta = floorConfiguration.roomMaxSize - floorConfiguration.roomMinSize;
+            size = floorConfiguration.roomMinSize + new Vector2Int(
                 Random.Range(0, sizeDelta.x / 2) * 2,
                 Random.Range(0, sizeDelta.y / 2) * 2
             );
@@ -239,6 +255,9 @@ public class TerrainManager : LayoutGrid {
                         Place(room.wall, position, true);
                     }
                 }
+            }
+            if (room.type == RoomType.Item) {
+                PlaceProp(terrainProps.chest, room.centerPosition);
             }
         }
     }

@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour {
 
 	void Start() {
 		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
-		var center = terrain.FindCenterPosition();
+		var center = terrain.floorConfiguration.FindCenterPosition();
 		transform.Translate(new Vector3(center.x, center.y, 0.0f) + new Vector3(0.5f, 0.5f, 0.0f));
 	}
 	
@@ -17,10 +17,10 @@ public class CameraController : MonoBehaviour {
 			terrain.GenerateFloor();
 		}
 		if (Input.GetKeyDown(KeyCode.X)) {
-			terrain.Place(terrain.standardBlock, terrain.FindCenterPosition());
+			terrain.Place(terrain.gridBlocks.standard, terrain.floorConfiguration.FindCenterPosition());
 		}
 		if (Input.GetKeyDown(KeyCode.Z)) {
-			terrain.Break(terrain.FindCenterPosition());
+			terrain.Break(terrain.floorConfiguration.FindCenterPosition());
 		}
 
 		var direction = new Vector3(0.0f, 0.0f, 0.0f);
