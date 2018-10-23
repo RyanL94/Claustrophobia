@@ -21,13 +21,6 @@ public class TerrainManager : LayoutGrid {
     private List<Vector2Int> roomLayoutPositions = new List<Vector2Int>();
     // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
-    // list of props inserted into the terrain (e.g. chests, traps)
-    private Transform props;
-
-    protected override void Start() {
-        base.Start();
-        props = transform.Find("Props");
-    }
 
     // Generate a new floor according to the size settings set in the editor.
     //
@@ -100,16 +93,7 @@ public class TerrainManager : LayoutGrid {
         var instancePosition = LayoutGrid.ToWorldPosition(position) + prop.transform.position;
         var instanceRotation = prop.transform.rotation;
         var instance = Instantiate(prop, instancePosition, instanceRotation);
-        instance.transform.parent = props;
-    }
-
-    // Clear the terrain grid of all tiles.
-    public override void Clear() {
-        base.Clear();
-        foreach (Transform prop in props) {
-            prop.parent = null;
-            Destroy(prop.gameObject);
-        }
+        instance.transform.parent = transform;
     }
 
     // Generate a random layout of rooms for the floor.
