@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class SwordMove : MonoBehaviour {
 
-    public Animator sMove;
-
-    float cooldownTimer = 0;
-
-    float fireDelay = 0.25f;
+    public float swingDelay = 0.25f;
+    public float speed = 5;
+    public int lifeSpand = 25;
+    private GameObject player;
 	
+    void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
-        cooldownTimer -= Time.deltaTime; //How much time it's been since entering the frame,it's negative
-
-
-
-        if(Input.GetButtonDown("Fire2") && cooldownTimer <= 0){
-
-            cooldownTimer = fireDelay; 
-            sMove.SetTrigger("Swing");
-
-
+        if (player != null && lifeSpand > 0)
+        {
+            lifeSpand--;
+            transform.Rotate(Vector3.up * Time.deltaTime * speed, Space.Self);
+            transform.position = player.transform.position;
         }
-
-		
+        else
+        {
+            Destroy(gameObject);
+        }
 	}
 }

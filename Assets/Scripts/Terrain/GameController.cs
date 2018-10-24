@@ -15,7 +15,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		UpdatePlayerRoom();
+        if (player != null)
+        {
+            UpdatePlayerRoom();
+        }
 	}
 
 	// Create a new floor.

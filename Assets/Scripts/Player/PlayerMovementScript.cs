@@ -7,16 +7,25 @@ public class PlayerMovementScript : MonoBehaviour {
     public float minSpeed = 1;
     public float acceleration = 0.1f;
     public float angleSpeed = 500;
+    public float dashSpeed = 10;
+    public float dashTime = 0.25f;
+    public GameObject sword;
+    public float swordDelay = 1;
 
+    private float swordDelayTime;
+    private float startDashTime;
+    private Rigidbody rBody;
     private float speed;
     private Vector3 movement;
     private Rigidbody playerRigidbody;
+    private bool dash = false;
+    private Vector3 direction;
 
-
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         speed = maxSpeed;
+        rBody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -28,48 +37,81 @@ public class PlayerMovementScript : MonoBehaviour {
 
     private void PlayerInput()
     {
+        //make player dash at direction facing
+        Dash();
 
         if (Input.GetKey(KeyCode.W))
         {
-            MoveTowards(Vector3.forward);
-
+            direction = Vector3.forward;
+            MoveTowards();
         }
         if (Input.GetKey(KeyCode.S))
         {
-            MoveTowards(Vector3.back);
+            direction = Vector3.back;
+            MoveTowards();
         }
         if (Input.GetKey(KeyCode.A))
         {
-            MoveTowards(Vector3.left);
+            direction = Vector3.left;
+            MoveTowards();
         }
         if (Input.GetKey(KeyCode.D))
         {
-            MoveTowards(Vector3.right);
+            direction = Vector3.right;
+            MoveTowards();
         }
 
-        //if fired
+        //fired gun
         if (Input.GetButton("Fire1"))
         {
 
             Decelarate();
         }
 
+        //swing sword
+        if (Input.GetButton("Fire2") && swordDelayTime < Time.time)
+        {
+            swordDelayTime = Time.time + swordDelay;
+            GameObject swordObject = (GameObject) Instantiate(sword, transform.position, transform.rotation);
+            Physics.IgnoreCollision(swordObject.GetComponent<Collider>(), GetComponent<Collider>());
+
+        }
+
+        //make player do a dash
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            dash = true;
+            startDashTime = Time.time + dashTime;
+        }
+        
+
     }
 
-    private void MoveTowards(Vector3 direction)
+    private void MoveTowards()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
         
         movement = new Vector3(horizontal, 0.0f, vertical);
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
+
         if (movement != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(movement);
         }
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), angleSpeed * Time.deltaTime);    
         Accelerate();
+    }
+
+    private void Dash()
+    {
+        if (dash && Time.time < startDashTime)
+        {
+            transform.Translate(direction * dashSpeed * Time.deltaTime, Space.World);
+        }
+        else
+        {
+            dash = false;
+        } 
     }
 
     private void Accelerate()
