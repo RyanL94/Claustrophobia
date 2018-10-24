@@ -10,6 +10,11 @@ public class TerrainBlocks {
     public GameObject passage;
 }
 
+[System.Serializable]
+public class TerrainProps {
+    public GameObject chest;
+}
+
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place

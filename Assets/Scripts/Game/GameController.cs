@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	public int numberOfFloors; // number of floors to traverse to win the game
+
 	private GameObject player;
 	private new CameraController camera;
 	private TerrainManager terrain; // game terrain
@@ -23,9 +25,18 @@ public class GameController : MonoBehaviour {
 	// Create a new floor.
 	public void CreateNewFloor() {
 		terrain.GenerateFloor();
+		CenterPlayerOnFloor();
+		--numberOfFloors;
+	}
+
+	// Center the player on the floor, putting him in the spawn room.
+	//
+	// The player is put at a certain elevation so that it looks like the player falls from the
+	// previous floor.
+	private void CenterPlayerOnFloor(float elevation=5.0f) {
 		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
 		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
-		player.transform.position = worldCenterPosition;
+		player.transform.position = worldCenterPosition + Vector3.up * elevation;
 		camera.CenterOnPlayer();
 	}
 
@@ -62,6 +73,8 @@ public class GameController : MonoBehaviour {
 	// Signal the game controller that the boss fight has ended.
 	private void EndBossFight() {
 		var centerPosition = currentRoom.centerPosition;
-		terrain.Place(terrain.terrainBlocks.passage, centerPosition);
+		if (numberOfFloors > 0) {
+			terrain.Place(terrain.terrainBlocks.passage, centerPosition);
+		}
 	}
 }
