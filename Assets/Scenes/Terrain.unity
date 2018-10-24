@@ -584,6 +584,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fce473c9cc6f43a9bd7147e87f29328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standardEnemies:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  terrainEnemies:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  bosses:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  enemiesPerRoom:
+    min: 3
+    max: 5
 --- !u!1 &2111248183
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,4 +633,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176b8996d85e540128ff1d7adb2c0e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyManager: {fileID: 2044871816}
   numberOfFloors: 3

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	public EnemyManager enemyManager; // script which manages enemy spawns
 	public int numberOfFloors; // number of floors to traverse to win the game
 
 	private GameObject player;
@@ -50,17 +51,12 @@ public class GameController : MonoBehaviour {
 
 				// action triggered upon room entry
 				if (currentRoom.type == RoomType.Enemy) {
-					SpawnEnemies();
+					enemyManager.SpawnEnemiesInRoom(currentRoom);
 				} else if (currentRoom.type == RoomType.Boss) {
 					StartBossFight();
 				}
 			}
 		}
-	}
-
-	// Spawn enemies in the current room.
-	private void SpawnEnemies() {
-		// TODO: spawn room enemies
 	}
 
 	// Start the boss fight in the current room.
