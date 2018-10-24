@@ -3,46 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
+
 	public float speed;
-	private TerrainManager terrain;
+
+	private Transform player;
 
 	void Start() {
-		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
-		var center = terrain.floorConfiguration.FindCenterPosition();
-		transform.Translate(new Vector3(center.x, center.y, 0.0f) + new Vector3(0.5f, 0.5f, 0.0f));
+		player = GameObject.FindWithTag("Player").transform;
+		CenterOnPlayer();
 	}
 	
-	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			terrain.GenerateFloor();
-		}
-		if (Input.GetKeyDown(KeyCode.X)) {
-			terrain.Place(terrain.gridBlocks.standard, terrain.floorConfiguration.FindCenterPosition());
-		}
-		if (Input.GetKeyDown(KeyCode.Z)) {
-			terrain.Break(terrain.floorConfiguration.FindCenterPosition());
-		}
+	void FixedUpdate() {
+		var movement = Time.deltaTime * speed;
+		transform.position = new Vector3(
+			Mathf.Lerp(transform.position.x, player.position.x, movement),
+			transform.position.y,
+			Mathf.Lerp(transform.position.z, player.position.z, movement)
+		);
+		Vector3.Lerp(transform.position, player.position, movement);
+	}
 
-		var direction = new Vector3(0.0f, 0.0f, 0.0f);
-		if (Input.GetKey(KeyCode.KeypadPlus)) {
-			direction.z += 1.0f;
-		}
-		if (Input.GetKey(KeyCode.KeypadMinus)) {
-			direction.z -= 1.0f;
-		}
-		if (Input.GetKey(KeyCode.UpArrow)) {
-			direction.y += 1.0f;
-		}
-		if (Input.GetKey(KeyCode.DownArrow)) {
-			direction.y -= 1.0f;
-		}
-		if (Input.GetKey(KeyCode.RightArrow)) {
-			direction.x += 1.0f;
-		}
-		if (Input.GetKey(KeyCode.LeftArrow)) {
-			direction.x -= 1.0f;
-		}
-		var movement = direction * speed * Time.deltaTime;
-		transform.Translate(movement);
+	public void CenterOnPlayer() {
+		transform.position = new Vector3(
+			player.position.x,
+			transform.position.y,
+			player.position.z
+		);
 	}
 }

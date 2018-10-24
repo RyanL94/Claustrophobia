@@ -38,8 +38,14 @@ public class LayoutGrid : MonoBehaviour {
     }
     
     // Convert a Vector2Int grid position into a Vector3 world position.
-    public static Vector3 ToWorldPosition(Vector2Int position) {
-        return new Vector3(position.x, 0.0f, position.y);
+    //
+    // Use the `centerOfCell` flag to get the center position of the cell.
+    public static Vector3 ToWorldPosition(Vector2Int position, bool centerOfCell=false) {
+        var worldPosition = new Vector3(position.x, 0.0f, position.y);
+        if (centerOfCell) {
+            worldPosition += new Vector3(0.5f, 0.0f, 0.5f);
+        }
+        return worldPosition;
     }
 
     // Convert a Vector3 world position into a Vector2Int grid position.

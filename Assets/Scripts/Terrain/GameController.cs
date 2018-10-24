@@ -5,11 +5,13 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	private GameObject player;
+	private new CameraController camera;
 	private TerrainManager terrain; // game terrain
 	private Room currentRoom; // room that the player is currently in
 
 	void Start() {
 		player = GameObject.FindWithTag("Player");
+		camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
 		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
 		CreateNewFloor();
 	}
@@ -22,9 +24,9 @@ public class GameController : MonoBehaviour {
 	public void CreateNewFloor() {
 		terrain.GenerateFloor();
 		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
-		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition);
-		var centerOffset = new Vector3(0.5f, 0.0f, 0.5f);
-		player.transform.position = worldCenterPosition + centerOffset;
+		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
+		player.transform.position = worldCenterPosition;
+		camera.CenterOnPlayer();
 	}
 
 	// Find the room that the player is in, if any, and perform actions upon room entry.
