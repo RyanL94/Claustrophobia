@@ -6,11 +6,9 @@ public class MoveForward : MonoBehaviour {
 
     public LayerMask collision;
 	public float bullet_speed=6.0f;
+    public int ricochey;
 
     Vector3 Velocity;
-
-    public int counter = 3;
-
    
 	void Start()
 	{
@@ -18,7 +16,7 @@ public class MoveForward : MonoBehaviour {
        
 	}
 
-	void Update () {
+	void FixedUpdate () {
 
         Move();
         Reflect();
@@ -37,12 +35,14 @@ public class MoveForward : MonoBehaviour {
         transform.position = pos;
     }
 
+    //see vector3.Reflect
+
     void Reflect(){
 
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Time.deltaTime * bullet_speed +.2f , collision))//if a coliision occurs with the layer "Wall"
+        if (Physics.Raycast(ray, out hit, Time.deltaTime * bullet_speed +.2f , collision))//if a collision occurs with the layer "Wall"
         {
            
 
@@ -51,19 +51,32 @@ public class MoveForward : MonoBehaviour {
             transform.eulerAngles = new Vector3(0, rot, 0); //put the angle as tranform's rotation
 
 
-            counter--;
+            ricochey--;
 
-            if (counter == 0)
+            if (ricochey == 0)
             {
 
                 Destroy(gameObject);
-                counter = 3;
+                ricochey = 3;
 
 
             }
 
         }
-
-
+    
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (ricochey < 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            //do reflect
+            ricochey--;
+        }
+    }
+
 }
