@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	public new CameraController camera; // main game camera
 	public EnemyManager enemyManager; // script which manages enemy spawns
+	public TerrainManager terrain; // game terrain
+	public GameObject player;
 	public int numberOfFloors; // number of floors to traverse to win the game
 
-	private GameObject player;
-	private new CameraController camera;
-	private TerrainManager terrain; // game terrain
 	private Room currentRoom; // room that the player is currently in
 
 	void Start() {
-		player = GameObject.FindWithTag("Player");
-		camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
-		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
 		CreateNewFloor();
 	}
 
@@ -29,6 +26,7 @@ public class GameController : MonoBehaviour {
 		CenterPlayerOnFloor();
 		--numberOfFloors;
 		enemyManager.spawnConfiguration.Initialize();
+		enemyManager.SpawnMazeEnemies();
 	}
 
 	// Center the player on the floor, putting him in the spawn room.

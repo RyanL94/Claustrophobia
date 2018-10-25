@@ -20,7 +20,6 @@ public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
-    public EnemyManager enemyManager; // enemy manager to relay the enemy spawns to
     
     // list of the floor's rooms
     public readonly List<Room> rooms = new List<Room>(); 
@@ -29,6 +28,19 @@ public class TerrainManager : LayoutGrid {
     // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
 
+    private List<Vector2Int> paths; // path cells
+    public GameController game;
+
+    // List of maze path cells on the terrain.
+    public List<Vector2Int> mazePositions {
+        get {
+            return paths;
+        }
+    }
+
+    void Start() {
+		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+	}
 
     // Generate a new floor according to the size settings set in the editor.
     //
@@ -52,6 +64,7 @@ public class TerrainManager : LayoutGrid {
             new Vector2Int(position.x + 1, position.y + bounds.y),
             new Vector2Int(position.x + size.x - 2, position.y + bounds.y)
         };
+        paths = new List<Vector2Int>(unvisited);
         GenerateMaze(mazeEntrances);
         ConnectRooms();
     }
@@ -64,7 +77,7 @@ public class TerrainManager : LayoutGrid {
             var block = wall.GetComponent<Block>();
             if (block.breakable) {
                 Remove(position);
-                enemyManager.OnBreak(position);
+                game.enemyManager.OnBreak(position);
             }
         }
     }

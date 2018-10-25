@@ -6,10 +6,12 @@ public class CameraController : MonoBehaviour {
 
 	public float speed;
 
+	private GameController game;
 	private Transform player;
 
 	void Start() {
-		player = GameObject.FindWithTag("Player").transform;
+		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+		player = game.player.transform;
 		CenterOnPlayer();
 	}
 	

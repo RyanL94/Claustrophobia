@@ -14,14 +14,14 @@ public class LayoutGrid : MonoBehaviour {
     public GridBlocks gridBlocks; // blocks to place in the layout
     protected Vector2Int gridSize; // size of the grid in cells
     protected GameObject[,] grid; // grid which contains the instances of blocks
-    private HashSet<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
+    protected List<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
 
     // Create an empty grid layout.
     // The walls can be removed afterwards to create rooms and paths.    
     public void InitializeGrid() {
         Clear();
         grid = new GameObject[gridSize.x, gridSize.y];
-        unvisited = new HashSet<Vector2Int>();
+        unvisited = new List<Vector2Int>();
         for (int x = 0; x < gridSize.x; ++x) {
             for (int y = 0; y < gridSize.y; ++y) {
                 var position = new Vector2Int(x, y);
