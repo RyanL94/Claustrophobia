@@ -61,32 +61,36 @@ public class PlayerMovementScript : MonoBehaviour {
             MoveTowards();
         }
 
-        //fired gun
+        //fired gun reduces speed
         if (Input.GetButton("Fire1"))
         {
 
             Decelarate();
         }
 
-        //swing sword
+        //swing sword reduces speed
         if (Input.GetButton("Fire2") && swordDelayTime < Time.time)
         {
             swordDelayTime = Time.time + swordDelay;
             GameObject swordObject = (GameObject) Instantiate(sword, transform.position, transform.rotation);
             Physics.IgnoreCollision(swordObject.GetComponent<Collider>(), GetComponent<Collider>());
 
+            Decelarate();
         }
 
         //make player do a dash
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !dash)
         {
             dash = true;
             startDashTime = Time.time + dashTime;
+            Decelarate();
+
         }
-        
+
 
     }
 
+    //move and face towards direction
     private void MoveTowards()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -101,7 +105,7 @@ public class PlayerMovementScript : MonoBehaviour {
         }
         Accelerate();
     }
-
+    //make player dash at direction
     private void Dash()
     {
         if (dash && Time.time < startDashTime)
@@ -114,6 +118,7 @@ public class PlayerMovementScript : MonoBehaviour {
         } 
     }
 
+    // gradualy increse movement speed to max
     private void Accelerate()
     {
         speed += acceleration;
@@ -124,11 +129,10 @@ public class PlayerMovementScript : MonoBehaviour {
 
         }
     }
-
+    // decrease speed to min
     public void Decelarate(){
 
         speed = minSpeed;
-
 
     }
 

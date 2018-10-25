@@ -4,79 +4,73 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour {
 
-    public LayerMask collision;
 	public float bullet_speed=6.0f;
     public int ricochey;
+    public GameObject bulletExplosion;
+    public GameObject bulletRicochet;
+    public float bulletDistance;
 
-    Vector3 Velocity;
-   
-	void Start()
+    private Vector3 oldVelocity;
+    private Rigidbody rb;
+    private float lifeTime;
+
+
+    void Start()
 	{
-        Velocity = new Vector3(0, 0, bullet_speed*Time.deltaTime);
-       
-	}
+        rb = GetComponent<Rigidbody>();
+        MoveFoward();
+        lifeTime = Time.time + bulletDistance;
+
+    }
 
 	void FixedUpdate () {
-
-        Move();
-        Reflect();
-        	
-	}
-
-
-
-    void Move (){
-
-
-        Vector3 pos = transform.position;
-
-        pos += transform.rotation * Velocity;
-
-        transform.position = pos;
-    }
-
-    //see vector3.Reflect
-
-    void Reflect(){
-
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Time.deltaTime * bullet_speed +.2f , collision))//if a collision occurs with the layer "Wall"
+        //if life time
+        if (Time.time > lifeTime && bulletDistance != 0)
         {
-           
-
-            Vector3 reflectDir = Vector3.Reflect(ray.direction, hit.normal); //find the reflection direction
-            float rot = 90 - Mathf.Atan2(reflectDir.z, reflectDir.x) * Mathf.Rad2Deg;//find the angle of direction through the direction
-            transform.eulerAngles = new Vector3(0, rot, 0); //put the angle as tranform's rotation
-
-
-            ricochey--;
-
-            if (ricochey == 0)
-            {
-
-                Destroy(gameObject);
-                ricochey = 3;
-
-
-            }
-
+            Explode();
         }
-    
-    }
+        oldVelocity = rb.velocity;
 
+    }
+    //make bullet move towards direction it faces
+    void MoveFoward()
+    {
+        rb.velocity = transform.forward * bullet_speed;
+
+    }
+    //on collision reflect or destroys
     void OnCollisionEnter(Collision collision)
     {
         if (ricochey < 1)
         {
-            Destroy(gameObject);
+            Explode();
         }
         else
         {
+            //instantiate ricochet sprite
+            if (bulletRicochet != null)
+            {
+                Instantiate(bulletRicochet, transform.position, Quaternion.identity);
+            }
             //do reflect
+            ContactPoint contact = collision.contacts[0];
+            Vector3 reflectedVelocity = Vector3.Reflect(oldVelocity, contact.normal);
+            rb.velocity = reflectedVelocity;
+            //rotate object
+            Quaternion rotation = Quaternion.FromToRotation(oldVelocity, reflectedVelocity);
+            transform.rotation = rotation * transform.rotation;
+
             ricochey--;
         }
+    }
+    //destroy bullet
+    void Explode()
+    {
+        if (bulletExplosion != null)
+        {
+            Instantiate(bulletExplosion, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
     }
 
 }
