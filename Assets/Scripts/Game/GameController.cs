@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour {
 		terrain.GenerateFloor();
 		CenterPlayerOnFloor();
 		--numberOfFloors;
+		enemyManager.spawnConfiguration.Initialize();
 	}
 
 	// Center the player on the floor, putting him in the spawn room.

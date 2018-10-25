@@ -157,6 +157,7 @@ MonoBehaviour:
     roomMaxOffset: {x: 2, y: 2}
     roomGap: {x: 5, y: 5}
     roomCount: 10
+  enemyManager: {fileID: 2044871816}
 --- !u!4 &336564001
 Transform:
   m_ObjectHideFlags: 0
@@ -588,11 +589,16 @@ MonoBehaviour:
   - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
   terrainEnemies:
   - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  roomEnemies: []
   bosses:
   - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
-  enemiesPerRoom:
-    min: 3
-    max: 5
+  spawnConfiguration:
+    enemiesPerRoom:
+      min: 3
+      max: 5
+    initialSpawnRate: 0
+    RampDuration: 300
+    breakRampIncrease: 10
 --- !u!1 &2111248183
 GameObject:
   m_ObjectHideFlags: 0

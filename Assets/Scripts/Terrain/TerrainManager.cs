@@ -20,6 +20,7 @@ public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
+    public EnemyManager enemyManager; // enemy manager to relay the enemy spawns to
     
     // list of the floor's rooms
     public readonly List<Room> rooms = new List<Room>(); 
@@ -27,6 +28,7 @@ public class TerrainManager : LayoutGrid {
     private List<Vector2Int> roomLayoutPositions = new List<Vector2Int>();
     // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
+
 
     // Generate a new floor according to the size settings set in the editor.
     //
@@ -57,10 +59,12 @@ public class TerrainManager : LayoutGrid {
     // Break the block at the given position, if possible.
     public void Break(Vector2Int position) {
         var instance = grid[position.x, position.y];
-        if (instance != null) {
-            var block = instance.GetComponent<Block>();
-            if (block != null && block.breakable == true) {
+        if (instance != null && instance.transform.childCount > 0) {
+            var wall = instance.transform.GetChild(0);
+            var block = wall.GetComponent<Block>();
+            if (block.breakable) {
                 Remove(position);
+                enemyManager.OnBreak(position);
             }
         }
     }
