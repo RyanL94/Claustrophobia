@@ -7,8 +7,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     Transform target;
     [SerializeField]
-    float movementSpeed;
-    [SerializeField]
     float rotationalDamp;
     [SerializeField]
     float rayCastOffset;
@@ -71,7 +69,7 @@ public class EnemyMovement : MonoBehaviour
     void Move()
     {
         //movementSpeed += 0.001f;
-        transform.position += transform.forward * movementSpeed * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
         //Debug.Log(movementSpeed);
     }
 
@@ -132,14 +130,14 @@ public class EnemyMovement : MonoBehaviour
             {
                 if (hit.transform.name == "Target")
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, destination, movementSpeed*Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, destination, speed*Time.deltaTime);
                     //Debug.Log(toChase.transform.position);
                     Debug.Log("ww" + destination);
                 }
             }
             else
             {
-                transform.Translate(direction * movementSpeed * Time.deltaTime);
+                transform.Translate(direction * speed * Time.deltaTime);
                 Debug.Log("case 3");*/
 
             direction = GameObject.Find("Player").transform.position - transform.position;
@@ -186,6 +184,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 Instantiate(Projectile1, transform.position, Quaternion.identity);
                 Debug.Log("ranged attack");
+                Destroy(Projectile1, 5);
             }
             else if (transform.tag == "MeleeEnemy")
             {
