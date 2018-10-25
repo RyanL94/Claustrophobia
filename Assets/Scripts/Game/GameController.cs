@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	private GameObject player;
-	private TerrainManager terrain; // game terrain
+	public new CameraController camera; // main game camera
+	public EnemyManager enemyManager; // script which manages enemy spawns
+	public TerrainManager terrain; // game terrain
+	public GameObject player;
+	public int numberOfFloors; // number of floors to traverse to win the game
+
 	private Room currentRoom; // room that the player is currently in
 
 	void Start() {
-		player = GameObject.FindWithTag("Player");
-		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
 		CreateNewFloor();
 	}
 
@@ -21,10 +23,21 @@ public class GameController : MonoBehaviour {
 	// Create a new floor.
 	public void CreateNewFloor() {
 		terrain.GenerateFloor();
+		CenterPlayerOnFloor();
+		--numberOfFloors;
+		enemyManager.spawnConfiguration.Initialize();
+		enemyManager.SpawnMazeEnemies();
+	}
+
+	// Center the player on the floor, putting him in the spawn room.
+	//
+	// The player is put at a certain elevation so that it looks like the player falls from the
+	// previous floor.
+	private void CenterPlayerOnFloor(float elevation=5.0f) {
 		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
-		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition);
-		var centerOffset = new Vector3(0.5f, 0.0f, 0.5f);
-		player.transform.position = worldCenterPosition + centerOffset;
+		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
+		player.transform.position = worldCenterPosition + Vector3.up * elevation;
+		camera.CenterOnPlayer();
 	}
 
 	// Find the room that the player is in, if any, and perform actions upon room entry.
@@ -37,17 +50,12 @@ public class GameController : MonoBehaviour {
 
 				// action triggered upon room entry
 				if (currentRoom.type == RoomType.Enemy) {
-					SpawnEnemies();
+					enemyManager.SpawnEnemiesInRoom(currentRoom);
 				} else if (currentRoom.type == RoomType.Boss) {
 					StartBossFight();
 				}
 			}
 		}
-	}
-
-	// Spawn enemies in the current room.
-	private void SpawnEnemies() {
-		// TODO: spawn room enemies
 	}
 
 	// Start the boss fight in the current room.
@@ -60,6 +68,8 @@ public class GameController : MonoBehaviour {
 	// Signal the game controller that the boss fight has ended.
 	private void EndBossFight() {
 		var centerPosition = currentRoom.centerPosition;
-		terrain.Place(terrain.terrainBlocks.passage, centerPosition);
+		if (numberOfFloors > 0) {
+			terrain.Place(terrain.terrainBlocks.passage, centerPosition);
+		}
 	}
 }
