@@ -20,12 +20,14 @@ public class PlayerMovementScript : MonoBehaviour {
     private Rigidbody playerRigidbody;
     private bool dash = false;
     private Vector3 direction;
+    private GameObject faceTowards;
 
     // Use this for initialization
     void Start ()
     {
         speed = maxSpeed;
         rBody = GetComponent<Rigidbody>();
+        faceTowards = GameObject.Find("FaceTowards");
 	}
 	
 	// Update is called once per frame
@@ -72,7 +74,7 @@ public class PlayerMovementScript : MonoBehaviour {
         if (Input.GetButton("Fire2") && swordDelayTime < Time.time)
         {
             swordDelayTime = Time.time + swordDelay;
-            GameObject swordObject = (GameObject) Instantiate(sword, transform.position, transform.rotation);
+            GameObject swordObject = (GameObject) Instantiate(sword, transform.position, faceTowards.transform.rotation);
             Physics.IgnoreCollision(swordObject.GetComponent<Collider>(), GetComponent<Collider>());
 
             Decelarate();
