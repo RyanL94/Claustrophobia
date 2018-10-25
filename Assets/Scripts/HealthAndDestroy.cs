@@ -15,7 +15,7 @@ public class HealthAndDestroy : MonoBehaviour {
 	void FixedUpdate () {
 		
 	}
-
+    // if colliding remove health
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == collisionTag)
