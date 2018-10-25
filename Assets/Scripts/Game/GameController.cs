@@ -17,8 +17,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-        if (player != null)
-        {
+        if (player != null) {
             UpdatePlayerRoom();
         }
 	}

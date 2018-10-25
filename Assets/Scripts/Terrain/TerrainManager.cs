@@ -29,7 +29,7 @@ public class TerrainManager : LayoutGrid {
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
 
     private List<Vector2Int> paths; // path cells
-    public GameController game;
+    private GameController game;
 
     // List of maze path cells on the terrain.
     public List<Vector2Int> mazePositions {
