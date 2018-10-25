@@ -157,6 +157,7 @@ MonoBehaviour:
     roomMaxOffset: {x: 2, y: 2}
     roomGap: {x: 5, y: 5}
     roomCount: 10
+  game: {fileID: 0}
 --- !u!4 &336564001
 Transform:
   m_ObjectHideFlags: 0
@@ -168,7 +169,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &453966986
 GameObject:
@@ -213,7 +214,65 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &616062268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 616062270}
+  - component: {fileID: 616062269}
+  m_Layer: 0
+  m_Name: Enemy Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &616062269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 616062268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fce473c9cc6f43a9bd7147e87f29328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainEnemies:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  mazeEnemies:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  roomEnemies:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  bosses:
+  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  enemiesPerFloor:
+    min: 20
+    max: 30
+  enemiesPerRoom:
+    min: 3
+    max: 5
+  spawnConfiguration:
+    initialSpawnRate: 0
+    RampDuration: 300
+    breakRampIncrease: 10
+--- !u!4 &616062270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 616062268}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1003484193
 GameObject:
@@ -279,7 +338,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: -30, z: 0}
 --- !u!1 &1852134842
 GameObject:
@@ -354,10 +413,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1852134842}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 12, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1862628440}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1852134846
@@ -366,12 +425,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1852134842}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7d37c09c1b84e5793a401037e65abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 20
 --- !u!114 &1852134847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,10 +518,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_Children:
-  - {fileID: 1852134845}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1862628441
 BoxCollider:
@@ -572,7 +630,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2111248185
 MonoBehaviour:
@@ -585,3 +643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176b8996d85e540128ff1d7adb2c0e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 1852134846}
+  enemyManager: {fileID: 616062269}
+  terrain: {fileID: 336564000}
+  player: {fileID: 1862628439}
+  numberOfFloors: 3

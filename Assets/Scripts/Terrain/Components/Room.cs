@@ -32,8 +32,8 @@ public class Room {
 	public List<Vector2Int> groundPositions {
 		get {
 			var positions = new List<Vector2Int>();
-			for (int x = position.x + 1; x <= position.x + size.x - 1; ++x) {
-				for (int y = position.y + 1; y <= position.y + size.y - 1; ++y) {
+			for (int x = position.x + 1; x <= position.x + size.x - 2; ++x) {
+				for (int y = position.y + 1; y <= position.y + size.y - 2; ++y) {
 					var position = new Vector2Int(x, y);
 					positions.Add(position);
 				}
@@ -49,8 +49,8 @@ public class Room {
 	public List<Vector2Int> wallPositions {
 		get {
 			var positions = new List<Vector2Int>();
-			for (int x = position.x; x <= position.x + size.x; ++x) {
-				for (int y = position.y; y <= position.y + size.y; ++y) {
+			for (int x = position.x; x <= position.x + size.x - 1; ++x) {
+				for (int y = position.y; y <= position.y + size.y - 1; ++y) {
 					if (x == position.x ||
 						x == position.x + size.x ||
 						y == position.y ||

@@ -10,6 +10,11 @@ public class TerrainBlocks {
     public GameObject passage;
 }
 
+[System.Serializable]
+public class TerrainProps {
+    public GameObject chest;
+}
+
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place
@@ -22,6 +27,20 @@ public class TerrainManager : LayoutGrid {
     private List<Vector2Int> roomLayoutPositions = new List<Vector2Int>();
     // list of unoccupied room position
     private List<Vector2Int> availableRoomPositions = new List<Vector2Int>();
+
+    private List<Vector2Int> paths; // path cells
+    public GameController game;
+
+    // List of maze path cells on the terrain.
+    public List<Vector2Int> mazePositions {
+        get {
+            return paths;
+        }
+    }
+
+    void Start() {
+		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+	}
 
     // Generate a new floor according to the size settings set in the editor.
     //
@@ -45,6 +64,7 @@ public class TerrainManager : LayoutGrid {
             new Vector2Int(position.x + 1, position.y + bounds.y),
             new Vector2Int(position.x + size.x - 2, position.y + bounds.y)
         };
+        paths = new List<Vector2Int>(unvisited);
         GenerateMaze(mazeEntrances);
         ConnectRooms();
     }
@@ -52,10 +72,12 @@ public class TerrainManager : LayoutGrid {
     // Break the block at the given position, if possible.
     public void Break(Vector2Int position) {
         var instance = grid[position.x, position.y];
-        if (instance != null) {
-            var block = instance.GetComponent<Block>();
-            if (block != null && block.breakable == true) {
+        if (instance != null && instance.transform.childCount > 0) {
+            var wall = instance.transform.GetChild(0);
+            var block = wall.GetComponent<Block>();
+            if (block.breakable) {
                 Remove(position);
+                game.enemyManager.OnBreak(position);
             }
         }
     }

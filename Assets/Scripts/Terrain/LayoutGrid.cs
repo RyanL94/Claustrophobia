@@ -14,14 +14,14 @@ public class LayoutGrid : MonoBehaviour {
     public GridBlocks gridBlocks; // blocks to place in the layout
     protected Vector2Int gridSize; // size of the grid in cells
     protected GameObject[,] grid; // grid which contains the instances of blocks
-    private HashSet<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
+    protected List<Vector2Int> unvisited; // list of unvisited cells (used for maze generation)
 
     // Create an empty grid layout.
     // The walls can be removed afterwards to create rooms and paths.    
     public void InitializeGrid() {
         Clear();
         grid = new GameObject[gridSize.x, gridSize.y];
-        unvisited = new HashSet<Vector2Int>();
+        unvisited = new List<Vector2Int>();
         for (int x = 0; x < gridSize.x; ++x) {
             for (int y = 0; y < gridSize.y; ++y) {
                 var position = new Vector2Int(x, y);
@@ -38,8 +38,14 @@ public class LayoutGrid : MonoBehaviour {
     }
     
     // Convert a Vector2Int grid position into a Vector3 world position.
-    public static Vector3 ToWorldPosition(Vector2Int position) {
-        return new Vector3(position.x, 0.0f, position.y);
+    //
+    // Use the `centerOfCell` flag to get the center position of the cell.
+    public static Vector3 ToWorldPosition(Vector2Int position, bool centerOfCell=false) {
+        var worldPosition = new Vector3(position.x, 0.0f, position.y);
+        if (centerOfCell) {
+            worldPosition += new Vector3(0.5f, 0.0f, 0.5f);
+        }
+        return worldPosition;
     }
 
     // Convert a Vector3 world position into a Vector2Int grid position.

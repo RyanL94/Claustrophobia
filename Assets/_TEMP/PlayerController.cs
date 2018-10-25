@@ -6,7 +6,13 @@ public class PlayerController : MonoBehaviour {
 	
 	public float speed;
 
-	void Update () {
+	private TerrainManager terrain;
+
+	void Start() {
+		terrain = GameObject.Find("Terrain").GetComponent<TerrainManager>();
+	}
+
+	void Update() {
 		if (Input.GetKey(KeyCode.UpArrow)) {
 			transform.Translate(Vector3.forward * speed * Time.deltaTime);
 		}
@@ -19,5 +25,9 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey(KeyCode.RightArrow)) {
 			transform.Translate(Vector3.right * speed * Time.deltaTime);
 		}
+	}
+
+	void OnCollisionEnter(Collision collider) {
+		terrain.Break(LayoutGrid.FromWorldPosition(collider.transform.position));
 	}
 }
