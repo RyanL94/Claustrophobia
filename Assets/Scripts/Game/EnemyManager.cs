@@ -59,7 +59,9 @@ public class EnemyManager : MonoBehaviour {
 
 	// Action to perform on block breaking.
 	public void OnBreak(Vector2Int blockPosition) {
+        Debug.Log("onbreak !");
 		if (Random.value <= spawnConfiguration.spawnRate) {
+            Debug.Log("OnBreak method called for enemy spawn");
 			spawnConfiguration.OnBreak();
 			var enemy = RandomPicker.Pick(terrainEnemies);
 			Spawn(enemy, blockPosition);
