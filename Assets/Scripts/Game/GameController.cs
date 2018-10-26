@@ -7,10 +7,17 @@ public class GameController : MonoBehaviour {
 	public new CameraController camera; // main game camera
 	public EnemyManager enemyManager; // script which manages enemy spawns
 	public TerrainManager terrain; // game terrain
-	public GameObject player;
+	public GameObject player; // player game object
 	public int numberOfFloors; // number of floors to traverse to win the game
 
 	private Room currentRoom; // room that the player is currently in
+
+	// Whether or not the player is in a room.
+	public bool playerInRoom {
+		get {
+			return currentRoom != null;
+		}
+	}
 
 	void Start() {
 		CreateNewFloor();

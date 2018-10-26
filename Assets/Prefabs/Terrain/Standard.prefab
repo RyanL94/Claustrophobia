@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23996695710643092}
   - component: {fileID: 65967376533130736}
   - component: {fileID: 114759611113217946}
-  - component: {fileID: 114278458594716878}
   m_Layer: 0
   m_Name: Standard
   m_TagString: Wall
@@ -98,21 +97,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114278458594716878
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1925577718577688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614dfcd3d70614d41a92af06f493ecb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  collisionTag: PlayerAttack
-  deathParticle: {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67,
-    type: 2}
 --- !u!114 &114759611113217946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,4 +109,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakable: 1
+  durability: 1
   ground: {fileID: 1117015239717416, guid: 37015fe8d833b40da831a0924e00f824, type: 2}

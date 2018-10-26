@@ -150,6 +150,8 @@ MonoBehaviour:
     passage: {fileID: 1626591207572800, guid: 18add034e17a144ff8f12460c0d89e6d, type: 2}
   terrainProps:
     chest: {fileID: 1240842163839304, guid: 227d0d886d71b4775a4df925d5b49945, type: 2}
+  breakableByTag:
+  - PlayerAttack
   floorConfiguration:
     layoutSize: {x: 3, y: 5}
     roomMinSize: {x: 11, y: 7}
@@ -198,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1852134846}
-  enemyManager: {fileID: 311781228}
+  enemyManager: {fileID: 1263778237}
   terrain: {fileID: 142323947}
   player: {fileID: 1756003183}
   numberOfFloors: 3
@@ -214,64 +216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &311781227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 311781229}
-  - component: {fileID: 311781228}
-  m_Layer: 0
-  m_Name: Enemy Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &311781228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 311781227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fce473c9cc6f43a9bd7147e87f29328, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrainEnemies:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
-  mazeEnemies:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
-  roomEnemies:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
-  bosses:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
-  enemiesPerFloor:
-    min: 20
-    max: 30
-  enemiesPerRoom:
-    min: 3
-    max: 5
-  spawnConfiguration:
-    initialSpawnRate: 0
-    RampDuration: 300
-    breakRampIncrease: 10
---- !u!4 &311781229
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 311781227}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &453966986
 GameObject:
@@ -522,6 +466,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: -30, z: 0}
+--- !u!1 &1263778236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1263778238}
+  - component: {fileID: 1263778237}
+  m_Layer: 0
+  m_Name: Enemy Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1263778237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263778236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fce473c9cc6f43a9bd7147e87f29328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainEnemies:
+  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  mazeEnemies:
+  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  roomEnemies:
+  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  bosses:
+  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  spawnConfiguration:
+    enemiesPerFloor:
+      min: 20
+      max: 30
+    enemiesPerRoom:
+      min: 3
+      max: 5
+    spawnRate:
+      min: 0.2
+      max: 0.8
+    RampDuration: 300
+    breakRampIncrease: 10
+    spawnHeight: 1
+--- !u!4 &1263778238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263778236}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1756003183
 GameObject:
   m_ObjectHideFlags: 0

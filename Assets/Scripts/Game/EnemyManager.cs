@@ -4,7 +4,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class SpawnConfiguration {
-	public float initialSpawnRate; // initial chance of block breaking resulting in enemy spawn
+	public IntRange enemiesPerFloor; // number of enemies that spawn on the maze grounds
+	public IntRange enemiesPerRoom; // number of enemies that spawn in a room upon entry
+	public FloatRange spawnRate; // chance of block breaking resulting in enemy spawn
 	public float RampDuration; // spawn probability growth duration (100% when reached)
 	public float breakRampIncrease; // time increase per block break
 
@@ -22,15 +24,15 @@ public class SpawnConfiguration {
 	}
 
 	// Current spawn rate of enemies for destroyed blocks.
-	public float spawnRate {
+	public float currentSpawnRate {
 		get {
-			return Mathf.Min(initialSpawnRate + spawnRateRamp * effectiveTime, 1);
+			return Mathf.Min(spawnRate.min + spawnRateRamp * effectiveTime, spawnRate.max);
 		}
 	}
 
 	// Start a new spawn timer
 	public void Initialize() {
-		spawnRateRamp = (1 - initialSpawnRate) / RampDuration;
+		spawnRateRamp = (spawnRate.min - spawnRate.max) / RampDuration;
 		initialTime = Time.time;
 		breakRamp = 0;
 	}
@@ -47,19 +49,17 @@ public class EnemyManager : MonoBehaviour {
 	public List<GameObject> mazeEnemies; // standard enemies that spawn in the maze
 	public List<GameObject> roomEnemies; // enemies that spawn upon room entry
 	public List<GameObject> bosses; // bosses encountered in boss rooms
-	public Range enemiesPerFloor; // number of enemies that spawn on the maze grounds
-	public Range enemiesPerRoom; // number of enemies that spawn in a room upon entry
 	public SpawnConfiguration spawnConfiguration; // configuration of the enemy spawning
 
 	private GameController game;
 
-	void Start() {
+	void Awake() {
 		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 
 	// Action to perform on block breaking.
 	public void OnBreak(Vector2Int blockPosition) {
-		if (Random.value <= spawnConfiguration.spawnRate) {
+		if (Random.value <= spawnConfiguration.currentSpawnRate) {
 			spawnConfiguration.OnBreak();
 			var enemy = RandomPicker.Pick(terrainEnemies);
 			Spawn(enemy, blockPosition);
@@ -69,7 +69,7 @@ public class EnemyManager : MonoBehaviour {
 	// Spawn enemies in the maze.
 	public void SpawnMazeEnemies() {
 		var mazePositions = game.terrain.mazePositions;
-		var spawnPositions = RandomPicker.Pick(mazePositions, enemiesPerFloor);
+		var spawnPositions = RandomPicker.Pick(mazePositions, spawnConfiguration.enemiesPerFloor);
 		foreach (Vector2Int spawnPosition in spawnPositions) {
 			var enemy = RandomPicker.Pick(mazeEnemies);
 			Spawn(enemy, spawnPosition);
@@ -80,7 +80,7 @@ public class EnemyManager : MonoBehaviour {
 	public void SpawnEnemiesInRoom(Room room) {
 		var roomPositions = room.groundPositions;
 		roomPositions.Remove(LayoutGrid.FromWorldPosition(game.player.transform.position));
-		var spawnPositions = RandomPicker.Pick(roomPositions, enemiesPerRoom);
+		var spawnPositions = RandomPicker.Pick(roomPositions, spawnConfiguration.enemiesPerRoom);
 		foreach (Vector2Int spawnPosition in spawnPositions) {
 			var enemy = RandomPicker.Pick(roomEnemies);
 			Spawn(enemy, spawnPosition);

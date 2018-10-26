@@ -16,20 +16,24 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	void FixedUpdate() {
-		var movement = Time.deltaTime * speed;
-		transform.position = new Vector3(
-			Mathf.Lerp(transform.position.x, player.position.x, movement),
-			transform.position.y,
-			Mathf.Lerp(transform.position.z, player.position.z, movement)
-		);
-		Vector3.Lerp(transform.position, player.position, movement);
+		if (player != null) {
+			var movement = Time.deltaTime * speed;
+			transform.position = new Vector3(
+				Mathf.Lerp(transform.position.x, player.position.x, movement),
+				transform.position.y,
+				Mathf.Lerp(transform.position.z, player.position.z, movement)
+			);
+			Vector3.Lerp(transform.position, player.position, movement);
+		}
 	}
 
 	public void CenterOnPlayer() {
-		transform.position = new Vector3(
-			player.position.x,
-			transform.position.y,
-			player.position.z
-		);
+		if (player != null) {
+			transform.position = new Vector3(
+				player.position.x,
+				transform.position.y,
+				player.position.z
+			);
+		}
 	}
 }

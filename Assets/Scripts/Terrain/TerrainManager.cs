@@ -19,6 +19,7 @@ public class TerrainProps {
 public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
+    public List<string> breakableByTag; // collision tags that can break terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
     
     // list of the floor's rooms
@@ -38,7 +39,7 @@ public class TerrainManager : LayoutGrid {
         }
     }
 
-    void Start() {
+    void Awake() {
 		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 

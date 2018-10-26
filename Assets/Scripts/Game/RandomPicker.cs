@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Range {
+public class IntRange {
 	public int min;
 	public int max;
+}
+
+[System.Serializable]
+public class FloatRange {
+	public float min;
+	public float max;
 }
 
 public class RandomPicker {
@@ -20,7 +26,7 @@ public class RandomPicker {
     //
     // The number of items picked is within the given range.
     // The same item cannot be picked twice.
-	public static List<T> Pick<T>(List<T> available, Range quantityRange) {
+	public static List<T> Pick<T>(List<T> available, IntRange quantityRange) {
 		var chosen = new List<T>();
         var quantity = Random.Range(quantityRange.min, quantityRange.max + 1);
 		for (int i = 0; i < quantity; ++i) {
