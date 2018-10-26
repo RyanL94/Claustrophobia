@@ -23,10 +23,10 @@ GameObject:
   - component: {fileID: 23694189628622026}
   - component: {fileID: 135984299306013536}
   - component: {fileID: 54436926866673256}
-  - component: {fileID: 114166969602558398}
+  - component: {fileID: 114567879235097126}
   m_Layer: 0
   m_Name: EnemyProjectile
-  m_TagString: PlayerAttack
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &114166969602558398
+--- !u!114 &114567879235097126
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,10 +109,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1393229010526812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a0f83bf48d17b448ddde7279a3089d, type: 3}
+  m_Script: {fileID: 11500000, guid: a7a5b81b8e2aa6e4b8800aee098aa33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 10
 --- !u!135 &135984299306013536
 SphereCollider:
   m_ObjectHideFlags: 1

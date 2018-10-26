@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44300634, g: 0.49219513, b: 0.5719244, a: 1}
+  m_IndirectSpecularColor: {r: 0.4430062, g: 0.492195, b: 0.571924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -243,11 +243,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainEnemies:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  - {fileID: 1960498272618824, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
   mazeEnemies:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  - {fileID: 1960498272618824, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
   roomEnemies:
-  - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
+  - {fileID: 1960498272618824, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
   bosses:
   - {fileID: 1993590236820892, guid: 96a9dcb4fc81b4860a428350cacc3b9d, type: 2}
   enemiesPerFloor:
@@ -257,7 +257,7 @@ MonoBehaviour:
     min: 3
     max: 5
   spawnConfiguration:
-    initialSpawnRate: 0
+    initialSpawnRate: 5
     RampDuration: 300
     breakRampIncrease: 10
 --- !u!4 &311781229

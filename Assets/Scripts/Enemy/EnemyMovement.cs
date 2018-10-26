@@ -184,7 +184,6 @@ public class EnemyMovement : MonoBehaviour
             {
                 Instantiate(Projectile1, transform.position, Quaternion.identity);
                 Debug.Log("ranged attack");
-                Destroy(Projectile1, 5);
             }
             else if (transform.tag == "MeleeEnemy")
             {
