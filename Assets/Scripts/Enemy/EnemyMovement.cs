@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     float rotate;
 
     //val stuff
-    public Vector3 direction;
+    public Vector3 direction, mazeDirection;
 
     //public GameObject toChase;
     public GameObject Projectile1;
@@ -147,7 +147,7 @@ public class EnemyMovement : MonoBehaviour
                 Attack();
                 Debug.Log("melee range");
             }
-            else if (distanceToTarget < 5.0f)// && Physics.Linecast(transform.position, destination, out hit))
+            else if (distanceToTarget < 8.0f)// && Physics.Linecast(transform.position, destination, out hit))
             {
                 //if (hit.transform.name == "Player")
                 //{
@@ -161,8 +161,13 @@ public class EnemyMovement : MonoBehaviour
                     {
                         if (distanceToTarget < 4.0f)
                         {
-                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.75f * Time.deltaTime);
+                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.5f * Time.deltaTime);
                         Debug.Log("kite the player");
+                        }
+                        else if (distanceToTarget >= 6.0f)
+                        {
+                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.5f * Time.deltaTime);
+                        Debug.Log("approach player the player");
                         }
                         Attack();
                     }
@@ -170,7 +175,7 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * Time.deltaTime);
+                transform.position += (mazeDirection * speed * 0.3f * Time.deltaTime);
                 Debug.Log("maze movement");
             }
         }

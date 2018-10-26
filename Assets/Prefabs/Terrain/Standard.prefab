@@ -109,7 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614dfcd3d70614d41a92af06f493ecb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropRate: 25
   health: 1
+  dropped: {fileID: 1960498272618824, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
   collisionTag: PlayerAttack
   deathParticle: {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67,
     type: 2}
