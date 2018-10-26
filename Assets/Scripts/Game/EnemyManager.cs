@@ -59,9 +59,7 @@ public class EnemyManager : MonoBehaviour {
 
 	// Action to perform on block breaking.
 	public void OnBreak(Vector2Int blockPosition) {
-        Debug.Log("onbreak !");
 		if (Random.value <= spawnConfiguration.spawnRate) {
-            Debug.Log("OnBreak method called for enemy spawn");
 			spawnConfiguration.OnBreak();
 			var enemy = RandomPicker.Pick(terrainEnemies);
 			Spawn(enemy, blockPosition);
@@ -93,7 +91,7 @@ public class EnemyManager : MonoBehaviour {
 	//
 	// The enemy will be looking towards the player.
 	private void Spawn(GameObject enemy, Vector2Int spawnPosition) {
-        Debug.Log("enemy spawn");
+        //Debug.Log("enemy spawn");
 		var position = LayoutGrid.ToWorldPosition(spawnPosition, true) + enemy.transform.position;
 		var direction = game.player.transform.position - position;
 		var rotation = Quaternion.LookRotation(direction) * enemy.transform.rotation;

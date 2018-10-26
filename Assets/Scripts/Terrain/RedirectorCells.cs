@@ -32,10 +32,10 @@ public class RedirectorCells : MonoBehaviour {
     {
         if (other.tag == "MeleeEnemy" || other.tag == "RangedEnemy")
         {
-            Debug.Log("enemy is in and distance is " + (other.transform.position - transform.position).magnitude);
+            //Debug.Log("enemy is in and distance is " + (other.transform.position - transform.position).magnitude);
             if ((other.transform.position - transform.position).magnitude <= 0.8)
             {
-                Debug.Log("changing mazedirection!");
+               // Debug.Log("changing mazedirection!");
                 EnemyMovement enemyToRedirect = other.GetComponent<EnemyMovement>();
                 enemyToRedirect.mazeDirection = direction;
             }

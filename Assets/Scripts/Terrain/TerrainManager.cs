@@ -77,7 +77,6 @@ public class TerrainManager : LayoutGrid {
             var block = wall.GetComponent<Block>();
             if (block.breakable) {
                 Remove(position);
-                Debug.Log("removing blocks at coord x = " + position.x + " and y = " + position.y);
                 game.enemyManager.OnBreak(position);
             }
         }
