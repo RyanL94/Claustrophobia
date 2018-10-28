@@ -26,10 +26,13 @@ public class CameraController : MonoBehaviour {
 	}
 
 	public void CenterOnPlayer() {
-		transform.position = new Vector3(
-			player.position.x,
-			transform.position.y,
-			player.position.z
-		);
+        if (player != null)
+        {
+            transform.position = new Vector3(
+                player.position.x,
+                transform.position.y,
+                player.position.z
+            );
+        }
 	}
 }

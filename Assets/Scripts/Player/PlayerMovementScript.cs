@@ -20,12 +20,14 @@ public class PlayerMovementScript : MonoBehaviour {
     private Rigidbody playerRigidbody;
     private bool dash = false;
     private Vector3 direction;
+    private PlayerShoot playerShoot;
 
     // Use this for initialization
     void Start ()
     {
         speed = maxSpeed;
         rBody = GetComponent<Rigidbody>();
+        playerShoot = GetComponentInChildren <PlayerShoot>();
 	}
 	
 	// Update is called once per frame
@@ -71,9 +73,12 @@ public class PlayerMovementScript : MonoBehaviour {
         //swing sword reduces speed
         if (Input.GetButton("Fire2") && swordDelayTime < Time.time)
         {
+
             swordDelayTime = Time.time + swordDelay;
             GameObject swordObject = (GameObject) Instantiate(sword, transform.position, transform.rotation);
             Physics.IgnoreCollision(swordObject.GetComponent<Collider>(), GetComponent<Collider>());
+
+            reloadAmmo();
 
             Decelarate();
         }
@@ -84,10 +89,7 @@ public class PlayerMovementScript : MonoBehaviour {
             dash = true;
             startDashTime = Time.time + dashTime;
             Decelarate();
-
         }
-
-
     }
 
     //move and face towards direction
@@ -134,6 +136,16 @@ public class PlayerMovementScript : MonoBehaviour {
 
         speed = minSpeed;
 
+    }
+
+    public void reloadAmmo()
+    {
+        playerShoot.currentAmmo += 5;
+
+        if (playerShoot.currentAmmo > 20)
+        {
+            playerShoot.currentAmmo = 20;
+        }
     }
 
 
