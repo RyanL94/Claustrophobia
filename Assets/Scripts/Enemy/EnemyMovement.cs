@@ -53,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Player1")
+        if (col.gameObject.name == "Player")
         {
             Destroy(col.gameObject);
         }
@@ -91,25 +91,25 @@ public class EnemyMovement : MonoBehaviour
             Debug.DrawRay(forward, transform.forward * rayDistance, Color.green);
             Debug.DrawRay(backward, -transform.forward * rayDistance, Color.green);
 
-            if(Physics.Raycast(left, transform.forward, out hit, leftRay))
+            if (Physics.Raycast(left, transform.forward, out hit, leftRay))
             {
                 raycastOffset += Vector3.up;
             }
-            else if(Physics.Raycast(right, transform.forward, out hit, rayDistance))
+            else if (Physics.Raycast(right, transform.forward, out hit, rayDistance))
             {
                 raycastOffset -= Vector3.up;
             }
 
             if (Physics.Raycast(forward, transform.forward, out hit, rayDistance))
             {
-                
+
             }
             else if (Physics.Raycast(backward, -transform.forward, out hit, rayDistance))
             {
-                
+
             }
 
-            if(raycastOffset != Vector3.zero)
+            if (raycastOffset != Vector3.zero)
             {
                 transform.Rotate(raycastOffset * rotate * Time.deltaTime);
             }
@@ -138,7 +138,8 @@ public class EnemyMovement : MonoBehaviour
             else
             {
                 transform.Translate(direction * speed * Time.deltaTime);
-                Debug.Log("case 3");*/
+                Debug.Log("case 3");
+            }*/
 
             direction = GameObject.Find("Player").transform.position - transform.position;
             distanceToTarget = (direction).magnitude;
