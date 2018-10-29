@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
-{
+public class BasicRangedEnemy : MonoBehaviour {
+
     [SerializeField]
     Transform target;
     [SerializeField]
@@ -14,14 +14,16 @@ public class EnemyMovement : MonoBehaviour
     float rayDistance;
     [SerializeField]
     float rotate;
+    [SerializeField]
+    float speed;
+    [SerializeField]
+    int attackCooldown;
+    [SerializeField]
+    GameObject Projectile;
 
     //val stuff
     public Vector3 direction, mazeDirection;
 
-    //public GameObject toChase;
-    public GameObject Projectile1;
-    public float speed;
-    public int attackCooldown;
     int cooldownTimer;
 
     static Vector3 destination;
@@ -30,19 +32,18 @@ public class EnemyMovement : MonoBehaviour
     //together stuff
     [SerializeField]
     private bool inRoom = false;
-	
-    void Start ()
+
+    void Start()
     {
         cooldownTimer = 0;
     }
 
-	void Update ()
+    void Update()
     {
         if (target != null)
         {
             Pathfinding();
             Move();
-            Turn();
         }
 
         if (cooldownTimer < attackCooldown)
@@ -75,7 +76,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Pathfinding()
     {
-        if (inRoom)
+        if (inRoom == true)
         {
             float leftRay = 0.99f * rayDistance;
             RaycastHit hit;
@@ -120,7 +121,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            RaycastHit hit;
+            //RaycastHit hit;
 
             /*
 			//destination = toChase.transform.position;
@@ -143,35 +144,22 @@ public class EnemyMovement : MonoBehaviour
 
             direction = GameObject.Find("Player").transform.position - transform.position;
             distanceToTarget = (direction).magnitude;
-            if (distanceToTarget < 1.0f && transform.tag == "MeleeEnemy")
-            {
-                Attack();
-                //Debug.Log("melee range");
-            }
-            else if (distanceToTarget < 8.0f)// && Physics.Linecast(transform.position, destination, out hit))
+            if (distanceToTarget < 8.0f)// && Physics.Linecast(transform.position, destination, out hit))
             {
                 //if (hit.transform.name == "Player")
                 //{
-                    if (transform.tag == "MeleeEnemy")
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-                        //Debug.Log("close in for melee attack");
-                    }
-                    else if (transform.tag == "RangedEnemy")
-                    {
-                        if (distanceToTarget < 4.0f)
-                        {
-                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.5f * Time.deltaTime);
-                        //Debug.Log("kite the player");
-                        }
-                        else if (distanceToTarget >= 6.0f)
-                        {
-                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.5f * Time.deltaTime);
-                        //Debug.Log("approach player");
-                        }
-                        Attack();
-                    }
-               // }
+               if (distanceToTarget < 4.0f)
+               {
+                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.5f * Time.deltaTime);
+                     //Debug.Log("kite the player");
+               }
+               else if (distanceToTarget >= 6.0f)
+               {
+                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.5f * Time.deltaTime);
+                     //Debug.Log("approach player");
+               }
+               Attack();
+                // }
             }
             else
             {
@@ -185,18 +173,10 @@ public class EnemyMovement : MonoBehaviour
     {
         if (cooldownTimer == attackCooldown)
         {
-            if (transform.tag == "RangedEnemy")
-            {
-                Instantiate(Projectile1, transform.position, Quaternion.identity);
-                //Debug.Log("ranged attack");
-            }
-            else if (transform.tag == "MeleeEnemy")
-            {
-                //melee attack
-               // Debug.Log("melee attack");
-            }
+            Instantiate(Projectile, transform.position, Quaternion.identity);
+            //Debug.Log("ranged attack");
             cooldownTimer = 0;
         }
-        
+
     }
 }
