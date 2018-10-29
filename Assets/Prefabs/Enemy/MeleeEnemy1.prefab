@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 65959319762520518}
   - component: {fileID: 114883457188977346}
   m_Layer: 0
-  m_Name: Slime_Yellow
+  m_Name: MeleeEnemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
