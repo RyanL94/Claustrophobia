@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthAndDestroy : MonoBehaviour {
-    public float dropRate, health = 1; //Default value. Can be changed per item in the editor.
-    public GameObject dropped; //instantiate droppables in the editor using this. Eg : walls can drop enemies, enemies can drop gold ...
+    public float health = 1; //Default value. Can be changed per item in the editor.
     public string collisionTag;
     public GameObject deathParticle;
 	// Use this for initialization
@@ -25,15 +24,8 @@ public class HealthAndDestroy : MonoBehaviour {
             if (health == 0)
             {
                 Destroy(gameObject);
-
-                if (Random.Range(0.0f, 100.0f) < dropRate)
-                {
-                    Instantiate(dropped, transform.position, Quaternion.identity);
-                }
-
                 if (deathParticle != null)
                 {
-                    
                     Instantiate(deathParticle, transform.position, transform.rotation);
                 }
 
