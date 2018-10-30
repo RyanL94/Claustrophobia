@@ -7,6 +7,9 @@ TagManager:
   - EnemyAttack
   - PlayerAttack
   - Wall
+  - RangedEnemy
+  - MeleeEnemy
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthAndDestroy : MonoBehaviour {
-    public float health = 1;
+    public float health = 1; //Default value. Can be changed per item in the editor.
     public string collisionTag;
     public GameObject deathParticle;
 	// Use this for initialization
@@ -24,7 +24,6 @@ public class HealthAndDestroy : MonoBehaviour {
             if (health == 0)
             {
                 Destroy(gameObject);
-
                 if (deathParticle != null)
                 {
                     Instantiate(deathParticle, transform.position, transform.rotation);
