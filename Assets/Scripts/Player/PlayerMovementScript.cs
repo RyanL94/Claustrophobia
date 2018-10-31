@@ -9,8 +9,19 @@ public class PlayerMovementScript : MonoBehaviour {
     public float angleSpeed = 500;
     public float dashSpeed = 10;
     public float dashTime = 0.25f;
-    public GameObject sword;
     public float swordDelay = 1;
+
+    public GameObject bulletPrefab;
+    public GameObject gunBarel;
+
+    public float fireDelay = 0.25f;
+    public int ricochey;
+    public float bulletDistance;
+
+    public Animator playerAnimator;
+
+    float cooldownTimer = 0;
+    private GameObject lookAtMouseRotation;
 
     private float swordDelayTime;
     private float startDashTime;
@@ -20,16 +31,20 @@ public class PlayerMovementScript : MonoBehaviour {
     private Rigidbody playerRigidbody;
     private bool dash = false;
     private Vector3 direction;
+    private GameObject faceTowards;
 
     // Use this for initialization
     void Start ()
     {
         speed = maxSpeed;
         rBody = GetComponent<Rigidbody>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+        faceTowards = GameObject.Find("CartPassenger");
+        lookAtMouseRotation = GameObject.Find("GunEnd");
+
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
     {
         PlayerInput();
 
@@ -62,18 +77,18 @@ public class PlayerMovementScript : MonoBehaviour {
         }
 
         //fired gun reduces speed
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && cooldownTimer < Time.time && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
         {
-
+            playerAnimator.Play("FireGun");
+            Fire();
             Decelarate();
         }
 
         //swing sword reduces speed
         if (Input.GetButton("Fire2") && swordDelayTime < Time.time)
         {
+            playerAnimator.Play("SwordSwing");
             swordDelayTime = Time.time + swordDelay;
-            GameObject swordObject = (GameObject) Instantiate(sword, transform.position, transform.rotation);
-            Physics.IgnoreCollision(swordObject.GetComponent<Collider>(), GetComponent<Collider>());
 
             Decelarate();
         }
@@ -116,6 +131,16 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             dash = false;
         } 
+    }
+
+    private void Fire()
+    {
+        cooldownTimer = fireDelay + Time.time;
+        GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
+        Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+        bulletObject.GetComponent<MoveForward>().ricochey = ricochey;
+        bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+
     }
 
     // gradualy increse movement speed to max

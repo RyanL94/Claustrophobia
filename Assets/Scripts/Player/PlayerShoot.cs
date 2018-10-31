@@ -5,32 +5,34 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour {
 
     public GameObject bulletPrefab;
+    public GameObject gunBarel;
+
     public float fireDelay = 0.25f;
     public int ricochey;
     public float bulletDistance;
 
-    Vector3 bullet_offset;
     float cooldownTimer = 0;
-    private GameObject player;
-    
+    private GameObject lookAtMouseRotation;
+    private Animator playerAnimator;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
-        bullet_offset = new Vector3(0, 0, 0);
-        player = GameObject.Find("Player");
+        playerAnimator = GameObject.Find("PlayerModel").GetComponent<Animator>();
+        lookAtMouseRotation = GameObject.Find("GunEnd");
 
-
-	}
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        //fire gun
-        if(Input.GetButton("Fire1") && cooldownTimer < Time.time){
 
-            cooldownTimer = fireDelay + Time.time; 
-            GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, transform.position + bullet_offset, transform.rotation);
-            Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), player.GetComponent<Collider>());
+        //fire gun
+        if (Input.GetButton("Fire1") && cooldownTimer < Time.time){
+
+            cooldownTimer = fireDelay + Time.time;
+            playerAnimator.SetTrigger("FireGun");
+            GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
+            Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
             bulletObject.GetComponent<MoveForward>().ricochey = ricochey;
             bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
 
