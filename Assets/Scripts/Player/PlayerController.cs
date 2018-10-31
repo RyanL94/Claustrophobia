@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovementScript : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
     public float maxSpeed = 5;
     public float minSpeed = 1;
@@ -10,10 +10,15 @@ public class PlayerMovementScript : MonoBehaviour {
     public float dashSpeed = 10;
     public float dashTime = 0.25f;
     public float swordDelay = 1;
+    public float swingDuration;
+    public float swingDelay;
 
+    public GameObject meleeAttack;
     public GameObject bulletPrefab;
     public GameObject gunBarel;
-
+    
+    public float ammo;
+    public float ammoGainPerHit;
     public float fireDelay = 0.25f;
     public int ricochey;
     public float bulletDistance;
@@ -23,6 +28,7 @@ public class PlayerMovementScript : MonoBehaviour {
     float cooldownTimer = 0;
     private GameObject lookAtMouseRotation;
 
+    private float maxAmmo;
     private float swordDelayTime;
     private float startDashTime;
     private Rigidbody rBody;
@@ -40,7 +46,7 @@ public class PlayerMovementScript : MonoBehaviour {
         rBody = GetComponent<Rigidbody>();
         faceTowards = GameObject.Find("CartPassenger");
         lookAtMouseRotation = GameObject.Find("GunEnd");
-
+        maxAmmo = ammo;
     }
 
     // Update is called once per frame
@@ -48,6 +54,11 @@ public class PlayerMovementScript : MonoBehaviour {
     {
         PlayerInput();
 
+    }
+
+    public void OnSuccessfulHit()
+    {
+        ammo = Mathf.Min(ammo += ammoGainPerHit, maxAmmo);
     }
 
     private void PlayerInput()
@@ -77,18 +88,20 @@ public class PlayerMovementScript : MonoBehaviour {
         }
 
         //fired gun reduces speed
-        if (Input.GetButton("Fire1") && cooldownTimer < Time.time && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
+        if (Input.GetButton("Fire2") && cooldownTimer < Time.time && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
         {
-            playerAnimator.Play("FireGun");
-            Fire();
+            if (ammo >= 1) {
+                playerAnimator.Play("FireGun");
+                Fire();
+                --ammo;
+            }
             Decelarate();
         }
 
         //swing sword reduces speed
-        if (Input.GetButton("Fire2") && swordDelayTime < Time.time)
+        if (Input.GetButton("Fire1") && swordDelayTime < Time.time)
         {
-            playerAnimator.Play("SwordSwing");
-            swordDelayTime = Time.time + swordDelay;
+            StartCoroutine(Swing());
             Decelarate();
         }
 
@@ -155,5 +168,16 @@ public class PlayerMovementScript : MonoBehaviour {
 
         speed = minSpeed;
 
+    }
+
+    // swing the melee weapon
+    private IEnumerator Swing() {
+        var swordCollider = meleeAttack.GetComponent<Collider>();
+        swordDelayTime = Time.time + swordDelay;
+        playerAnimator.Play("SwordSwing");
+        yield return new WaitForSeconds(swingDelay);
+        swordCollider.enabled = true;
+        yield return new WaitForSeconds(swingDuration);
+        swordCollider.enabled = false;        
     }
 }

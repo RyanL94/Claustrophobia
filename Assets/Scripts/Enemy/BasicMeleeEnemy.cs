@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMeleeEnemy : MonoBehaviour
+public class BasicMeleeEnemy : Enemy
 {
 
     [SerializeField]
@@ -27,17 +27,10 @@ public class BasicMeleeEnemy : MonoBehaviour
 
     static Vector3 destination;
     private float distanceToTarget;
-    Transform target;
 
     //together stuff
     [SerializeField]
     private bool inRoom = false;
-
-    void Awake()
-    {
-        var game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        target = game.player.transform;
-    }
 
     void Start()
     {
@@ -56,14 +49,6 @@ public class BasicMeleeEnemy : MonoBehaviour
         if (cooldownTimer < attackCooldown)
         {
             cooldownTimer++;
-        }
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            Destroy(col.gameObject);
         }
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicRangedEnemy : MonoBehaviour
+public class BasicRangedEnemy : Enemy
 {
 
     [SerializeField]
@@ -30,17 +30,10 @@ public class BasicRangedEnemy : MonoBehaviour
     public Vector3 direction, mazeDirection; //these are only public for testing purposes. Make private on release.
 
     int cooldownTimer, attentionSpan;
-    Transform target;
 
 
     static Vector3 destination;
     private float distanceToTarget;
-
-    void Awake()
-    {
-        var game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        target = game.player.transform;
-    }
 
     void Start()
     {
@@ -60,14 +53,6 @@ public class BasicRangedEnemy : MonoBehaviour
             cooldownTimer++;
         }
 
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.name == "Player1")
-        {
-            Destroy(col.gameObject);
-        }
     }
 
     void Pathfinding()

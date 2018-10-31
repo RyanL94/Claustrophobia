@@ -15,6 +15,14 @@ public class Block : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collider) {
+		CheckCollision(collider.gameObject);
+	}
+
+	void OnTriggerEnter(Collider collider) {
+		CheckCollision(collider.gameObject);
+	}
+
+	private void CheckCollision(GameObject collider) {
 		if (breakable && game.terrain.breakableByTag.Contains(collider.gameObject.tag)) {
 			--durability;
 			if (durability == 0) {

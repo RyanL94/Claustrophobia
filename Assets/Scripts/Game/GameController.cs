@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	public new CameraController camera; // main game camera
+	public HUD hud; // game hud to display health and ammo
 	public EnemyManager enemyManager; // script which manages enemy spawns
 	public TerrainManager terrain; // game terrain
 	public GameObject player; // player game object
@@ -42,7 +43,7 @@ public class GameController : MonoBehaviour {
 	//
 	// The player is put at a certain elevation so that it looks like the player falls from the
 	// previous floor.
-	private void CenterPlayerOnFloor(float elevation=5.0f) {
+	private void CenterPlayerOnFloor(float elevation=3.0f) {
 		var centerPosition = terrain.floorConfiguration.FindCenterPosition();
 		var worldCenterPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
 		player.transform.position = worldCenterPosition + Vector3.up * elevation;
