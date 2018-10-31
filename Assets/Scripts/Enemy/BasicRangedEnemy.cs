@@ -109,7 +109,8 @@ public class BasicRangedEnemy : MonoBehaviour
             {
                 if (hit.transform.tag != "Player")
                 {
-
+                    transform.Translate(direction * speed * Time.deltaTime);
+                    Debug.Log("case 3");
                 }
                 else
                 {
