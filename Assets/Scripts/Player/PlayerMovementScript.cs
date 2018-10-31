@@ -89,7 +89,6 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             playerAnimator.Play("SwordSwing");
             swordDelayTime = Time.time + swordDelay;
-
             Decelarate();
         }
 
@@ -99,10 +98,7 @@ public class PlayerMovementScript : MonoBehaviour {
             dash = true;
             startDashTime = Time.time + dashTime;
             Decelarate();
-
         }
-
-
     }
 
     //move and face towards direction
@@ -160,6 +156,4 @@ public class PlayerMovementScript : MonoBehaviour {
         speed = minSpeed;
 
     }
-
-
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShoot : MonoBehaviour {
 
@@ -10,6 +11,9 @@ public class PlayerShoot : MonoBehaviour {
     public float fireDelay = 0.25f;
     public int ricochey;
     public float bulletDistance;
+    public int ammoClip;
+    public int currentAmmo;
+    public Text ammoText;
 
     float cooldownTimer = 0;
     private GameObject lookAtMouseRotation;
@@ -35,10 +39,6 @@ public class PlayerShoot : MonoBehaviour {
             Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
             bulletObject.GetComponent<MoveForward>().ricochey = ricochey;
             bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
-
         }
     }
-
-
-
 }
