@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Passage : MonoBehaviour {
 
-	public float delay;
-
 	private GameController game;
 
 	void Start() {
@@ -14,13 +12,12 @@ public class Passage : MonoBehaviour {
 
 	void OnTriggerExit(Collider collider) {
 		if (collider.gameObject.tag == "Player") {
-			StartCoroutine(PassThrough());
+			PassThrough();
 		}
 	}
 
 	// Move to a new floor when passed through by the player.
-	private IEnumerator PassThrough() {
-		yield return new WaitForSeconds(delay);
+	private void PassThrough() {
 		game.CreateNewFloor();
 	}
 }

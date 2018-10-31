@@ -16,6 +16,9 @@ public class HUD : MonoBehaviour {
 
 	void Awake() {
 		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+	}
+
+	void Start() {
 		player = game.player;
 		playerHealth = player.GetComponent<Damageable>();
 		playerController = player.GetComponent<PlayerController>();

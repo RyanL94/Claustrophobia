@@ -43,7 +43,7 @@ public class LayoutGrid : MonoBehaviour {
     public static Vector3 ToWorldPosition(Vector2Int position, bool centerOfCell=false) {
         var worldPosition = new Vector3(position.x, 0.0f, position.y);
         if (centerOfCell) {
-            worldPosition += new Vector3(0.5f, 0.0f, 0.5f);
+            worldPosition += new Vector3(0.5f, 0.5f, 0.5f);
         }
         return worldPosition;
     }

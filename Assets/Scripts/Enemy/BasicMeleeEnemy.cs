@@ -191,8 +191,9 @@ public class BasicMeleeEnemy : Enemy
         {
             transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
            // Debug.Log("maze movement");
-            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-
+            if (direction != Vector3.zero) {
+                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            }
         }
     }
 

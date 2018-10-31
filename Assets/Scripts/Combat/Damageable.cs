@@ -5,7 +5,10 @@ using UnityEngine;
 public class Damageable : MonoBehaviour {
     public float health = 1; //Default value. Can be changed per item in the editor.
     public List<string> collisionTags;
-    public GameObject deathParticle;
+    public GameObject onDamageEffect;
+    public GameObject onDeathEffect;
+    public Vector3 effectOffset;
+    public float effectScale;
 
     public static float immuneDuration = 0.5f;
 
@@ -40,14 +43,26 @@ public class Damageable : MonoBehaviour {
             var attack = collider.gameObject.GetComponent<Attack>();
             health -= attack.damage;
             immuneUntil = Time.time + immuneDuration;
+            DisplayEffect(onDamageEffect);
             if (health <= 0) {
                 Destroy(gameObject);
-                if (deathParticle != null) {
-                    Instantiate(deathParticle, transform.position, transform.rotation);
+                DisplayEffect(onDeathEffect);
+                if (gameObject.tag == "Player") {
+                    game.OnPlayerDeath();
                 }
             }
             if (collider.name == "MeleeAttack" && gameObject.tag == "Enemy") {
                 player.OnSuccessfulHit();
+            }
+        }
+    }
+
+    private void DisplayEffect(GameObject effect, bool child=false) {
+        if (effect != null) {
+            var instance = Instantiate(effect, transform.position + effectOffset, effect.transform.rotation);
+            instance.transform.localScale *= effectScale;
+            if (child) {
+                instance.transform.SetParent(transform);
             }
         }
     }

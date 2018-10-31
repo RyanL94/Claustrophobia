@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
 	public new CameraController camera; // main game camera
 	public HUD hud; // game hud to display health and ammo
+	public Transition transition; // transition to use when genererate a new floor
 	public EnemyManager enemyManager; // script which manages enemy spawns
 	public TerrainManager terrain; // game terrain
 	public GameObject player; // player game object
@@ -32,11 +34,29 @@ public class GameController : MonoBehaviour {
 
 	// Create a new floor.
 	public void CreateNewFloor() {
+		StartCoroutine(CreateNewFloorHelper());
+	}
+
+	public void OnPlayerDeath() {
+		StartCoroutine(OnPlayerDeathHelper());
+	}
+
+	private IEnumerator CreateNewFloorHelper() {
+		transition.FadeIn();
+		yield return new WaitForSeconds(transition.duration);
 		terrain.GenerateFloor();
 		CenterPlayerOnFloor();
 		--numberOfFloors;
 		enemyManager.spawnConfiguration.Initialize();
 		enemyManager.SpawnMazeEnemies();
+		transition.FadeOut();
+	}
+
+	private IEnumerator OnPlayerDeathHelper() {
+		yield return new WaitForSeconds(3.0f);
+		transition.FadeIn();
+		yield return new WaitForSeconds(transition.duration);
+		SceneManager.LoadScene("Menu");
 	}
 
 	// Center the player on the floor, putting him in the spawn room.

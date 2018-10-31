@@ -26,7 +26,14 @@ public class Block : MonoBehaviour {
 		if (breakable && game.terrain.breakableByTag.Contains(collider.gameObject.tag)) {
 			--durability;
 			if (durability == 0) {
-				game.terrain.Break(LayoutGrid.FromWorldPosition(transform.position));
+				var gridPosition = LayoutGrid.FromWorldPosition(transform.position);
+				game.terrain.Break(gridPosition);
+				var instance = Instantiate(
+					game.terrain.breakEffect,
+					LayoutGrid.ToWorldPosition(gridPosition, true),
+					Quaternion.identity
+				);
+				instance.transform.localScale *= game.terrain.effectScale;
 			}
 		}
 	}

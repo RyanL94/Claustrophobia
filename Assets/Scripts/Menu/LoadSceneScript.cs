@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneScript : MonoBehaviour {
 
+    public Transition transition;
     public GameObject buttonReturn;
     public float delayBeforeNewScene = 1;
     public float openDoorsSpeed = 5;
@@ -31,6 +32,7 @@ public class LoadSceneScript : MonoBehaviour {
         optionsCanvis = GameObject.Find("OptionButtons");
         doorLeft = GameObject.Find("DoorLeft");
         doorRight = GameObject.Find("DoorRight");
+        transition.FadeOut();
     }
 
     void Update()
@@ -47,6 +49,7 @@ public class LoadSceneScript : MonoBehaviour {
             animateDoors(doorLeft, 75);
             animateDoors(doorRight, -75);
 
+            transition.FadeIn();
             if (Time.time > timerTillNewScene)
             {
                 SceneManager.LoadScene(sceneToLoad);

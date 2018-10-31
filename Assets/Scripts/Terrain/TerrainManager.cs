@@ -19,8 +19,10 @@ public class TerrainProps {
 public class TerrainManager : LayoutGrid {
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
-    public List<string> breakableByTag; // collision tags that can break terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
+    public List<string> breakableByTag; // collision tags that can break terrain
+    public GameObject breakEffect; // effect to display when a block breaks
+    public float effectScale; // scale of the break effect
     
     // list of the floor's rooms
     public readonly List<Room> rooms = new List<Room>(); 
