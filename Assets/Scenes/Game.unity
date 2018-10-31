@@ -494,9 +494,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainEnemies:
-  - {fileID: 1989015064452960, guid: 1ce05a9bb8cf8c34890ad308705a8ca4, type: 2}
+  - {fileID: 1665826588543470, guid: 2545c2e3ab32f5d4f884e683efd1949b, type: 2}
   mazeEnemies:
-  - {fileID: 1989015064452960, guid: 1ce05a9bb8cf8c34890ad308705a8ca4, type: 2}
+  - {fileID: 0}
   roomEnemies:
   - {fileID: 0}
   bosses:
@@ -526,48 +526,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1281091864
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 1.555
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1756003183
 GameObject:
   m_ObjectHideFlags: 0

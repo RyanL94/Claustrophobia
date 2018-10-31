@@ -42,7 +42,7 @@ public class BasicMeleeEnemy : MonoBehaviour
         if (target != null)
         {
             Pathfinding();
-            //Move();
+            Move();
         }
 
         if (cooldownTimer < attackCooldown)

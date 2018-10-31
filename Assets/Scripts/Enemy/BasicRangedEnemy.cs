@@ -36,10 +36,6 @@ public class BasicRangedEnemy : MonoBehaviour
     static Vector3 destination;
     private float distanceToTarget;
 
-    //together stuff
-    [SerializeField]
-    private bool inRoom = false;
-
     void Start()
     {
         cooldownTimer = 0;
@@ -50,7 +46,6 @@ public class BasicRangedEnemy : MonoBehaviour
         if (target != null)
         {
             Pathfinding();
-            //Move();
         }
 
         if (cooldownTimer < attackCooldown)
@@ -68,49 +63,23 @@ public class BasicRangedEnemy : MonoBehaviour
         }
     }
 
-    void Move()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime;
-        //Debug.Log(speed);
-    }
-
     void Pathfinding()
     {
         RaycastHit hit;
         destination = GameObject.Find("Player").transform.position;
         distanceToTarget = Vector3.Distance(destination, transform.position);
 
-        Vector3 forward = transform.position + transform.forward;
-        Debug.DrawRay(forward, (destination - transform.position) * distanceToTarget, Color.green);
-        Debug.Log(distanceToTarget);
+        Vector3 forward = transform.position + transform.forward; //what does this do ?
 
-        /*
-        //destination = toChase.transform.position;
-        distanceToTarget = (destination - transform.position).magnitude;
-        if (distanceToTarget < 0.15) Debug.Log("case 1"); //attack
-        else if (distanceToTarget < 0.4f && Physics.Linecast(transform.position, destination, out hit))
+        if (distanceToTarget < aggroRange)
         {
-            if (hit.transform.name == "Target")
+            if (Physics.Raycast(transform.position, (destination-transform.position), out hit, distanceToTarget))
             {
-                transform.position = Vector3.MoveTowards(transform.position, destination, speed*Time.deltaTime);
-                //Debug.Log(toChase.transform.position);
-                Debug.Log("ww" + destination);
-            }
-        }
-        else
-        {
-            transform.Translate(direction * speed * Time.deltaTime);
-            Debug.Log("case 3");
-        }*/
-
-        if (inRoom == true && distanceToTarget < aggroRange)
-        {
-            if (Physics.Raycast(forward, transform.forward, out hit, distanceToTarget))
-            {
-                if (hit.transform.tag != "Player")
+                if (hit.transform.tag != "Player" && hit.transform.tag != "Enemy" && hit.transform.tag != "EnemyProjectile")
                 {
-                    transform.Translate(direction * speed * Time.deltaTime);
-                    Debug.Log("case 3");
+                    transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
+                    transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                    Debug.Log("case3");
                 }
                 else
                 {
@@ -124,6 +93,7 @@ public class BasicRangedEnemy : MonoBehaviour
                         transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
                         Debug.Log("approach player");
                     }
+                    else Debug.Log("Maintain position");
                     Attack();
                     transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
                 }
@@ -155,9 +125,9 @@ public class BasicRangedEnemy : MonoBehaviour
         if (other.name == "Ground(Clone)")
         {
             //Debug.Log("enemy is in and distance is " + (other.transform.position - transform.position).magnitude);
-            if ((other.transform.position - transform.position).magnitude <= 0.85)
+            if ((other.transform.position - transform.position).magnitude <= 0.8)
             {
-                Debug.Log("changing mazedirection!");
+                //Debug.Log("changing mazedirection!");
                 RedirectorCells cellRedirector = other.GetComponent<RedirectorCells>();
                 direction = cellRedirector.reDirection;
             }

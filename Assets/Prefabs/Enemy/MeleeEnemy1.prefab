@@ -189,9 +189,10 @@ GameObject:
   - component: {fileID: 54537533181900764}
   - component: {fileID: 65959319762520518}
   - component: {fileID: 114883457188977346}
+  - component: {fileID: 114603567747641288}
   m_Layer: 0
   m_Name: MeleeEnemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,8 +365,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1665826588543470}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.778226, y: 0.59, z: -17.342194}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4246681816169340}
   - {fileID: 4645353500019900}
@@ -521,7 +522,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &65959319762520518
 BoxCollider:
@@ -553,6 +554,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114603567747641288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1665826588543470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614dfcd3d70614d41a92af06f493ecb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  collisionTag: PlayerAttack
+  deathParticle: {fileID: 0}
 --- !u!114 &114883457188977346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -564,13 +579,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641551cde1812394f844257d1228f5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 4081494956778600, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
   rotationalDamp: 5
   rayCastOffset: 0.5
   rayDistance: 3
   rotate: 15
   speed: 5
-  attackCooldown: 2
+  attackCooldown: 150
   direction: {x: 0, y: 0, z: 0}
   mazeDirection: {x: 0, y: 0, z: 0}
   inRoom: 1
