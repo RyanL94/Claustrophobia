@@ -6,8 +6,6 @@ public class BasicRangedEnemy : MonoBehaviour
 {
 
     [SerializeField]
-    Transform target;
-    [SerializeField]
     float rotationalDamp;
     [SerializeField]
     float rayCastOffset;
@@ -32,10 +30,17 @@ public class BasicRangedEnemy : MonoBehaviour
     public Vector3 direction, mazeDirection; //these are only public for testing purposes. Make private on release.
 
     int cooldownTimer, attentionSpan;
+    Transform target;
 
 
     static Vector3 destination;
     private float distanceToTarget;
+
+    void Awake()
+    {
+        var game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        target = game.player.transform;
+    }
 
     void Start()
     {

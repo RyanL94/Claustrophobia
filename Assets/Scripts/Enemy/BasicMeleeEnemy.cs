@@ -6,8 +6,6 @@ public class BasicMeleeEnemy : MonoBehaviour
 {
 
     [SerializeField]
-    Transform target;
-    [SerializeField]
     float rotationalDamp;
     [SerializeField]
     float rayCastOffset;
@@ -29,10 +27,17 @@ public class BasicMeleeEnemy : MonoBehaviour
 
     static Vector3 destination;
     private float distanceToTarget;
+    Transform target;
 
     //together stuff
     [SerializeField]
     private bool inRoom = false;
+
+    void Awake()
+    {
+        var game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        target = game.player.transform;
+    }
 
     void Start()
     {
@@ -56,7 +61,7 @@ public class BasicMeleeEnemy : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Player1")
+        if (col.gameObject.tag == "Player")
         {
             Destroy(col.gameObject);
         }

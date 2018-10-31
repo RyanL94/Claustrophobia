@@ -53,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Player1")
+        if (col.gameObject.tag == "Player")
         {
             Destroy(col.gameObject);
         }
@@ -120,7 +120,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            RaycastHit hit;
+            //RaycastHit hit;
 
             /*
 			//destination = toChase.transform.position;
