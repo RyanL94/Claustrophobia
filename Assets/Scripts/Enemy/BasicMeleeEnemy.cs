@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMeleeEnemy : MonoBehaviour {
+public class BasicMeleeEnemy : MonoBehaviour
+{
 
     [SerializeField]
     Transform target;
@@ -19,7 +20,9 @@ public class BasicMeleeEnemy : MonoBehaviour {
     [SerializeField]
     int attackCooldown;
 
-    public Vector3 direction, mazeDirection;
+    //val stuff
+    public Vector3 direction, mazeDirection; //these are only public for testing purposes. Make private on release.
+
     int cooldownTimer;
 
     static Vector3 destination;
@@ -39,7 +42,7 @@ public class BasicMeleeEnemy : MonoBehaviour {
         if (target != null)
         {
             Pathfinding();
-            Move();
+            //Move();
         }
 
         if (cooldownTimer < attackCooldown)
@@ -65,8 +68,9 @@ public class BasicMeleeEnemy : MonoBehaviour {
 
     void Move()
     {
+        //movementSpeed += 0.001f;
         transform.position += transform.forward * speed * Time.deltaTime;
-        //Debug.Log(speed);
+        //Debug.Log(movementSpeed);
     }
 
     void Pathfinding()
@@ -116,23 +120,43 @@ public class BasicMeleeEnemy : MonoBehaviour {
         }
         else
         {
-            direction = GameObject.Find("Player").transform.position - transform.position;
-            distanceToTarget = (direction).magnitude;
-            if (distanceToTarget < 1.0f)
+            //RaycastHit hit;
+
+            /*
+			//destination = toChase.transform.position;
+            distanceToTarget = (destination - transform.position).magnitude;
+            if (distanceToTarget < 0.15) Debug.Log("case 1"); //attack
+            else if (distanceToTarget < 0.4f && Physics.Linecast(transform.position, destination, out hit))
             {
-                Attack();
-                //Debug.Log("melee range");
-            }
-            else if (distanceToTarget < 8.0f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-                //Debug.Log("close in for melee attack");
+                if (hit.transform.name == "Target")
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, destination, speed*Time.deltaTime);
+                    //Debug.Log(toChase.transform.position);
+                    Debug.Log("ww" + destination);
+                }
             }
             else
             {
-                transform.position += (mazeDirection * speed * 0.3f * Time.deltaTime);
-                //Debug.Log("maze movement");
+                transform.Translate(direction * speed * Time.deltaTime);
+                Debug.Log("case 3");
+            }*/
+
+            distanceToTarget = (GameObject.Find("Player").transform.position - transform.position).magnitude;
+            if (distanceToTarget < 5.0f)// && Physics.Linecast(transform.position, destination, out hit))
+            {
+                transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * Time.deltaTime);
+                Debug.Log("approach player");
+                Attack();
+                transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
             }
+            else
+            {
+                transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
+                Debug.Log("maze movement");
+                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            }
+
         }
     }
 
@@ -140,10 +164,22 @@ public class BasicMeleeEnemy : MonoBehaviour {
     {
         if (cooldownTimer == attackCooldown)
         {
-            //melee attack
-            // Debug.Log("melee attack");
-            cooldownTimer = 0;
+            //special attack effects go here, if we wanna add stuff other than charging
         }
 
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.name == "Ground(Clone)")
+        {
+            //Debug.Log("enemy is in and distance is " + (other.transform.position - transform.position).magnitude);
+            if ((other.transform.position - transform.position).magnitude <= 0.85)
+            {
+                Debug.Log("changing mazedirection!");
+                RedirectorCells cellRedirector = other.GetComponent<RedirectorCells>();
+                direction = cellRedirector.reDirection;
+            }
+        }
     }
 }

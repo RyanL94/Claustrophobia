@@ -11,8 +11,8 @@ public class EnemyProjectileMovement : MonoBehaviour {
 	void Start () 
     {
         //Modifier variables make enemies inaccurate and allows them to sometimes hit moving players (borrowed from Metroid Prime)
-		modifierX = Random.Range(-1.0f, 1.0f);
-        modifierZ = Random.Range(-1.0f, 1.0f);
+		modifierX = Random.Range(-0.75f, 0.75f);
+        modifierZ = Random.Range(-0.75f, 0.75f);
         //the following will raise errors if we name the player object anything else than Player
         direction = GameObject.Find("Player").transform.position-transform.position;
         direction.x += modifierX;

@@ -247,12 +247,14 @@ GameObject:
   - component: {fileID: 4331253574309560}
   - component: {fileID: 95902128101458254}
   - component: {fileID: 54783229165611100}
-  - component: {fileID: 114877112198615690}
-  - component: {fileID: 114637086537490732}
   - component: {fileID: 135054449021061934}
+  - component: {fileID: 114262123421602746}
+  - component: {fileID: 114150949127177006}
+  - component: {fileID: 114442451351682346}
+  - component: {fileID: 114371431081848294}
   m_Layer: 0
   m_Name: Slime_Red
-  m_TagString: RangedEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -522,7 +524,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!95 &95902128101458254
 Animator:
@@ -542,30 +544,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114637086537490732
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1989015064452960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247f00ad6aa51ea43a871c3617d08464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 4081494956778600, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
-  rotationalDamp: 5
-  rayCastOffset: 0.1
-  rayDistance: 2
-  rotate: 0
-  direction: {x: 0, y: 0, z: 0}
-  mazeDirection: {x: 0, y: 0, z: 0}
-  Projectile1: {fileID: 1393229010526812, guid: 2705830f974e76e4fadfdf07af627db7,
-    type: 2}
-  speed: 2.5
-  attackCooldown: 150
-  inRoom: 0
---- !u!114 &114877112198615690
+--- !u!114 &114150949127177006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -577,8 +556,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  collisionTag: 
+  collisionTag: PlayerAttack
   deathParticle: {fileID: 0}
+--- !u!114 &114262123421602746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989015064452960}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc85c1d050b21c4d8d8a8f653c06d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4081494956778600, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
+  rotationalDamp: 5
+  rayCastOffset: 0.1
+  rayDistance: 2
+  rotate: 0
+  speed: 2.5
+  attackCooldown: 150
+  Projectile: {fileID: 1393229010526812, guid: 2705830f974e76e4fadfdf07af627db7, type: 2}
+  direction: {x: 0, y: 0, z: 0}
+  mazeDirection: {x: 0, y: 0, z: 0}
+  inRoom: 0
+--- !u!114 &114371431081848294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989015064452960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641551cde1812394f844257d1228f5dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4081494956778600, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
+  rotationalDamp: 5
+  rayCastOffset: 0.1
+  rayDistance: 2
+  rotate: 0
+  speed: 2.5
+  attackCooldown: 150
+  direction: {x: 0, y: 0, z: 0}
+  mazeDirection: {x: 0, y: 0, z: 0}
+  inRoom: 0
+--- !u!114 &114442451351682346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989015064452960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247f00ad6aa51ea43a871c3617d08464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135054449021061934
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -589,7 +622,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.005
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137560821071508054
 SkinnedMeshRenderer:

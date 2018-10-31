@@ -22,7 +22,7 @@ public class BasicRangedEnemy : MonoBehaviour {
     GameObject Projectile;
 
     //val stuff
-    public Vector3 direction, mazeDirection;
+    public Vector3 direction, mazeDirection; //these are only public for testing purposes. Make private on release.
 
     int cooldownTimer;
 
@@ -43,7 +43,7 @@ public class BasicRangedEnemy : MonoBehaviour {
         if (target != null)
         {
             Pathfinding();
-            Move();
+            //Move();
         }
 
         if (cooldownTimer < attackCooldown)
@@ -142,30 +142,33 @@ public class BasicRangedEnemy : MonoBehaviour {
                 Debug.Log("case 3");
             }*/
 
-            direction = GameObject.Find("Player").transform.position - transform.position;
-            distanceToTarget = (direction).magnitude;
-            if (distanceToTarget < 8.0f)// && Physics.Linecast(transform.position, destination, out hit))
+            distanceToTarget = (GameObject.Find("Player").transform.position - transform.position).magnitude;
+            if (distanceToTarget < 5.0f)// && Physics.Linecast(transform.position, destination, out hit))
             {
                 //if (hit.transform.name == "Player")
                 //{
-               if (distanceToTarget < 4.0f)
+               if (distanceToTarget < 2.5f)
                {
-                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.5f * Time.deltaTime);
-                     //Debug.Log("kite the player");
+                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.75f * Time.deltaTime);
+                     Debug.Log("kite the player");
                }
-               else if (distanceToTarget >= 6.0f)
+               else if (distanceToTarget >= 4.0f)
                {
-                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.5f * Time.deltaTime);
-                     //Debug.Log("approach player");
+                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
+                     Debug.Log("approach player");
                }
                Attack();
+                transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
                 // }
             }
             else
             {
-                transform.position += (mazeDirection * speed * 0.3f * Time.deltaTime);
-                //Debug.Log("maze movement");
+                transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
+                Debug.Log("maze movement");
+                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+
             }
+
         }
     }
 
@@ -174,9 +177,23 @@ public class BasicRangedEnemy : MonoBehaviour {
         if (cooldownTimer == attackCooldown)
         {
             Instantiate(Projectile, transform.position, Quaternion.identity);
-            //Debug.Log("ranged attack");
+            Debug.Log("ranged attack");
             cooldownTimer = 0;
         }
 
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.name == "Ground(Clone)")
+        {
+            //Debug.Log("enemy is in and distance is " + (other.transform.position - transform.position).magnitude);
+            if ((other.transform.position - transform.position).magnitude <= 0.85)
+            {
+                Debug.Log("changing mazedirection!");
+                RedirectorCells cellRedirector = other.GetComponent<RedirectorCells>();
+                direction = cellRedirector.reDirection;
+            }
+        }
     }
 }

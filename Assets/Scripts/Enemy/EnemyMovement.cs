@@ -155,19 +155,19 @@ public class EnemyMovement : MonoBehaviour
                     if (transform.tag == "MeleeEnemy")
                     {
                         transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-                        //Debug.Log("close in for melee attack");
+                        Debug.Log("close in for melee attack");
                     }
                     else if (transform.tag == "RangedEnemy")
                     {
                         if (distanceToTarget < 4.0f)
                         {
                         transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.5f * Time.deltaTime);
-                        //Debug.Log("kite the player");
+                        Debug.Log("kite the player");
                         }
                         else if (distanceToTarget >= 6.0f)
                         {
                         transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.5f * Time.deltaTime);
-                        //Debug.Log("approach player");
+                        Debug.Log("approach player");
                         }
                         Attack();
                     }
@@ -176,7 +176,7 @@ public class EnemyMovement : MonoBehaviour
             else
             {
                 transform.position += (mazeDirection * speed * 0.3f * Time.deltaTime);
-                //Debug.Log("maze movement");
+                Debug.Log("maze movement");
             }
         }
     }

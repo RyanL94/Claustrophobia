@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44300634, g: 0.49219513, b: 0.5719244, a: 1}
+  m_IndirectSpecularColor: {r: 0.4430062, g: 0.492195, b: 0.571924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -494,13 +494,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainEnemies:
-  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  - {fileID: 1989015064452960, guid: 1ce05a9bb8cf8c34890ad308705a8ca4, type: 2}
   mazeEnemies:
-  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  - {fileID: 1989015064452960, guid: 1ce05a9bb8cf8c34890ad308705a8ca4, type: 2}
   roomEnemies:
-  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  - {fileID: 0}
   bosses:
-  - {fileID: 1000597617725958, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  - {fileID: 0}
   spawnConfiguration:
     enemiesPerFloor:
       min: 20
@@ -513,7 +513,6 @@ MonoBehaviour:
       max: 0.8
     RampDuration: 300
     breakRampIncrease: 10
-    spawnHeight: 1
 --- !u!4 &1263778238
 Transform:
   m_ObjectHideFlags: 0
@@ -527,6 +526,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1281091864
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1.555
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394954540584188, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cda76ec9b6c42514a8b41e64c3a61e67, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1756003183
 GameObject:
   m_ObjectHideFlags: 0
