@@ -79,21 +79,21 @@ public class BasicRangedEnemy : MonoBehaviour
                 {
                     transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
                     transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-                    Debug.Log("case3");
+                  //  Debug.Log("case3");
                 }
                 else
                 {
                     if (distanceToTarget < kiteDistance)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.75f * Time.deltaTime);
-                        Debug.Log("kite the player");
+                      //  Debug.Log("kite the player");
                     }
                     else if (distanceToTarget >= approachDistance)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
-                        Debug.Log("approach player");
+                       // Debug.Log("approach player");
                     }
-                    else Debug.Log("Maintain position");
+                  //  else Debug.Log("Maintain position");
                     Attack();
                     transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
                 }
@@ -103,7 +103,7 @@ public class BasicRangedEnemy : MonoBehaviour
         else
         {
             transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
-            Debug.Log("maze movement");
+          //  Debug.Log("maze movement");
             transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
         }
@@ -114,7 +114,7 @@ public class BasicRangedEnemy : MonoBehaviour
         if (cooldownTimer == attackCooldown)
         {
             Instantiate(Projectile, transform.position, Quaternion.identity);
-            Debug.Log("ranged attack");
+          //  Debug.Log("ranged attack");
             cooldownTimer = 0;
         }
 

@@ -63,7 +63,7 @@ public class BasicMeleeEnemy : MonoBehaviour
 
     void Turn()
     {
-        Vector3 pos = (target.position - transform.position).normalized;
+        Vector3 pos = GameObject.Find("Player").transform.position;
         Quaternion rotation = Quaternion.LookRotation(pos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
     }
@@ -79,45 +79,54 @@ public class BasicMeleeEnemy : MonoBehaviour
     {
         /*if (inRoom == true)
         {
-            float leftRay = 0.99f * rayDistance;
-            RaycastHit hit;
-            Vector3 raycastOffset = Vector3.zero;
+            /* float leftRay = 0.99f * rayDistance;
+             RaycastHit hit;
+             Vector3 raycastOffset = Vector3.zero;
 
-            Vector3 left = transform.position - transform.right * rayCastOffset;
-            Vector3 right = transform.position + transform.right * rayCastOffset;
-            Vector3 forward = transform.position + transform.forward * rayCastOffset;
-            Vector3 backward = transform.position - transform.forward * rayCastOffset;
+             Vector3 left = transform.position - transform.right * rayCastOffset;
+             Vector3 right = transform.position + transform.right * rayCastOffset;
+             Vector3 forward = transform.position + transform.forward * rayCastOffset;
+             Vector3 backward = transform.position - transform.forward * rayCastOffset;
 
-            Debug.DrawRay(left, transform.forward * rayDistance, Color.green);
-            Debug.DrawRay(right, transform.forward * rayDistance, Color.green);
-            Debug.DrawRay(forward, transform.forward * rayDistance, Color.green);
-            Debug.DrawRay(backward, -transform.forward * rayDistance, Color.green);
+             Debug.DrawRay(left, transform.forward * rayDistance, Color.green);
+             Debug.DrawRay(right, transform.forward * rayDistance, Color.green);
+             Debug.DrawRay(forward, transform.forward * rayDistance, Color.green);
+             Debug.DrawRay(backward, -transform.forward * rayDistance, Color.green);
 
-            if (Physics.Raycast(left, transform.forward, out hit, leftRay))
+             if (Physics.Raycast(left, transform.forward, out hit, leftRay))
+             {
+                 raycastOffset += Vector3.up;
+             }
+             else if (Physics.Raycast(right, transform.forward, out hit, rayDistance))
+             {
+                 raycastOffset -= Vector3.up;
+             }
+
+             if (Physics.Raycast(forward, transform.forward, out hit, rayDistance))
+             {
+
+             }
+             else if (Physics.Raycast(backward, -transform.forward, out hit, rayDistance))
+             {
+
+             }
+
+             if (raycastOffset != Vector3.zero)
+             {
+                 transform.Rotate(raycastOffset * rotate * Time.deltaTime);
+             }
+             else
+             {
+                 Turn();
+             }
+
+            distanceToTarget = (GameObject.Find("Player").transform.position - transform.position).magnitude;
+            if (distanceToTarget < 5.0f)// && Physics.Linecast(transform.position, destination, out hit))
             {
-                raycastOffset += Vector3.up;
-            }
-            else if (Physics.Raycast(right, transform.forward, out hit, rayDistance))
-            {
-                raycastOffset -= Vector3.up;
-            }
-
-            if (Physics.Raycast(forward, transform.forward, out hit, rayDistance))
-            {
-
-            }
-            else if (Physics.Raycast(backward, -transform.forward, out hit, rayDistance))
-            {
-
-            }
-
-            if (raycastOffset != Vector3.zero)
-            {
-                transform.Rotate(raycastOffset * rotate * Time.deltaTime);
-            }
-            else
-            {
-                Turn();
+                transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * Time.deltaTime);
+                Debug.Log("approach player");
+                Attack();
+                transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
             }
         }
         else
@@ -175,12 +184,12 @@ public class BasicMeleeEnemy : MonoBehaviour
                 {
                     transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
                     transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-                    Debug.Log("case3");
+                //    Debug.Log("case3");
                 }
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
-                    Debug.Log("approach player");
+                   // Debug.Log("approach player");
                     transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
                 }
             }
@@ -188,7 +197,7 @@ public class BasicMeleeEnemy : MonoBehaviour
         else
         {
             transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
-            Debug.Log("maze movement");
+           // Debug.Log("maze movement");
             transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
         }
@@ -210,7 +219,7 @@ public class BasicMeleeEnemy : MonoBehaviour
             //Debug.Log("enemy is in and distance is " + (other.transform.position - transform.position).magnitude);
             if ((other.transform.position - transform.position).magnitude <= 0.85)
             {
-                Debug.Log("changing mazedirection!");
+                //Debug.Log("changing mazedirection!");
                 RedirectorCells cellRedirector = other.GetComponent<RedirectorCells>();
                 direction = cellRedirector.reDirection;
             }
