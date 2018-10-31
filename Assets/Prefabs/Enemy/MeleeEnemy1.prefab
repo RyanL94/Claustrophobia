@@ -588,6 +588,7 @@ MonoBehaviour:
   attackCooldown: 150
   direction: {x: 0, y: 0, z: 0}
   mazeDirection: {x: 0, y: 0, z: 0}
+  aggroRange: 6
   inRoom: 1
 --- !u!137 &137776164015765070
 SkinnedMeshRenderer:

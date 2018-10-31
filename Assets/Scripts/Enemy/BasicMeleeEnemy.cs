@@ -25,6 +25,8 @@ public class BasicMeleeEnemy : MonoBehaviour
 
     int cooldownTimer;
 
+    public int aggroRange;
+
     static Vector3 destination;
     private float distanceToTarget;
 
@@ -42,7 +44,7 @@ public class BasicMeleeEnemy : MonoBehaviour
         if (target != null)
         {
             Pathfinding();
-            Move();
+          //  Move();
         }
 
         if (cooldownTimer < attackCooldown)
@@ -75,7 +77,7 @@ public class BasicMeleeEnemy : MonoBehaviour
 
     void Pathfinding()
     {
-        if (inRoom == true)
+        /*if (inRoom == true)
         {
             float leftRay = 0.99f * rayDistance;
             RaycastHit hit;
@@ -139,7 +141,7 @@ public class BasicMeleeEnemy : MonoBehaviour
             {
                 transform.Translate(direction * speed * Time.deltaTime);
                 Debug.Log("case 3");
-            }*/
+            }
 
             distanceToTarget = (GameObject.Find("Player").transform.position - transform.position).magnitude;
             if (distanceToTarget < 5.0f)// && Physics.Linecast(transform.position, destination, out hit))
@@ -156,6 +158,38 @@ public class BasicMeleeEnemy : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
             }
+
+        }*/
+
+        RaycastHit hit;
+        destination = GameObject.Find("Player").transform.position;
+        distanceToTarget = Vector3.Distance(destination, transform.position);
+
+        Vector3 forward = transform.position + transform.forward; //what does this do ?
+
+        if (distanceToTarget < aggroRange)
+        {
+            if (Physics.Raycast(transform.position, (destination - transform.position), out hit, distanceToTarget))
+            {
+                if (hit.transform.tag != "Player" && hit.transform.tag != "Enemy" && hit.transform.tag != "EnemyProjectile")
+                {
+                    transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
+                    transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                    Debug.Log("case3");
+                }
+                else
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
+                    Debug.Log("approach player");
+                    transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
+                }
+            }
+        }
+        else
+        {
+            transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
+            Debug.Log("maze movement");
+            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
         }
     }

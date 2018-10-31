@@ -496,11 +496,11 @@ MonoBehaviour:
   terrainEnemies:
   - {fileID: 1665826588543470, guid: 2545c2e3ab32f5d4f884e683efd1949b, type: 2}
   mazeEnemies:
-  - {fileID: 0}
+  - {fileID: 1665826588543470, guid: 2545c2e3ab32f5d4f884e683efd1949b, type: 2}
   roomEnemies:
-  - {fileID: 0}
+  - {fileID: 1009531895103672, guid: 29054ed1a43fbfe41b82a75982ac9fd5, type: 2}
   bosses:
-  - {fileID: 0}
+  - {fileID: 1009531895103672, guid: 29054ed1a43fbfe41b82a75982ac9fd5, type: 2}
   spawnConfiguration:
     enemiesPerFloor:
       min: 20
