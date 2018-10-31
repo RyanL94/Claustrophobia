@@ -1202,7 +1202,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: bb4708026a3e019498436c02dbdb8f20, type: 3}
+  - {fileID: 2100000, guid: 5510d9b92ac1ec143af2dabf3ee50f20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2188,7 +2188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d34b6aa4e3558d4d964d33d75bafbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 1086283417}
+  playerAnimator: {fileID: 0}
 --- !u!1 &1852134842
 GameObject:
   m_ObjectHideFlags: 0
