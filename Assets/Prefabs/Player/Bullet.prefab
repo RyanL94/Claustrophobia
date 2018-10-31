@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 135488186841193208}
   - component: {fileID: 114944518256296858}
   - component: {fileID: 54726321405596720}
+  - component: {fileID: 114994275261000652}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: PlayerAttack
@@ -112,11 +113,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a93fd746e357a45b9fa2bf0125d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collision:
-    serializedVersion: 2
-    m_Bits: 0
   bullet_speed: 6
   ricochey: 0
+  bulletExplosion: {fileID: 0}
+  bulletRicochet: {fileID: 0}
+  bulletDistance: 0
+--- !u!114 &114994275261000652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156961584385186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!135 &135488186841193208
 SphereCollider:
   m_ObjectHideFlags: 1
