@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicRangedEnemy : MonoBehaviour {
+public class BasicRangedEnemy : MonoBehaviour
+{
 
     [SerializeField]
     Transform target;
@@ -18,6 +19,12 @@ public class BasicRangedEnemy : MonoBehaviour {
     float speed;
     [SerializeField]
     int attackCooldown;
+    [SerializeField]
+    float aggroRange;
+    [SerializeField]
+    float kiteDistance;
+    [SerializeField]
+    float approachDistance;
     [SerializeField]
     GameObject Projectile;
 
@@ -50,6 +57,7 @@ public class BasicRangedEnemy : MonoBehaviour {
         {
             cooldownTimer++;
         }
+
     }
 
     void OnCollisionEnter(Collision col)
@@ -60,114 +68,72 @@ public class BasicRangedEnemy : MonoBehaviour {
         }
     }
 
-    void Turn()
-    {
-        Vector3 pos = (target.position - transform.position).normalized;
-        Quaternion rotation = Quaternion.LookRotation(pos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
-    }
-
     void Move()
     {
-        //movementSpeed += 0.001f;
         transform.position += transform.forward * speed * Time.deltaTime;
-        //Debug.Log(movementSpeed);
+        //Debug.Log(speed);
     }
 
     void Pathfinding()
     {
-        if (inRoom == true)
+        RaycastHit hit;
+        destination = GameObject.Find("Player").transform.position;
+        distanceToTarget = Vector3.Distance(destination, transform.position);
+
+        Vector3 forward = transform.position + transform.forward;
+        Debug.DrawRay(forward, (destination - transform.position) * distanceToTarget, Color.green);
+        Debug.Log(distanceToTarget);
+
+        /*
+        //destination = toChase.transform.position;
+        distanceToTarget = (destination - transform.position).magnitude;
+        if (distanceToTarget < 0.15) Debug.Log("case 1"); //attack
+        else if (distanceToTarget < 0.4f && Physics.Linecast(transform.position, destination, out hit))
         {
-            float leftRay = 0.99f * rayDistance;
-            RaycastHit hit;
-            Vector3 raycastOffset = Vector3.zero;
-
-            Vector3 left = transform.position - transform.right * rayCastOffset;
-            Vector3 right = transform.position + transform.right * rayCastOffset;
-            Vector3 forward = transform.position + transform.forward * rayCastOffset;
-            Vector3 backward = transform.position - transform.forward * rayCastOffset;
-
-            Debug.DrawRay(left, transform.forward * rayDistance, Color.green);
-            Debug.DrawRay(right, transform.forward * rayDistance, Color.green);
-            Debug.DrawRay(forward, transform.forward * rayDistance, Color.green);
-            Debug.DrawRay(backward, -transform.forward * rayDistance, Color.green);
-
-            if (Physics.Raycast(left, transform.forward, out hit, leftRay))
+            if (hit.transform.name == "Target")
             {
-                raycastOffset += Vector3.up;
-            }
-            else if (Physics.Raycast(right, transform.forward, out hit, rayDistance))
-            {
-                raycastOffset -= Vector3.up;
-            }
-
-            if (Physics.Raycast(forward, transform.forward, out hit, rayDistance))
-            {
-
-            }
-            else if (Physics.Raycast(backward, -transform.forward, out hit, rayDistance))
-            {
-
-            }
-
-            if (raycastOffset != Vector3.zero)
-            {
-                transform.Rotate(raycastOffset * rotate * Time.deltaTime);
-            }
-            else
-            {
-                Turn();
+                transform.position = Vector3.MoveTowards(transform.position, destination, speed*Time.deltaTime);
+                //Debug.Log(toChase.transform.position);
+                Debug.Log("ww" + destination);
             }
         }
         else
         {
-            //RaycastHit hit;
+            transform.Translate(direction * speed * Time.deltaTime);
+            Debug.Log("case 3");
+        }*/
 
-            /*
-			//destination = toChase.transform.position;
-            distanceToTarget = (destination - transform.position).magnitude;
-            if (distanceToTarget < 0.15) Debug.Log("case 1"); //attack
-            else if (distanceToTarget < 0.4f && Physics.Linecast(transform.position, destination, out hit))
+        if (inRoom == true && distanceToTarget < aggroRange)
+        {
+            if (Physics.Raycast(forward, transform.forward, out hit, distanceToTarget))
             {
-                if (hit.transform.name == "Target")
+                if (hit.transform.tag != "Player")
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, destination, speed*Time.deltaTime);
-                    //Debug.Log(toChase.transform.position);
-                    Debug.Log("ww" + destination);
+
+                }
+                else
+                {
+                    if (distanceToTarget < kiteDistance)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.75f * Time.deltaTime);
+                        Debug.Log("kite the player");
+                    }
+                    else if (distanceToTarget >= approachDistance)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
+                        Debug.Log("approach player");
+                    }
+                    Attack();
+                    transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
                 }
             }
-            else
-            {
-                transform.Translate(direction * speed * Time.deltaTime);
-                Debug.Log("case 3");
-            }*/
 
-            distanceToTarget = (GameObject.Find("Player").transform.position - transform.position).magnitude;
-            if (distanceToTarget < 5.0f)// && Physics.Linecast(transform.position, destination, out hit))
-            {
-                //if (hit.transform.name == "Player")
-                //{
-               if (distanceToTarget < 2.5f)
-               {
-                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, -speed * 0.75f * Time.deltaTime);
-                     Debug.Log("kite the player");
-               }
-               else if (distanceToTarget >= 4.0f)
-               {
-                     transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
-                     Debug.Log("approach player");
-               }
-               Attack();
-                transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up);
-                // }
-            }
-            else
-            {
-                transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
-                Debug.Log("maze movement");
-                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-
-            }
+        }
+        else
+        {
+            transform.position += (direction.normalized * speed * 0.5f * Time.deltaTime);
+            Debug.Log("maze movement");
+            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
         }
     }
