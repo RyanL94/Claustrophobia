@@ -427,13 +427,12 @@ MonoBehaviour:
   rotate: 15
   speed: 2.5
   attackCooldown: 150
-  aggroRange: 6
+  aggroRange: 8
   kiteDistance: 2.5
-  approachDistance: 5
+  approachDistance: 4.5
   Projectile: {fileID: 1393229010526812, guid: 2705830f974e76e4fadfdf07af627db7, type: 2}
   direction: {x: 0, y: 0, z: 0}
   mazeDirection: {x: 0, y: 0, z: 0}
-  inRoom: 1
 --- !u!114 &114467638103624896
 MonoBehaviour:
   m_ObjectHideFlags: 1
