@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CameraFollowPlayerScript : MonoBehaviour {
 
-    public Transform player;
+    private Transform player;
     private Vector3 offset;
     // Use this for initialization
 
     void Awake () {
+        player = GameObject.FindWithTag("Player").transform;
         offset = transform.position - player.transform.position;
 
     }
