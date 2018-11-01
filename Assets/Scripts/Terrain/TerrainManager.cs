@@ -135,6 +135,7 @@ public class TerrainManager : LayoutGrid {
         }
         GenerateRoom(RoomType.Spawn, terrainBlocks.room, centered:true, minSize:true);
         GenerateRoom(RoomType.Item, terrainBlocks.room, singleEntrance:true);
+        GenerateRoom(RoomType.Shop, terrainBlocks.room, singleEntrance:true);
         GenerateRoom(RoomType.Boss, terrainBlocks.boss, maxSize:true, singleEntrance:true);
         while (rooms.Count < floorConfiguration.roomCount) {
             GenerateRoom(RoomType.Enemy, terrainBlocks.room);
@@ -268,6 +269,11 @@ public class TerrainManager : LayoutGrid {
             }
             if (room.type == RoomType.Item) {
                 PlaceProp(terrainProps.chest, room.centerPosition);
+            } else if (room.type == RoomType.Shop) {
+                // Place shop props
+                PlaceProp(terrainProps.chest, room.centerPosition - Vector2Int.left * 2);
+                PlaceProp(terrainProps.chest, room.centerPosition);
+                PlaceProp(terrainProps.chest, room.centerPosition + Vector2Int.left * 2);
             }
         }
     }
