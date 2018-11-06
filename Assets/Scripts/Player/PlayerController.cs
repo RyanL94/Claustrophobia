@@ -129,6 +129,8 @@ public class PlayerController : MonoBehaviour {
                 Decelarate();
             }
 
+        }
+
             //swing sword reduces speed
             if (Input.GetButton("Fire1") && swordDelayTime < Time.time)
             {
@@ -143,7 +145,7 @@ public class PlayerController : MonoBehaviour {
                 startDashTime = Time.time + dashTime;
                 Decelarate();
             }
-        }
+
     }
 
     //move and face towards direction
