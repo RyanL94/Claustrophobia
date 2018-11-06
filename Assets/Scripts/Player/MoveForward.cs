@@ -14,13 +14,16 @@ public class MoveForward : MonoBehaviour {
     private Rigidbody rb;
     private float lifeTime;
 
+    public static float incSpee;
+
 
     void Start()
 	{
         rb = GetComponent<Rigidbody>();
         MoveFoward();
         lifeTime = Time.time + bulletDistance;
-
+        ricochey = PlayerController.collision;
+        incSpee = 50.0f;
     }
 
 	void FixedUpdate () {
@@ -31,11 +34,13 @@ public class MoveForward : MonoBehaviour {
         }
         oldVelocity = rb.velocity;
 
+
     }
     //make bullet move towards direction it faces
     void MoveFoward()
     {
-        rb.velocity = transform.forward * bullet_speed;
+        incSpee = PlayerController.incSpeed;
+        rb.velocity =  transform.forward* bullet_speed * Time.deltaTime* incSpee;
 
     }
     //on collision reflect or destroys

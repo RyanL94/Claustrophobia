@@ -39,6 +39,12 @@ public class PlayerController : MonoBehaviour {
     private Vector3 direction;
     private GameObject faceTowards;
 
+    //For the upgrades
+    public static bool incBullet;
+    public static bool incCol;
+    public static int collision;
+    public static float incSpeed;
+
     // Use this for initialization
     void Start ()
     {
@@ -47,12 +53,19 @@ public class PlayerController : MonoBehaviour {
         faceTowards = GameObject.Find("CartPassenger");
         lookAtMouseRotation = GameObject.Find("GunEnd");
         maxAmmo = ammo;
+
+        //upgrades
+        incBullet = false;
+        collision = 0;
+        incSpeed = 50.0f;
     }
 
     // Update is called once per frame
     void FixedUpdate ()
     {
         PlayerInput();
+
+       
 
     }
 
@@ -65,6 +78,8 @@ public class PlayerController : MonoBehaviour {
     {
         //make player dash at direction facing
         Dash();
+
+
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -90,27 +105,44 @@ public class PlayerController : MonoBehaviour {
         //fired gun reduces speed
         if (Input.GetButton("Fire2") && cooldownTimer < Time.time && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
         {
-            if (ammo >= 1) {
-                playerAnimator.Play("FireGun");
-                Fire();
-                --ammo;
+            if (ammo >= 1)
+            {
+
+                if (!incBullet)
+                { //shoot only one bullet
+
+                    playerAnimator.Play("FireGun");
+                    Fire();
+                    --ammo;
+                }
+
+                else if (incBullet)
+                { //shoot two bullets
+
+                    playerAnimator.Play("FireGun");
+                    Fire2();
+                    //I'm in
+                    --ammo;
+
+
+                }
+                Decelarate();
             }
-            Decelarate();
-        }
 
-        //swing sword reduces speed
-        if (Input.GetButton("Fire1") && swordDelayTime < Time.time)
-        {
-            StartCoroutine(Swing());
-            Decelarate();
-        }
+            //swing sword reduces speed
+            if (Input.GetButton("Fire1") && swordDelayTime < Time.time)
+            {
+                StartCoroutine(Swing());
+                Decelarate();
+            }
 
-        //make player do a dash
-        if (Input.GetKeyDown(KeyCode.Space) && !dash)
-        {
-            dash = true;
-            startDashTime = Time.time + dashTime;
-            Decelarate();
+            //make player do a dash
+            if (Input.GetKeyDown(KeyCode.Space) && !dash)
+            {
+                dash = true;
+                startDashTime = Time.time + dashTime;
+                Decelarate();
+            }
         }
     }
 
@@ -119,7 +151,9 @@ public class PlayerController : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        
+
+
+
         movement = new Vector3(horizontal, 0.0f, vertical);
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
@@ -147,8 +181,26 @@ public class PlayerController : MonoBehaviour {
         cooldownTimer = fireDelay + Time.time;
         GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
         Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
-        bulletObject.GetComponent<MoveForward>().ricochey = ricochey;
         bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+
+    }
+
+    private void Fire2()
+    {
+        cooldownTimer = fireDelay + Time.time;
+        GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
+        Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+        bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+
+
+        Vector3 localOffset = new Vector3(0, 0, 0.4f);
+        Vector3 worldOffset = bulletObject.transform.rotation * localOffset;
+        Vector3 spawnPosition = bulletObject.transform.position + worldOffset;
+        GameObject bulletObject2 = (GameObject)Instantiate(bulletPrefab, spawnPosition, lookAtMouseRotation.transform.rotation);
+        Physics.IgnoreCollision(bulletObject2.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+        Physics.IgnoreCollision(bulletObject2.GetComponent<Collider>(), bulletObject.GetComponent<Collider>());
+
+        bulletObject2.GetComponent<MoveForward>().bulletDistance = bulletDistance;
 
     }
 

@@ -19,8 +19,6 @@ public class Chest : MonoBehaviour {
 				animator.CrossFadeInFixedTime("Open", openAnimationDuration);
 				interactedWith = true;
 
-				var player = collider.gameObject;
-				// TODO: give the player an item
 			}
 		}
 	}
