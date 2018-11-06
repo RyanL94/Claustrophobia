@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 33721398464980266}
   - component: {fileID: 23658935625392602}
   - component: {fileID: 135181729309691808}
+  - component: {fileID: 114740102852536430}
   m_Layer: 0
   m_Name: Upgrade
   m_TagString: Untagged
@@ -322,6 +323,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openAnimationDuration: 0.5
+--- !u!114 &114740102852536430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716375474518306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02439c1c78bf341838277fb3035cafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135181729309691808
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -329,10 +341,10 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1716375474518306}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.86
+  m_Radius: 4.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135251550526095224
 SphereCollider:
