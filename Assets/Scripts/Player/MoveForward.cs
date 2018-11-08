@@ -20,9 +20,10 @@ public class MoveForward : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         MoveFoward();
         lifeTime = Time.time + bulletDistance;
+
     }
 
-	void FixedUpdate () {
+    void FixedUpdate () {
         //if life time
         if (Time.time > lifeTime && bulletDistance != 0)
         {
@@ -40,30 +41,28 @@ public class MoveForward : MonoBehaviour {
     }
     //on collision reflect or destroys
     void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag != "PlayerAttack")
+    {        
+        if (ricochet < 1)
         {
-            if (ricochet < 1)
+            Explode();
+        }
+        else
+        {
+            //instantiate ricochet sprite
+            if (bulletRicochet != null)
             {
-                Explode();
+                Instantiate(bulletRicochet, transform.position, Quaternion.identity);
             }
-            else
-            {
-                //instantiate ricochet sprite
-                if (bulletRicochet != null)
-                {
-                    Instantiate(bulletRicochet, transform.position, Quaternion.identity);
-                }
-                //do reflect
-                ContactPoint contact = collision.contacts[0];
-                Vector3 reflectedVelocity = Vector3.Reflect(oldVelocity, contact.normal);
-                rb.velocity = reflectedVelocity;
-                //rotate object
-                Quaternion rotation = Quaternion.FromToRotation(oldVelocity, reflectedVelocity);
-                transform.rotation = rotation * transform.rotation;
+            //do reflect
+            ContactPoint contact = collision.contacts[0];
+            Vector3 reflectedVelocity = Vector3.Reflect(oldVelocity, contact.normal);
+            rb.velocity = reflectedVelocity;
+            //rotate object
+            Quaternion rotation = Quaternion.FromToRotation(oldVelocity, reflectedVelocity);
+            transform.rotation = rotation * transform.rotation;
 
-                ricochet--;
-            }
+            ricochet--;
+            
         }
     }
     //destroy bullet

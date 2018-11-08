@@ -11,6 +11,7 @@ TagManager:
   - MeleeEnemy
   - EnemyProjectile
   - Enemy
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - Bullet
   - 
   - 
   - 

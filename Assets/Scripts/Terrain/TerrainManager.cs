@@ -23,7 +23,7 @@ public class PowerUps
 
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
-    public PowerUps PowerUpList; //items to find in chests
+    public PowerUps powerUpList; //items to find in chests
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
@@ -127,6 +127,7 @@ public class TerrainManager : LayoutGrid {
         var instanceRotation = prop.transform.rotation;
         var instance = Instantiate(prop, instancePosition, instanceRotation);
         instance.transform.parent = transform;
+        
     }
 
     // Generate a random layout of rooms for the floor.
@@ -274,7 +275,10 @@ public class TerrainManager : LayoutGrid {
                 }
             }
             if (room.type == RoomType.Item) {
-                PlaceProp(terrainProps.chest, room.centerPosition);
+                //create shop chest
+                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition - Vector2Int.left * 2);
+                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition);
+                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition + Vector2Int.left * 2);
             }
         }
     }

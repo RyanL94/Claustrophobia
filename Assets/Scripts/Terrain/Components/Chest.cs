@@ -15,11 +15,13 @@ public class Chest : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider) {
 		if (!interactedWith) {
-			if (collider.gameObject.tag == "Player") {
+			if (collider.gameObject.name == "MeleeAttack") {
 				animator.CrossFadeInFixedTime("Open", openAnimationDuration);
 				interactedWith = true;
+                gameObject.GetComponent<PowerUp>().open = true;
 
-			}
+
+            }
 		}
 	}
 }

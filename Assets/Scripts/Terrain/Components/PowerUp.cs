@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    public bool open = false;
 
     public string name;
+    public int cost;
     public float maxSpeed;
     public float minSpeed;
     public float dashTime;
@@ -23,7 +25,7 @@ public class PowerUp : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && open)
         {
             //get player script
             PlayerController player = col.gameObject.GetComponent<PlayerController>();

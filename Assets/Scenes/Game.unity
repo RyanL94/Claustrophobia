@@ -161,6 +161,9 @@ MonoBehaviour:
   gridBlocks:
     standard: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
     boundary: {fileID: 1638153039684244, guid: 0713722ad67bd460e9ff372411d0697f, type: 2}
+  powerUpList:
+    list:
+    - {fileID: 1436113512308710, guid: 169e5eec850004888a3a7e458b880929, type: 2}
   terrainBlocks:
     room: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
     itemRoom: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
@@ -324,7 +327,6 @@ GameObject:
   m_Component:
   - component: {fileID: 142323948}
   - component: {fileID: 142323947}
-  - component: {fileID: 336564000}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -332,17 +334,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &336564000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 336563999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b242c5d8fb93f45aad2e08558c1ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &369091911
 GameObject:
   m_ObjectHideFlags: 0
