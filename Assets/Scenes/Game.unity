@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -164,6 +164,7 @@ MonoBehaviour:
   powerUpList:
     list:
     - {fileID: 1436113512308710, guid: 169e5eec850004888a3a7e458b880929, type: 2}
+    - {fileID: 1436113512308710, guid: 8c9cc011d7af2834c97c9f9af571e42f, type: 2}
   terrainBlocks:
     room: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
     itemRoom: {fileID: 1925577718577688, guid: dbb442db09fb6411fa1ffe94b72d1111, type: 2}
@@ -418,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &453966987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +747,11 @@ Prefab:
         type: 2}
       propertyPath: precision
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
+        type: 2}
+      propertyPath: bulletNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
