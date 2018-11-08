@@ -28,12 +28,6 @@ public class Block : MonoBehaviour {
 			if (durability == 0) {
 				var gridPosition = LayoutGrid.FromWorldPosition(transform.position);
 				game.terrain.Break(gridPosition);
-				var instance = Instantiate(
-					game.terrain.breakEffect,
-					LayoutGrid.ToWorldPosition(gridPosition, true),
-					Quaternion.identity
-				);
-				instance.transform.localScale *= game.terrain.effectScale;
 			}
 		}
 	}

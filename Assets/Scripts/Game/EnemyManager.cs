@@ -30,7 +30,7 @@ public class SpawnConfiguration {
 		}
 	}
 
-	// Start a new spawn timer
+	// Start a new spawn timer.
 	public void Initialize() {
 		spawnRateRamp = (spawnRate.min - spawnRate.max) / RampDuration;
 		initialTime = Time.time;
@@ -43,6 +43,30 @@ public class SpawnConfiguration {
 	}
 }
 
+[System.Serializable]
+public class TimerConfiguration {
+	public IntRange blocksDestroyed; // number of blocks destroyed per tremor
+	public FloatRange frequency; // how long apart the tremors are
+	public float ramp; // how much sooner the next tremor is
+	public Vector2Int range; // furthest range away for which blocks can be affected by tremors
+
+	// Current frequency of the timer.
+	// The frequency get increased every time this variable is accessed.
+	private float _currentFrequency;
+	public float currentFrequency {
+		get {
+			var frequencyToReturn = _currentFrequency;
+			_currentFrequency = Mathf.Max(_currentFrequency - ramp, frequency.min);
+			return frequencyToReturn;
+		}
+	}
+
+	// Create a new tremor timer.
+	public void Initialize() {
+		_currentFrequency = frequency.max;
+	}
+}
+
 public class EnemyManager : MonoBehaviour {
 
 	public List<GameObject> terrainEnemies; // enemies that spawn from destroyed terrain
@@ -50,11 +74,24 @@ public class EnemyManager : MonoBehaviour {
 	public List<GameObject> roomEnemies; // enemies that spawn upon room entry
 	public List<GameObject> bosses; // bosses encountered in boss rooms
 	public SpawnConfiguration spawnConfiguration; // configuration of the enemy spawning
+	public TimerConfiguration timerConfiguration; // configuration of the block breaking timer
 
 	private GameController game;
+	private IEnumerator timer;
 
 	void Awake() {
 		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+	}
+
+	public void Initialize() {
+		if (timer != null) {
+			StopCoroutine(timer);
+		}
+		SpawnMazeEnemies();
+		spawnConfiguration.Initialize();
+		timerConfiguration.Initialize();
+		timer = Timer();
+		StartCoroutine(timer);
 	}
 
 	// Action to perform on block breaking.
@@ -97,4 +134,32 @@ public class EnemyManager : MonoBehaviour {
 		var rotation = Quaternion.LookRotation(direction) * enemy.transform.rotation;
 		Instantiate(enemy, position, rotation);
 	}
+
+	// Time which creates a tremor a breaks block at an increasing frequency.
+	private IEnumerator Timer() {
+		while (true) {
+			yield return new WaitForSeconds(timerConfiguration.currentFrequency);
+			game.camera.Shake();
+			yield return new WaitForSeconds(0.25f);
+			var playerPosition = LayoutGrid.FromWorldPosition(game.player.transform.position);
+			var wallPositions = new List<Vector2Int>();
+			for (int x = playerPosition.x - timerConfiguration.range.x;
+					x <= playerPosition.x + timerConfiguration.range.x; ++x) {
+				for (int y = playerPosition.y - timerConfiguration.range.y;
+						y <= playerPosition.y + timerConfiguration.range.y; ++y) {
+					var position = new Vector2Int(x, y);
+					if (game.terrain.IsWall(position)) {
+						wallPositions.Add(position);
+					}
+				}
+			}
+			var destroyedWalls = RandomPicker.Pick(
+				wallPositions,
+				timerConfiguration.blocksDestroyed
+			);
+			foreach (Vector2Int position in destroyedWalls) {
+				game.terrain.Break(position);
+			}
+		}
+	} 
 }

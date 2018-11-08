@@ -47,8 +47,7 @@ public class GameController : MonoBehaviour {
 		terrain.GenerateFloor();
 		CenterPlayerOnFloor();
 		--numberOfFloors;
-		enemyManager.spawnConfiguration.Initialize();
-		enemyManager.SpawnMazeEnemies();
+		enemyManager.Initialize();
 		transition.FadeOut();
 	}
 
