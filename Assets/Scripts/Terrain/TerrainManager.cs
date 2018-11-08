@@ -15,8 +15,15 @@ public class TerrainProps {
     public GameObject chest;
 }
 
+[System.Serializable]
+public class PowerUps
+{
+    public GameObject[] list= new GameObject[5];
+}
+
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
+    public PowerUps PowerUpList; //items to find in chests
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor

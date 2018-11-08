@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -937,6 +937,21 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
+        type: 2}
+      propertyPath: precision
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
+        type: 2}
+      propertyPath: ammo
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
+        type: 2}
+      propertyPath: bulletNumber
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
   m_IsPrefabAsset: 0
@@ -1543,6 +1558,11 @@ Prefab:
     - target: {fileID: 1436113512308710, guid: 169e5eec850004888a3a7e458b880929, type: 2}
       propertyPath: m_Name
       value: Chest 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114740102852536430, guid: 169e5eec850004888a3a7e458b880929,
+        type: 2}
+      propertyPath: ricochet
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169e5eec850004888a3a7e458b880929, type: 2}
@@ -2249,6 +2269,46 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4982171431419030, guid: 0713722ad67bd460e9ff372411d0697f,
     type: 2}
   m_PrefabInternal: {fileID: 1331404393}
+--- !u!1 &1962485124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1962485126}
+  - component: {fileID: 1962485125}
+  m_Layer: 0
+  m_Name: Game Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1962485125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1962485124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b242c5d8fb93f45aad2e08558c1ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1962485126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1962485124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.0800314, y: 0, z: 2.050948}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1968158754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4982171431419030, guid: 0713722ad67bd460e9ff372411d0697f,
@@ -2395,6 +2455,7 @@ Prefab:
       propertyPath: m_Radius
       value: 4.8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114740102852536430, guid: 169e5eec850004888a3a7e458b880929, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 169e5eec850004888a3a7e458b880929, type: 2}
   m_IsPrefabAsset: 0

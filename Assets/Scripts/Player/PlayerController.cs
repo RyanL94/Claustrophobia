@@ -3,29 +3,19 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    public float maxSpeed = 5;
-    public float minSpeed = 1;
     public float acceleration = 0.1f;
     public float angleSpeed = 500;
     public float dashSpeed = 10;
-    public float dashTime = 0.25f;
-    public float swordDelay = 1;
     public float swingDuration;
     public float swingDelay;
 
     public GameObject meleeAttack;
     public GameObject bulletPrefab;
     public GameObject gunBarel;
-    
-    public float ammo;
-    public float ammoGainPerHit;
-    public float fireDelay = 0.25f;
-    public int ricochey;
-    public float bulletDistance;
 
     public Animator playerAnimator;
 
-    float cooldownTimer = 0;
+    float cooldownTimer;
     private GameObject lookAtMouseRotation;
 
     private float maxAmmo;
@@ -40,10 +30,17 @@ public class PlayerController : MonoBehaviour {
     private GameObject faceTowards;
 
     //For the upgrades
-    public static bool incBullet;
-    public static bool incCol;
-    public static int collision;
-    public static float incSpeed;
+    public float maxSpeed;
+    public float minSpeed;
+    public float dashTime;
+    public float swordDelay;
+    public int ricochet;
+    public float precision;
+    public int bulletNumber;
+    public float ammo;
+    public float ammoGainPerHit;
+    public float fireDelay;
+    public float bulletDistance;
 
     // Use this for initialization
     void Start ()
@@ -54,18 +51,12 @@ public class PlayerController : MonoBehaviour {
         lookAtMouseRotation = GameObject.Find("GunEnd");
         maxAmmo = ammo;
 
-        //upgrades
-        incBullet = false;
-        collision = 0;
-        incSpeed = 50.0f;
     }
 
     // Update is called once per frame
     void FixedUpdate ()
     {
         PlayerInput();
-
-       
 
     }
 
@@ -78,7 +69,6 @@ public class PlayerController : MonoBehaviour {
     {
         //make player dash at direction facing
         Dash();
-
 
 
         if (Input.GetKey(KeyCode.W))
@@ -107,25 +97,9 @@ public class PlayerController : MonoBehaviour {
         {
             if (ammo >= 1)
             {
-
-                if (!incBullet)
-                { //shoot only one bullet
-
-                    playerAnimator.Play("FireGun");
-                    Fire();
-                    --ammo;
-                }
-
-                else if (incBullet)
-                { //shoot two bullets
-
-                    playerAnimator.Play("FireGun");
-                    Fire2();
-                    //I'm in
-                    --ammo;
-
-
-                }
+                playerAnimator.Play("FireGun");
+                Fire();
+                --ammo;
                 Decelarate();
             }
 
@@ -154,8 +128,6 @@ public class PlayerController : MonoBehaviour {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-
-
         movement = new Vector3(horizontal, 0.0f, vertical);
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
@@ -181,28 +153,16 @@ public class PlayerController : MonoBehaviour {
     private void Fire()
     {
         cooldownTimer = fireDelay + Time.time;
-        GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
-        Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
-        bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+        for (int number = 0; number < bulletNumber; number++)
+        {
+            GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
+            Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+            //add randum roation 
+            bulletObject.transform.eulerAngles = new Vector3(lookAtMouseRotation.transform.eulerAngles.x, lookAtMouseRotation.transform.eulerAngles.y + Random.Range(-precision, precision), lookAtMouseRotation.transform.eulerAngles.z);
+            bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+            bulletObject.GetComponent<MoveForward>().ricochet = ricochet;
 
-    }
-
-    private void Fire2()
-    {
-        cooldownTimer = fireDelay + Time.time;
-        GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
-        Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
-        bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
-
-
-        Vector3 localOffset = new Vector3(0, 0, 0.4f);
-        Vector3 worldOffset = bulletObject.transform.rotation * localOffset;
-        Vector3 spawnPosition = bulletObject.transform.position + worldOffset;
-        GameObject bulletObject2 = (GameObject)Instantiate(bulletPrefab, spawnPosition, lookAtMouseRotation.transform.rotation);
-        Physics.IgnoreCollision(bulletObject2.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
-        Physics.IgnoreCollision(bulletObject2.GetComponent<Collider>(), bulletObject.GetComponent<Collider>());
-
-        bulletObject2.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+        }
 
     }
 
