@@ -940,7 +940,7 @@ Prefab:
     - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
         type: 2}
       propertyPath: precision
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
         type: 2}
@@ -951,6 +951,11 @@ Prefab:
         type: 2}
       propertyPath: bulletNumber
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
+        type: 2}
+      propertyPath: money
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
@@ -2116,6 +2121,16 @@ Prefab:
     - target: {fileID: 4738677290113344, guid: 169e5eec850004888a3a7e458b880929, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114662708862753886, guid: 169e5eec850004888a3a7e458b880929,
+        type: 2}
+      propertyPath: cost
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114662708862753886, guid: 169e5eec850004888a3a7e458b880929,
+        type: 2}
+      propertyPath: health
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169e5eec850004888a3a7e458b880929, type: 2}

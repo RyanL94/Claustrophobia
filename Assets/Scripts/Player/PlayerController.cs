@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour {
     private Vector3 direction;
     private GameObject faceTowards;
 
+    //cash to buy upgrades
+    public int money;
     //For the upgrades
     public float maxSpeed;
     public float minSpeed;
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour {
     public float ammoGainPerHit;
     public float fireDelay;
     public float bulletDistance;
+    public int gunDamage;
+    public int swordDamage;
 
     // Use this for initialization
     void Start ()
@@ -161,6 +165,7 @@ public class PlayerController : MonoBehaviour {
             bulletObject.transform.eulerAngles = new Vector3(lookAtMouseRotation.transform.eulerAngles.x, lookAtMouseRotation.transform.eulerAngles.y + Random.Range(-precision, precision), lookAtMouseRotation.transform.eulerAngles.z);
             bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
             bulletObject.GetComponent<MoveForward>().ricochet = ricochet;
+            bulletObject.GetComponent<Attack>().damage = gunDamage;
 
         }
 
@@ -187,6 +192,7 @@ public class PlayerController : MonoBehaviour {
     // swing the melee weapon
     private IEnumerator Swing() {
         var swordCollider = meleeAttack.GetComponent<Collider>();
+        meleeAttack.GetComponent<Attack>().damage = swordDamage;
         swordDelayTime = Time.time + swordDelay;
         playerAnimator.Play("SwordSwing");
         yield return new WaitForSeconds(swingDelay);

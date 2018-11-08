@@ -8,6 +8,7 @@ public class PowerUp : MonoBehaviour
 
     public string name;
     public int cost;
+    public float health;
     public float maxSpeed;
     public float minSpeed;
     public float dashTime;
@@ -19,6 +20,8 @@ public class PowerUp : MonoBehaviour
     public float ammoGainPerHit;
     public float fireDelay;
     public float bulletDistance;
+    public int gunDamage;
+    public int swordDamage;
 
     private GameObject list;
     //ToDo: health and damage
@@ -29,22 +32,29 @@ public class PowerUp : MonoBehaviour
         {
             //get player script
             PlayerController player = col.gameObject.GetComponent<PlayerController>();
-            //change player input
-            player.maxSpeed += maxSpeed;
-            player.minSpeed += minSpeed;
-            player.dashTime += dashTime;
-            player.swordDelay += swordDelay; 
-            player.ricochet += ricochet;
-            player.precision += precision;
-            player.bulletNumber += bulletNumber;
-            player.ammo += ammo;
-            player.ammoGainPerHit += ammoGainPerHit;
-            player.fireDelay += fireDelay;
-            player.bulletDistance += bulletDistance;
+            if (player.money >= cost)
+            {
+                player.money -= cost;
+                //change player input
+                //have to set min and max values
+                player.maxSpeed += maxSpeed;
+                player.minSpeed += minSpeed;
+                player.dashTime += dashTime;
+                player.swordDelay += swordDelay;
+                player.ricochet += ricochet;
+                player.precision += precision;
+                player.bulletNumber += bulletNumber;
+                player.ammo += ammo;
+                player.ammoGainPerHit += ammoGainPerHit;
+                player.fireDelay += fireDelay;
+                player.bulletDistance += bulletDistance;
+                player.gunDamage += gunDamage;
+                player.swordDamage += swordDamage;
 
-
-            Destroy(gameObject);
-
+                //change player health
+                col.gameObject.GetComponent<Damageable>().health += health;
+                Destroy(gameObject);
+            }
         }
     }
 }
