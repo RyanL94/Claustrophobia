@@ -34,11 +34,9 @@ public class HUD : MonoBehaviour {
 	}
 	
 	void Update() {
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            pauseGame();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape)) {
+        //    pauseGame();
+        //}
 
         var progression = Time.deltaTime * updateSpeed;
 		if (playerHealth.health != healthBar.value) {
@@ -50,42 +48,35 @@ public class HUD : MonoBehaviour {
 	}
 
     // Pause game and display menu
-    private void pauseGame()
-    {
-        if (paused)
-        {
+    private void pauseGame() {
+        if (paused) {
             Resume();
         }
-        else
-        {
+        else {
             Pause();
         }
     }
 
-    public void Resume()
-    {
+    public void Resume() {
         paused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
     }
 
-    public void Pause()
-    {
+    public void Pause() {
         paused = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    public void Restart()
-    {
+    public void Restart() {
         paused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Game");
     }
 
-    public void Quit()
-    {
+    public void Quit() {
         paused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
