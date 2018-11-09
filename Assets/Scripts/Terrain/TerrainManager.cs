@@ -80,6 +80,12 @@ public class TerrainManager : LayoutGrid {
             var block = wall.GetComponent<Block>();
             if (block.breakable) {
                 Remove(position);
+                var effect = Instantiate(
+					breakEffect,
+					LayoutGrid.ToWorldPosition(position, true),
+					Quaternion.identity
+				);
+				instance.transform.localScale *= effectScale;
                 game.enemyManager.OnBreak(position);
             }
         }

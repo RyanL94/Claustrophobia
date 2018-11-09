@@ -119,9 +119,12 @@ public class LayoutGrid : MonoBehaviour {
 
     // Check if the given grid position is a wall.
     public bool IsWall(Vector2Int position) {
-        var instance = grid[position.x, position.y];
-        if (instance != null && instance.transform.parent.name == "Walls") {
-            return true;
+        if (IsInbounds(position)) {
+            var instance = grid[position.x, position.y];
+            if (instance != null && instance.transform.childCount >= 1) {
+                return true;
+            }
+            return false;
         }
         return false;
     }

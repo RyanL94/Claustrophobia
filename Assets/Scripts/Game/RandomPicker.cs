@@ -27,12 +27,16 @@ public class RandomPicker {
     // The number of items picked is within the given range.
     // The same item cannot be picked twice.
 	public static List<T> Pick<T>(List<T> available, IntRange quantityRange) {
+		var availableCopy = new List<T>(available);
 		var chosen = new List<T>();
         var quantity = Random.Range(quantityRange.min, quantityRange.max + 1);
 		for (int i = 0; i < quantity; ++i) {
-			var index = Random.Range(0, available.Count);
-			chosen.Add(available[index]);
-			available.RemoveAt(index);
+			if (availableCopy.Count == 0) {
+				break;
+			}
+			var index = Random.Range(0, availableCopy.Count);
+			chosen.Add(availableCopy[index]);
+			availableCopy.RemoveAt(index);
 		}
 		return chosen;
 	}
