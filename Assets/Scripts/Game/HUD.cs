@@ -30,6 +30,7 @@ public class HUD : MonoBehaviour {
 		healthBar.value = playerHealth.health;
 		ammoBar.maxValue = playerController.ammo;
 		ammoBar.value = playerController.ammo;
+        pauseMenu.SetActive(false);
 	}
 	
 	void Update() {
@@ -65,6 +66,7 @@ public class HUD : MonoBehaviour {
     public void Pause() {
         paused = true;
         pauseMenu.SetActive(true);
+        ResetPauseMenuButtons();
         Time.timeScale = 0f;
     }
 
@@ -80,5 +82,11 @@ public class HUD : MonoBehaviour {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
+    }
+
+    private void ResetPauseMenuButtons() {
+        foreach (Transform child in pauseMenu.transform) {
+            child.localScale = Vector3.one;
+        }
     }
 }
