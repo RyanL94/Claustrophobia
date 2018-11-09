@@ -3,29 +3,19 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    public float maxSpeed = 5;
-    public float minSpeed = 1;
     public float acceleration = 0.1f;
     public float angleSpeed = 500;
     public float dashSpeed = 10;
-    public float dashTime = 0.25f;
-    public float swordDelay = 1;
     public float swingDuration;
     public float swingDelay;
 
     public GameObject meleeAttack;
     public GameObject bulletPrefab;
     public GameObject gunBarel;
-    
-    public float ammo;
-    public float ammoGainPerHit;
-    public float fireDelay = 0.25f;
-    public int ricochey;
-    public float bulletDistance;
 
     public Animator playerAnimator;
 
-    float cooldownTimer = 0;
+    float cooldownTimer;
     private GameObject lookAtMouseRotation;
 
     private float maxAmmo;
@@ -39,6 +29,23 @@ public class PlayerController : MonoBehaviour {
     private Vector3 direction;
     private GameObject faceTowards;
 
+    //cash to buy upgrades
+    public int money;
+    //For the upgrades
+    public float maxSpeed;
+    public float minSpeed;
+    public float dashTime;
+    public float swordDelay;
+    public int ricochet;
+    public float precision;
+    public int bulletNumber;
+    public float ammo;
+    public float ammoGainPerHit;
+    public float fireDelay;
+    public float bulletDistance;
+    public int gunDamage;
+    public int swordDamage;
+
     // Use this for initialization
     void Start ()
     {
@@ -47,6 +54,7 @@ public class PlayerController : MonoBehaviour {
         faceTowards = GameObject.Find("CartPassenger");
         lookAtMouseRotation = GameObject.Find("GunEnd");
         maxAmmo = ammo;
+
     }
 
     // Update is called once per frame
@@ -65,6 +73,7 @@ public class PlayerController : MonoBehaviour {
     {
         //make player dash at direction facing
         Dash();
+
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -90,28 +99,31 @@ public class PlayerController : MonoBehaviour {
         //fired gun reduces speed
         if (Input.GetButton("Fire2") && cooldownTimer < Time.time && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
         {
-            if (ammo >= 1) {
+            if (ammo >= 1)
+            {
                 playerAnimator.Play("FireGun");
                 Fire();
                 --ammo;
+                Decelarate();
             }
-            Decelarate();
+
         }
 
-        //swing sword reduces speed
-        if (Input.GetButton("Fire1") && swordDelayTime < Time.time)
-        {
-            StartCoroutine(Swing());
-            Decelarate();
-        }
+            //swing sword reduces speed
+            if (Input.GetButton("Fire1") && swordDelayTime < Time.time)
+            {
+                StartCoroutine(Swing());
+                Decelarate();
+            }
 
-        //make player do a dash
-        if (Input.GetKeyDown(KeyCode.Space) && !dash)
-        {
-            dash = true;
-            startDashTime = Time.time + dashTime;
-            Decelarate();
-        }
+            //make player do a dash
+            if (Input.GetKeyDown(KeyCode.Space) && !dash)
+            {
+                dash = true;
+                startDashTime = Time.time + dashTime;
+                Decelarate();
+            }
+
     }
 
     //move and face towards direction
@@ -119,7 +131,7 @@ public class PlayerController : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        
+
         movement = new Vector3(horizontal, 0.0f, vertical);
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
@@ -145,10 +157,17 @@ public class PlayerController : MonoBehaviour {
     private void Fire()
     {
         cooldownTimer = fireDelay + Time.time;
-        GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
-        Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
-        bulletObject.GetComponent<MoveForward>().ricochey = ricochey;
-        bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+        for (int number = 0; number < bulletNumber; number++)
+        {
+            GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
+            Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+            //add randum roation 
+            bulletObject.transform.eulerAngles = new Vector3(lookAtMouseRotation.transform.eulerAngles.x, lookAtMouseRotation.transform.eulerAngles.y + Random.Range(-precision, precision), lookAtMouseRotation.transform.eulerAngles.z);
+            bulletObject.GetComponent<MoveForward>().bulletDistance = bulletDistance;
+            bulletObject.GetComponent<MoveForward>().ricochet = ricochet;
+            bulletObject.GetComponent<Attack>().damage = gunDamage;
+
+        }
 
     }
 
@@ -173,6 +192,7 @@ public class PlayerController : MonoBehaviour {
     // swing the melee weapon
     private IEnumerator Swing() {
         var swordCollider = meleeAttack.GetComponent<Collider>();
+        meleeAttack.GetComponent<Attack>().damage = swordDamage;
         swordDelayTime = Time.time + swordDelay;
         playerAnimator.Play("SwordSwing");
         yield return new WaitForSeconds(swingDelay);

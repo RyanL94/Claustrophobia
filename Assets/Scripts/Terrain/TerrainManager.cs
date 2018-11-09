@@ -15,14 +15,20 @@ public class TerrainProps {
     public GameObject chest;
 }
 
+[System.Serializable]
+public class PowerUps
+{
+    public GameObject[] list= new GameObject[5];
+}
+
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
+    public PowerUps powerUpList; //items to find in chests
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
     public List<string> breakableByTag; // collision tags that can break terrain
     public GameObject breakEffect; // effect to display when a block breaks
-    public float effectScale; // scale of the break effect
     
     // list of the floor's rooms
     public readonly List<Room> rooms = new List<Room>(); 
@@ -85,7 +91,6 @@ public class TerrainManager : LayoutGrid {
 					LayoutGrid.ToWorldPosition(position, true),
 					Quaternion.identity
 				);
-				instance.transform.localScale *= effectScale;
                 game.enemyManager.OnBreak(position);
             }
         }
@@ -126,6 +131,7 @@ public class TerrainManager : LayoutGrid {
         var instanceRotation = prop.transform.rotation;
         var instance = Instantiate(prop, instancePosition, instanceRotation);
         instance.transform.parent = transform;
+        
     }
 
     // Generate a random layout of rooms for the floor.
@@ -276,10 +282,9 @@ public class TerrainManager : LayoutGrid {
             if (room.type == RoomType.Item) {
                 PlaceProp(terrainProps.chest, room.centerPosition);
             } else if (room.type == RoomType.Shop) {
-                // Place shop props
-                PlaceProp(terrainProps.chest, room.centerPosition - Vector2Int.left * 2);
-                PlaceProp(terrainProps.chest, room.centerPosition);
-                PlaceProp(terrainProps.chest, room.centerPosition + Vector2Int.left * 2);
+                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition - Vector2Int.left * 2);
+                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition);
+                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition + Vector2Int.left * 2);
             }
         }
     }

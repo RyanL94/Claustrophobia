@@ -2150,25 +2150,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2b2188c4406c14a978d1041c3fc030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3
-  minSpeed: 1
   acceleration: 0.1
   angleSpeed: 500
   dashSpeed: 10
-  dashTime: 0.125
-  swordDelay: 0.5
   swingDuration: 0.2
   swingDelay: 0.1
   meleeAttack: {fileID: 1693472881196624}
   bulletPrefab: {fileID: 1156961584385186, guid: f1b8d1f75a18449178a3383f90447565,
     type: 2}
   gunBarel: {fileID: 1156254934806670}
+  playerAnimator: {fileID: 95741731671852792}
+  money: 0
+  maxSpeed: 3
+  minSpeed: 1
+  dashTime: 0.125
+  swordDelay: 0.5
+  ricochet: 0
+  precision: 0
+  bulletNumber: 0
   ammo: 5
   ammoGainPerHit: 0.5
   fireDelay: 1
-  ricochey: 0
   bulletDistance: 0
-  playerAnimator: {fileID: 95741731671852792}
+  gunDamage: 20
+  swordDamage: 10
 --- !u!114 &114210458750080152
 MonoBehaviour:
   m_ObjectHideFlags: 1

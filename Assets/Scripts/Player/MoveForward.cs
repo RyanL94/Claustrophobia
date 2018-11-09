@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour {
 
-	public float bullet_speed=6.0f;
-    public int ricochey;
+	public float bullet_speed;
+    public int ricochet;
     public GameObject bulletExplosion;
     public GameObject bulletRicochet;
     public float bulletDistance;
@@ -23,7 +23,7 @@ public class MoveForward : MonoBehaviour {
 
     }
 
-	void FixedUpdate () {
+    void FixedUpdate () {
         //if life time
         if (Time.time > lifeTime && bulletDistance != 0)
         {
@@ -31,17 +31,18 @@ public class MoveForward : MonoBehaviour {
         }
         oldVelocity = rb.velocity;
 
+
     }
     //make bullet move towards direction it faces
     void MoveFoward()
     {
-        rb.velocity = transform.forward * bullet_speed;
+        rb.velocity =  transform.forward* bullet_speed * Time.deltaTime;
 
     }
     //on collision reflect or destroys
     void OnCollisionEnter(Collision collision)
-    {
-        if (ricochey < 1)
+    {        
+        if (ricochet < 1)
         {
             Explode();
         }
@@ -60,7 +61,8 @@ public class MoveForward : MonoBehaviour {
             Quaternion rotation = Quaternion.FromToRotation(oldVelocity, reflectedVelocity);
             transform.rotation = rotation * transform.rotation;
 
-            ricochey--;
+            ricochet--;
+            
         }
     }
     //destroy bullet

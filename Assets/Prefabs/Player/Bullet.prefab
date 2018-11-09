@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114944518256296858}
   - component: {fileID: 54726321405596720}
   - component: {fileID: 114994275261000652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
@@ -113,8 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a93fd746e357a45b9fa2bf0125d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet_speed: 6
-  ricochey: 0
+  bullet_speed: 400
+  ricochet: 0
   bulletExplosion: {fileID: 0}
   bulletRicochet: {fileID: 0}
   bulletDistance: 0
