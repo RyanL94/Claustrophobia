@@ -23,7 +23,6 @@ public class PowerUps
 
 // Script which manages the floor generation and terrain manipulation.
 public class TerrainManager : LayoutGrid {
-    public PowerUps powerUpList; //items to find in chests
     public TerrainBlocks terrainBlocks; // terrain blocks to place
     public TerrainProps terrainProps; // props that can be placed on the terrain
     public FloorConfiguration floorConfiguration; // configuration of the floor
@@ -282,9 +281,12 @@ public class TerrainManager : LayoutGrid {
             if (room.type == RoomType.Item) {
                 PlaceProp(terrainProps.chest, room.centerPosition);
             } else if (room.type == RoomType.Shop) {
-                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition - Vector2Int.left * 2);
-                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition);
-                PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition + Vector2Int.left * 2);
+                PlaceProp(terrainProps.chest, room.centerPosition - Vector2Int.left * 2);
+                PlaceProp(terrainProps.chest, room.centerPosition);
+                PlaceProp(terrainProps.chest, room.centerPosition + Vector2Int.left * 2);
+                //PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition - Vector2Int.left * 2);
+                //PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition);
+                //PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition + Vector2Int.left * 2);
             }
         }
     }

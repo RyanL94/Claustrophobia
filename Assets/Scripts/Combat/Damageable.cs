@@ -14,11 +14,9 @@ public class Damageable : MonoBehaviour {
 
     private float immuneUntil;
     private GameController game;
-    private PlayerController player;
 
     void Awake() {
         game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        player = game.player.GetComponent<PlayerController>();
     }
 	
     void Start() {
@@ -45,6 +43,7 @@ public class Damageable : MonoBehaviour {
             immuneUntil = Time.time + immuneDuration;
             DisplayEffect(onDamageEffect);
             if (health <= 0) {
+                gameObject.transform.parent = null;
                 Destroy(gameObject);
                 DisplayEffect(onDeathEffect);
                 if (gameObject.tag == "Player") {
@@ -52,7 +51,7 @@ public class Damageable : MonoBehaviour {
                 }
             }
             if (collider.name == "MeleeAttack" && gameObject.tag == "Enemy") {
-                player.OnSuccessfulHit();
+                game.player.OnSuccessfulHit();
             }
         }
     }

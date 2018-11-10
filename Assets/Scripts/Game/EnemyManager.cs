@@ -132,7 +132,8 @@ public class EnemyManager : MonoBehaviour {
 		var position = LayoutGrid.ToWorldPosition(spawnPosition, true) + enemy.transform.position;
 		var direction = game.player.transform.position - position;
 		var rotation = Quaternion.LookRotation(direction) * enemy.transform.rotation;
-		Instantiate(enemy, position, rotation);
+		var instance = Instantiate(enemy, position, rotation);
+		instance.transform.parent = transform;
 	}
 
 	// Time which creates a tremor a breaks block at an increasing frequency.

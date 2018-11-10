@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour {
 
+    public PopUp popUp;
 	public Slider healthBar;
 	public Slider ammoBar;
 	public float updateSpeed;
 
 	private GameController game;
-	private GameObject player;
+	private PlayerController player;
 	private Damageable playerHealth;
-	private PlayerController playerController;
 
     public GameObject pauseMenu;
     private bool paused = false;
@@ -24,12 +24,11 @@ public class HUD : MonoBehaviour {
 
 	void Start() {
 		player = game.player;
-		playerHealth = player.GetComponent<Damageable>();
-		playerController = player.GetComponent<PlayerController>();
+		playerHealth = player.gameObject.GetComponent<Damageable>();
 		healthBar.maxValue = playerHealth.health;
 		healthBar.value = playerHealth.health;
-		ammoBar.maxValue = playerController.ammo;
-		ammoBar.value = playerController.ammo;
+		ammoBar.maxValue = player.ammo;
+		ammoBar.value = player.ammo;
         pauseMenu.SetActive(false);
 	}
 	
@@ -42,8 +41,8 @@ public class HUD : MonoBehaviour {
 		if (playerHealth.health != healthBar.value) {
 			healthBar.value = Mathf.Lerp(healthBar.value, playerHealth.health, progression);
 		}
-		if (playerController.ammo != ammoBar.value) {
-			ammoBar.value = Mathf.Lerp(ammoBar.value, playerController.ammo, progression);
+		if (player.ammo != ammoBar.value) {
+			ammoBar.value = Mathf.Lerp(ammoBar.value, player.ammo, progression);
 		}
 	}
 

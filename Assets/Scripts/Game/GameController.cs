@@ -10,8 +10,9 @@ public class GameController : MonoBehaviour {
 	public Transition transition; // transition to use when genererate a new floor
 	public EnemyManager enemyManager; // script which manages enemy spawns
 	public TerrainManager terrain; // game terrain
-	public GameObject player; // player game object
+	public PlayerController player; // player game object
 	public int numberOfFloors; // number of floors to traverse to win the game
+    public List<GameObject> powerUps; // items to find in chests
 
 	private Room currentRoom; // room that the player is currently in
 

@@ -17,9 +17,16 @@ public class FloatRange {
 public class RandomPicker {
 
     // Randomly pick an item from the available list.
-    public static T Pick<T>(List<T> available) {
-        var index = Random.Range(0, available.Count);
-        return available[index];
+    public static T Pick<T>(List<T> available, bool remove = false) {
+        if (available.Count == 0) {
+			return default(T);
+		}
+		var index = Random.Range(0, available.Count);
+		var item = available[index];
+		if (remove) {
+			available.RemoveAt(index);
+		}
+        return item;
     }
 
     // Randomly pick items from the available list.
