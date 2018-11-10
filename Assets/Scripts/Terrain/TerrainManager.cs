@@ -29,6 +29,8 @@ public class TerrainManager : LayoutGrid {
     public FloorConfiguration floorConfiguration; // configuration of the floor
     public List<string> breakableByTag; // collision tags that can break terrain
     public GameObject breakEffect; // effect to display when a block breaks
+    public AudioClip breakSoundEffect;
+    public float soundVolume;
     
     // list of the floor's rooms
     public readonly List<Room> rooms = new List<Room>(); 
@@ -87,6 +89,7 @@ public class TerrainManager : LayoutGrid {
             if (block.breakable) {
                 Remove(position);
                 var effectPosition = LayoutGrid.ToWorldPosition(position, true);
+                AudioSource.PlayClipAtPoint(breakSoundEffect, effectPosition, soundVolume);
                 Instantiate(breakEffect, effectPosition, Quaternion.identity);
                 game.enemyManager.OnBreak(position);
             }

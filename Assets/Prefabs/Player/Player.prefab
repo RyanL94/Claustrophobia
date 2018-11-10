@@ -2227,6 +2227,10 @@ MonoBehaviour:
     type: 2}
   gunBarel: {fileID: 1156254934806670}
   playerAnimator: {fileID: 95741731671852792}
+  dashSound: {fileID: 8300000, guid: 26f0f934fb9804a4dbd72fa47aff5791, type: 3}
+  swingSound: {fileID: 8300000, guid: a529f901bd51a994ab50b87aa4784457, type: 3}
+  fireSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
+  soundVolume: 0.6
   money: 0
   maxSpeed: 3
   minSpeed: 1
@@ -2295,6 +2299,9 @@ MonoBehaviour:
   onDeathEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 2}
   effectOffset: {x: 0, y: 2, z: 0}
   effectScale: 0.5
+  onDamageSound: {fileID: 8300000, guid: 2d07eba8eab06cb45898cb11da4a54e2, type: 3}
+  onDeathSound: {fileID: 8300000, guid: b609e6e269cd1c841ae9fb606ce774c4, type: 3}
+  soundVolume: 0.75
 --- !u!137 &137686129875981416
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

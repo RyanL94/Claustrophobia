@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour {
     public GameObject gunBarel;
 
     public Animator playerAnimator;
+    public AudioClip dashSound;
+    public AudioClip swingSound;
+    public AudioClip fireSound;
+    public float soundVolume;
 
     float cooldownTimer;
     private GameObject lookAtMouseRotation;
@@ -50,7 +54,7 @@ public class PlayerController : MonoBehaviour {
         speed = maxSpeed;
         lookAtMouseRotation = GameObject.Find("GunEnd");
         maxAmmo = ammo;
-
+        var damageable = GetComponent<Damageable>();
     }
 
     // Update is called once per frame
@@ -115,6 +119,7 @@ public class PlayerController : MonoBehaviour {
             //make player do a dash
             if (Input.GetKeyDown(KeyCode.Space) && !dash)
             {
+                AudioSource.PlayClipAtPoint(dashSound, transform.position, soundVolume);
                 dash = true;
                 startDashTime = Time.time + dashTime;
                 Decelarate();
@@ -155,6 +160,7 @@ public class PlayerController : MonoBehaviour {
         cooldownTimer = fireDelay + Time.time;
         for (int number = 0; number < bulletNumber; number++)
         {
+            AudioSource.PlayClipAtPoint(fireSound, transform.position, soundVolume);
             GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
             Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
             //add randum roation 
@@ -179,17 +185,18 @@ public class PlayerController : MonoBehaviour {
         }
     }
     // decrease speed to min
-    public void Decelarate(){
-
+    public void Decelarate()
+    {
         speed = minSpeed;
-
     }
 
     // swing the melee weapon
-    private IEnumerator Swing() {
+    private IEnumerator Swing()
+    {
         var swordCollider = meleeAttack.GetComponent<Collider>();
         meleeAttack.GetComponent<Attack>().damage = swordDamage;
         swordDelayTime = Time.time + swordDelay;
+        AudioSource.PlayClipAtPoint(dashSound, transform.position, soundVolume);
         playerAnimator.Play("SwordSwing");
         yield return new WaitForSeconds(swingDelay);
         swordCollider.enabled = true;

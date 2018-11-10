@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,17 +10,19 @@ public class Damageable : MonoBehaviour {
     public GameObject onDeathEffect;
     public Vector3 effectOffset;
     public float effectScale;
+    public AudioClip onDamageSound;
+    public AudioClip onDeathSound;
+    public float soundVolume;
 
     public static float immuneDuration = 0.5f;
 
     private float immuneUntil;
+    private Action onDamageAction;
+    private Action onDeathAction;
     private GameController game;
 
-    void Awake() {
-        game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-    }
-	
     void Start() {
+        game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         immuneUntil = Time.time;
     }
 
@@ -36,16 +39,32 @@ public class Damageable : MonoBehaviour {
         CheckCollision(collider.gameObject);
     }
 
+    public void OnDamage(Action action) {
+        onDamageAction = action;
+    }
+
+    public void OnDeath(Action action) {
+        onDeathAction = action;
+    }
+
     private void CheckCollision(GameObject collider) {
         if (collisionTags.Contains(collider.tag) && Time.time > immuneUntil) {
             var attack = collider.gameObject.GetComponent<Attack>();
             health -= attack.damage;
             immuneUntil = Time.time + immuneDuration;
+            if (onDamageAction != null) {
+                onDamageAction();
+            }
+            PlaySound(onDamageSound);
             DisplayEffect(onDamageEffect);
             if (health <= 0) {
+                if (onDamageAction != null) {
+                    onDeathAction();
+                }
+                PlaySound(onDeathSound);
+                DisplayEffect(onDeathEffect);
                 gameObject.transform.parent = null;
                 Destroy(gameObject);
-                DisplayEffect(onDeathEffect);
                 if (gameObject.tag == "Player") {
                     game.OnPlayerDeath();
                 }
@@ -63,6 +82,12 @@ public class Damageable : MonoBehaviour {
             if (child) {
                 instance.transform.SetParent(transform);
             }
+        }
+    }
+
+    private void PlaySound(AudioClip clip) {
+        if (clip != null) {
+            AudioSource.PlayClipAtPoint(clip, transform.position, soundVolume);
         }
     }
 }

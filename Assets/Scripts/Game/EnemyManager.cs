@@ -75,6 +75,8 @@ public class EnemyManager : MonoBehaviour {
 	public List<GameObject> bosses; // bosses encountered in boss rooms
 	public SpawnConfiguration spawnConfiguration; // configuration of the enemy spawning
 	public TimerConfiguration timerConfiguration; // configuration of the block breaking timer
+    public AudioClip tremorSoundEffect;
+	public float soundVolume;
 
 	private GameController game;
 	private IEnumerator timer;
@@ -140,6 +142,8 @@ public class EnemyManager : MonoBehaviour {
 	private IEnumerator Timer() {
 		while (true) {
 			yield return new WaitForSeconds(timerConfiguration.currentFrequency);
+			AudioSource.PlayClipAtPoint(tremorSoundEffect, game.player.transform.position, soundVolume);
+			yield return new WaitForSeconds(3.0f);
 			game.camera.Shake();
 			yield return new WaitForSeconds(0.25f);
 			var playerPosition = LayoutGrid.FromWorldPosition(game.player.transform.position);

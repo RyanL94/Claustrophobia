@@ -100,6 +100,9 @@ public class GameController : MonoBehaviour {
 	private void EndBossFight() {
 		var centerPosition = currentRoom.centerPosition;
 		if (numberOfFloors > 0) {
+			var effectPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
+            AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
+            Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);
 			terrain.Place(terrain.terrainBlocks.passage, centerPosition);
 		}
 	}

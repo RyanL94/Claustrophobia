@@ -82,7 +82,8 @@ public class PowerUp : MonoBehaviour {
         transform.parent = null;
         Destroy(gameObject);
         
-        game.hud.popUp.Hide();
         Instantiate(effect, player.transform);
+        game.hud.popUp.Hide();
+        game.hud.DisplayItem(name, description);
     }
 }

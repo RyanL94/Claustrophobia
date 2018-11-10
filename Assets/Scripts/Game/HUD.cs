@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour {
 
     public PopUp popUp;
+    public CanvasGroup itemBanner;
+    public Text itemName;
+    public Text itemDescription;
+    public float itemBannerDuration;
 	public Slider healthBar;
 	public Slider ammoBar;
 	public float updateSpeed;
@@ -16,13 +20,11 @@ public class HUD : MonoBehaviour {
 	private Damageable playerHealth;
 
     public GameObject pauseMenu;
+    private Animator itemBannerAnimator;
     private bool paused = false;
 
-    void Awake() {
-		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-    }
-
 	void Start() {
+		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 		player = game.player;
 		playerHealth = player.gameObject.GetComponent<Damageable>();
 		healthBar.maxValue = playerHealth.health;
@@ -30,6 +32,7 @@ public class HUD : MonoBehaviour {
 		ammoBar.maxValue = player.ammo;
 		ammoBar.value = player.ammo;
         pauseMenu.SetActive(false);
+        itemBannerAnimator = itemBanner.GetComponent<Animator>();
 	}
 	
 	void Update() {
@@ -81,6 +84,18 @@ public class HUD : MonoBehaviour {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
+    }
+
+    public void DisplayItem(string name, string description) {
+        itemName.text = string.Format("NEW ITEM! {0}", name);
+        itemDescription.text = description;
+        StartCoroutine(DisplayItemHelper());
+    }
+
+    private IEnumerator DisplayItemHelper() {
+        itemBannerAnimator.CrossFadeInFixedTime("Opaque", 0.10f);
+        yield return new WaitForSeconds(itemBannerDuration);
+        itemBannerAnimator.CrossFadeInFixedTime("Transparent", 0.25f);
     }
 
     private void ResetPauseMenuButtons() {
