@@ -13,14 +13,15 @@ public class Chest : MonoBehaviour {
 
 	void Start() {
 		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-		powerUp = RandomPicker.Pick(game.powerUps, false);
+		powerUp = RandomPicker.Pick(game.powerUps, true);
 		animator = GetComponent<Animator>();
 	}
 
 	void OnTriggerEnter(Collider collider) {
 		if (!open && collider.gameObject.tag == "Player") {
 			var spawnLocation = powerUp.transform.position + transform.position;
-			Instantiate(powerUp, spawnLocation, powerUp.transform.rotation);
+			var instance = Instantiate(powerUp, spawnLocation, powerUp.transform.rotation);
+			instance.transform.parent = transform;
 			animator.CrossFadeInFixedTime("Open", openAnimationDuration);
 			open = true;
 		}

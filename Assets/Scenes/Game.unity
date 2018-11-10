@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 2
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -261,6 +261,8 @@ MonoBehaviour:
     passage: {fileID: 1626591207572800, guid: 18add034e17a144ff8f12460c0d89e6d, type: 2}
   terrainProps:
     chest: {fileID: 1436113512308710, guid: a0ebe7372b3a5450bb441a8e4c3000e9, type: 2}
+    shopPedestal: {fileID: 1481881070882986, guid: 1edd8574f31be4f009f83eec14dac093,
+      type: 2}
   floorConfiguration:
     layoutSize: {x: 3, y: 5}
     roomMinSize: {x: 11, y: 7}
@@ -338,6 +340,13 @@ MonoBehaviour:
   numberOfFloors: 3
   powerUps:
   - {fileID: 1229057854899582, guid: b72c83ccbaeac4d36b31e44059c6fa3f, type: 2}
+  - {fileID: 1229057854899582, guid: b72c83ccbaeac4d36b31e44059c6fa3f, type: 2}
+  - {fileID: 1229057854899582, guid: b72c83ccbaeac4d36b31e44059c6fa3f, type: 2}
+  - {fileID: 1229057854899582, guid: b72c83ccbaeac4d36b31e44059c6fa3f, type: 2}
+  - {fileID: 1229057854899582, guid: b72c83ccbaeac4d36b31e44059c6fa3f, type: 2}
+  itemCost:
+    min: 10
+    max: 15
 --- !u!4 &192267181
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,7 +1061,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.9622642, g: 0.8834931, b: 0.66723037, a: 1}
-  m_Intensity: 3
+  m_Intensity: 5
   m_Range: 7
   m_SpotAngle: 30
   m_CookieSize: 10

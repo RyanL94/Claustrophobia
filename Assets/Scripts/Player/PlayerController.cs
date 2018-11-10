@@ -21,13 +21,11 @@ public class PlayerController : MonoBehaviour {
     private float maxAmmo;
     private float swordDelayTime;
     private float startDashTime;
-    private Rigidbody rBody;
     private float speed;
     private Vector3 movement;
     private Rigidbody playerRigidbody;
     private bool dash = false;
     private Vector3 direction;
-    private GameObject faceTowards;
 
     //cash to buy upgrades
     public int money;
@@ -50,8 +48,6 @@ public class PlayerController : MonoBehaviour {
     void Start ()
     {
         speed = maxSpeed;
-        rBody = GetComponent<Rigidbody>();
-        faceTowards = GameObject.Find("CartPassenger");
         lookAtMouseRotation = GameObject.Find("GunEnd");
         maxAmmo = ammo;
 

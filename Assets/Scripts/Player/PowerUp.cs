@@ -31,7 +31,11 @@ public class PowerUp : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider) {
         if (collider.gameObject.tag == "Player") {
-            game.hud.popUp.Display(name, transform.position);
+            var text = name;
+            if (cost != 0) {
+                text += string.Format(" ({0}g)", cost);
+            }
+            game.hud.popUp.Display(text, transform.position);
         }
     }
 
@@ -43,37 +47,42 @@ public class PowerUp : MonoBehaviour {
 
     void OnTriggerStay(Collider collider) {
         if (collider.gameObject.tag == "Player" && Input.GetButtonDown("Fire1")) {
-            PlayerController player = game.player;
-            if (player.money >= cost) {
-                player.money -= cost;
-                // change player input
-                // have to set min and max values
-                player.maxSpeed += maxSpeed;
-                player.minSpeed += minSpeed;
-                player.dashTime += dashTime;
-                player.swordDelay += swordDelay;
-                player.ricochet += ricochet;
-                player.precision += precision;
-                player.bulletNumber += bulletNumber;
-                player.ammo += ammo;
-                player.ammoGainPerHit += ammoGainPerHit;
-                player.fireDelay += fireDelay;
-                player.bulletDistance += bulletDistance;
-                player.gunDamage += gunDamage;
-                player.swordDamage += swordDamage;
-
-                // change player health
-                collider.gameObject.GetComponent<Damageable>().health += health;
-                game.hud.healthBar.maxValue += health;
-                Destroy(gameObject);
-                game.hud.popUp.Hide();
-
-                Instantiate(effect, player.transform);
+            if (game.player.money >= cost) {
+                Take();
             }
         }
     }
 
     public void SetCost(int cost) {
         this.cost = cost;
+    }
+
+    private void Take() {
+        PlayerController player = game.player;
+        player.money -= cost;
+        // change player input
+        // have to set min and max values
+        player.maxSpeed += maxSpeed;
+        player.minSpeed += minSpeed;
+        player.dashTime += dashTime;
+        player.swordDelay += swordDelay;
+        player.ricochet += ricochet;
+        player.precision += precision;
+        player.bulletNumber += bulletNumber;
+        player.ammo += ammo;
+        player.ammoGainPerHit += ammoGainPerHit;
+        player.fireDelay += fireDelay;
+        player.bulletDistance += bulletDistance;
+        player.gunDamage += gunDamage;
+        player.swordDamage += swordDamage;
+
+        // change player health
+        player.GetComponent<Damageable>().health += health;
+        game.hud.healthBar.maxValue += health;
+        transform.parent = null;
+        Destroy(gameObject);
+        
+        game.hud.popUp.Hide();
+        Instantiate(effect, player.transform);
     }
 }

@@ -122,11 +122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Hermes Boots
   description: Unrivaled speed
-  cost: 0
   effect: {fileID: 100000, guid: aa3fed151f536ee49b583c6a3ac4a2e1, type: 2}
   health: 0
-  maxSpeed: 10
-  minSpeed: 5
+  maxSpeed: 5
+  minSpeed: 1
   dashTime: 0
   swordDelay: 0
   ricochet: 0
@@ -148,5 +147,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 7.5
   m_Center: {x: 0, y: 0, z: -0}

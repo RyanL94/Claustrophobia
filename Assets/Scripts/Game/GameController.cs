@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 	public PlayerController player; // player game object
 	public int numberOfFloors; // number of floors to traverse to win the game
     public List<GameObject> powerUps; // items to find in chests
+	public IntRange itemCost; // cost of items in the shop
 
 	private Room currentRoom; // room that the player is currently in
 

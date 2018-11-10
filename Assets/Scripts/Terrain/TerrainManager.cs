@@ -13,6 +13,7 @@ public class TerrainBlocks {
 [System.Serializable]
 public class TerrainProps {
     public GameObject chest;
+    public GameObject shopPedestal;
 }
 
 [System.Serializable]
@@ -85,11 +86,8 @@ public class TerrainManager : LayoutGrid {
             var block = wall.GetComponent<Block>();
             if (block.breakable) {
                 Remove(position);
-                var effect = Instantiate(
-					breakEffect,
-					LayoutGrid.ToWorldPosition(position, true),
-					Quaternion.identity
-				);
+                var effectPosition = LayoutGrid.ToWorldPosition(position, true);
+                Instantiate(breakEffect, effectPosition, Quaternion.identity);
                 game.enemyManager.OnBreak(position);
             }
         }
@@ -281,12 +279,9 @@ public class TerrainManager : LayoutGrid {
             if (room.type == RoomType.Item) {
                 PlaceProp(terrainProps.chest, room.centerPosition);
             } else if (room.type == RoomType.Shop) {
-                PlaceProp(terrainProps.chest, room.centerPosition - Vector2Int.left * 2);
-                PlaceProp(terrainProps.chest, room.centerPosition);
-                PlaceProp(terrainProps.chest, room.centerPosition + Vector2Int.left * 2);
-                //PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition - Vector2Int.left * 2);
-                //PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition);
-                //PlaceProp(powerUpList.list[Random.Range((int)0, (int)powerUpList.list.Length)], room.centerPosition + Vector2Int.left * 2);
+                PlaceProp(terrainProps.shopPedestal, room.centerPosition - Vector2Int.left * 2);
+                PlaceProp(terrainProps.shopPedestal, room.centerPosition);
+                PlaceProp(terrainProps.shopPedestal, room.centerPosition + Vector2Int.left * 2);
             }
         }
     }
