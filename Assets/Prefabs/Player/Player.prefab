@@ -2231,7 +2231,7 @@ MonoBehaviour:
   swingSound: {fileID: 8300000, guid: a529f901bd51a994ab50b87aa4784457, type: 3}
   fireSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
   soundVolume: 0.6
-  money: 0
+  money: 15
   maxSpeed: 3
   minSpeed: 1
   dashTime: 0.125

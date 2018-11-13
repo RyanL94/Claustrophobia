@@ -79,6 +79,7 @@ public class PowerUp : MonoBehaviour {
         // change player health
         player.GetComponent<Damageable>().health += health;
         game.hud.healthBar.maxValue += health;
+        game.hud.ammoBar.maxValue += ammo;
         transform.parent = null;
         Destroy(gameObject);
         

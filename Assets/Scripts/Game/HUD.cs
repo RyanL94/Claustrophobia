@@ -13,6 +13,7 @@ public class HUD : MonoBehaviour {
     public float itemBannerDuration;
 	public Slider healthBar;
 	public Slider ammoBar;
+    public Text money;
 	public float updateSpeed;
 
 	private GameController game;
@@ -47,6 +48,7 @@ public class HUD : MonoBehaviour {
 		if (player.ammo != ammoBar.value) {
 			ammoBar.value = Mathf.Lerp(ammoBar.value, player.ammo, progression);
 		}
+        money.text = player.money.ToString() + " G";
 	}
 
     // Pause game and display menu
@@ -87,7 +89,7 @@ public class HUD : MonoBehaviour {
     }
 
     public void DisplayItem(string name, string description) {
-        itemName.text = string.Format("NEW ITEM! {0}", name);
+        itemName.text = string.Format("NEW POWER UP! {0}", name);
         itemDescription.text = description;
         StartCoroutine(DisplayItemHelper());
     }
