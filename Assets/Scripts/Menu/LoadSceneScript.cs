@@ -81,16 +81,16 @@ public class LoadSceneScript : MonoBehaviour {
     {
         creditCanvis.SetActive(true);
         optionsCanvis.SetActive(false);
-        positionPage = new Vector3(0, 500, 0) + startingPosition;
-        positionButton = new Vector3(0, 50, 0) + returnButtonPossition;
+        positionPage = new Vector3(0, 500, 0) * Screen.height/600 + startingPosition;
+        positionButton = new Vector3(0, 50, 0) * Screen.height/600 + returnButtonPossition;
     }
 
     public void GoToOptions()
     {
         creditCanvis.SetActive(false);
         optionsCanvis.SetActive(true);
-        positionPage = new Vector3(0,500,0)+startingPosition;
-        positionButton = new Vector3(0, 50, 0)+returnButtonPossition;
+        positionPage = new Vector3(0,500,0) * Screen.height/600 + startingPosition;
+        positionButton = new Vector3(0, 50, 0) * Screen.height/600 + returnButtonPossition;
     }
 
     public void GoToMainPage()

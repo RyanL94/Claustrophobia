@@ -104,6 +104,8 @@ public class GameController : MonoBehaviour {
             AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);
 			terrain.Place(terrain.terrainBlocks.passage, centerPosition);
+		} else {
+			OnPlayerDeath(); // TODO: replace with victory screen
 		}
 	}
 }
