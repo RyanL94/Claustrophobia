@@ -39,13 +39,18 @@ public class EnemyLoot : MonoBehaviour {
             {
                 if (ran <= LootTable[i].dropRate)
                 {
-                    Instantiate(LootTable[i].item, transform.position, Quaternion.identity);
+                    var item = LootTable[i].item;
+                    Instantiate(item, transform.position + item.transform.position, item.transform.rotation);
                     return;
                 }
                 ran -= LootTable[i].dropRate;
 
             }
-
         }
+    }
+
+    void OnDestroy()
+    {
+        CalculateDropRate();
     }
 }

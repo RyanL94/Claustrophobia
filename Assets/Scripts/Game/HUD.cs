@@ -17,6 +17,7 @@ public class HUD : MonoBehaviour {
 	public Slider healthBar;
 	public Slider ammoBar;
     public Slider bossHealthBar;
+    public Compass compass;
 	public float updateSpeed;
 
 	private GameController game;

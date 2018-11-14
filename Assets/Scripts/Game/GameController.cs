@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour {
 		CenterPlayerOnFloor();
 		--numberOfFloors;
 		enemyManager.Initialize();
+		hud.compass.Initialize();
 		transition.FadeOut();
 	}
 
