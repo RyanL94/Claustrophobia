@@ -523,7 +523,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &65959319762520518
 BoxCollider:
@@ -566,6 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activated: 0
   damage: 10
 --- !u!114 &114603567747641288
 MonoBehaviour:
@@ -578,13 +579,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614dfcd3d70614d41a92af06f493ecb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulnerable: 0
   health: 30
   collisionTags:
   - PlayerAttack
   onDamageEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
   onDeathEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 2}
   effectOffset: {x: 0, y: 0.5, z: 0}
-  effectScale: 0.5
+  effectScale: 1.5
+  onDamageSound: {fileID: 0}
+  onDeathSound: {fileID: 0}
+  soundVolume: 0
 --- !u!114 &114883457188977346
 MonoBehaviour:
   m_ObjectHideFlags: 1

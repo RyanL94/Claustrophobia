@@ -126,23 +126,29 @@ public class EnemyManager : MonoBehaviour {
 		}
 	}
 
+	// Spawn the boss.
+	public GameObject SpawnBoss(Room room) {
+		var boss = bosses[0];
+		return Spawn(boss, room.centerPosition + Vector2Int.up);
+	}
+
 	// Spawn the enemy at the given position.
 	//
 	// The enemy will be looking towards the player.
-	private void Spawn(GameObject enemy, Vector2Int spawnPosition) {
-        //Debug.Log("enemy spawn");
+	private GameObject Spawn(GameObject enemy, Vector2Int spawnPosition) {
 		var position = LayoutGrid.ToWorldPosition(spawnPosition, true) + enemy.transform.position;
 		var direction = game.player.transform.position - position;
 		var rotation = Quaternion.LookRotation(direction) * enemy.transform.rotation;
 		var instance = Instantiate(enemy, position, rotation);
 		instance.transform.parent = transform;
+		return instance;
 	}
 
 	// Time which creates a tremor a breaks block at an increasing frequency.
 	private IEnumerator Timer() {
 		while (true) {
 			yield return new WaitForSeconds(timerConfiguration.currentFrequency);
-			AudioSource.PlayClipAtPoint(tremorSoundEffect, game.player.transform.position, soundVolume);
+			AudioSource.PlayClipAtPoint(tremorSoundEffect, game.camera.transform.position, soundVolume);
 			yield return new WaitForSeconds(3.0f);
 			game.camera.Shake();
 			yield return new WaitForSeconds(0.25f);

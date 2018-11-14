@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public EnemyManager enemyManager; // script which manages enemy spawns
 	public TerrainManager terrain; // game terrain
 	public PlayerController player; // player game object
+	public GameObject boss; // boss game object
 	public int numberOfFloors; // number of floors to traverse to win the game
     public List<GameObject> powerUps; // items to find in chests
 	public IntRange itemCost; // cost of items in the shop
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour {
 		CenterPlayerOnFloor();
 		--numberOfFloors;
 		enemyManager.Initialize();
+		hud.compass.Initialize();
 		transition.FadeOut();
 	}
 
@@ -83,23 +85,22 @@ public class GameController : MonoBehaviour {
 				if (currentRoom.type == RoomType.Enemy) {
 					enemyManager.SpawnEnemiesInRoom(currentRoom);
 				} else if (currentRoom.type == RoomType.Boss) {
-					StartBossFight();
+					StartCoroutine(BossFight());
 				}
 			}
 		}
 	}
 
-	// Start the boss fight in the current room.
-	private void StartBossFight() {
+	// Start the boss fight and create a passage to the next floor upon beating it.
+	private IEnumerator BossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
-		// TODO: initiate boss fight
-		Invoke("EndBossFight", 2.0f); // TODO: call function after boss death instead
-	}
-
-	// Signal the game controller that the boss fight has ended.
-	private void EndBossFight() {
-		var centerPosition = currentRoom.centerPosition;
+		boss = enemyManager.SpawnBoss(currentRoom);
+		hud.DisplayBossHealth();
+		yield return new WaitUntil(() => boss == null);
+		hud.HideBossHealth();
+		yield return new WaitForSeconds(2.0f);
 		if (numberOfFloors > 0) {
+			var centerPosition = currentRoom.centerPosition;
 			var effectPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
             AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);

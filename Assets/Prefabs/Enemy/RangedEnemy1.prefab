@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114434070916389982}
   - component: {fileID: 114467638103624896}
   - component: {fileID: 114631296062257078}
+  - component: {fileID: 114231875344574202}
   m_Layer: 0
   m_Name: RangedEnemy1
   m_TagString: Enemy
@@ -378,7 +379,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &65611860653913142
 BoxCollider:
@@ -410,6 +411,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114231875344574202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1009531895103672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087db55c71b53b84db72088478009a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LootTable:
+  - name: Gold
+    item: {fileID: 1795507040959094, guid: 5bed97a1c18fb4664b65eccfeed1b119, type: 2}
+    dropRate: 75
+  - name: Health
+    item: {fileID: 1375969828680474, guid: fc1f86a34848b4f00b763b17e9d91f8c, type: 2}
+    dropRate: 25
+  dropChance: 50
 --- !u!114 &114434070916389982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -444,13 +464,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614dfcd3d70614d41a92af06f493ecb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulnerable: 0
   health: 20
   collisionTags:
   - PlayerAttack
   onDamageEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
   onDeathEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 2}
   effectOffset: {x: 0, y: 1, z: 0}
-  effectScale: 0.25
+  effectScale: 1.5
+  onDamageSound: {fileID: 0}
+  onDeathSound: {fileID: 0}
+  soundVolume: 0
 --- !u!114 &114631296062257078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,6 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activated: 0
   damage: 10
 --- !u!137 &137916582367136148
 SkinnedMeshRenderer:
