@@ -83,23 +83,20 @@ public class GameController : MonoBehaviour {
 				if (currentRoom.type == RoomType.Enemy) {
 					enemyManager.SpawnEnemiesInRoom(currentRoom);
 				} else if (currentRoom.type == RoomType.Boss) {
-					StartBossFight();
+					StartCoroutine(BossFight());
 				}
 			}
 		}
 	}
 
-	// Start the boss fight in the current room.
-	private void StartBossFight() {
+	// Start the boss fight and create a passage to the next floor upon beating it.
+	private IEnumerator BossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
-		// TODO: initiate boss fight
-		Invoke("EndBossFight", 2.0f); // TODO: call function after boss death instead
-	}
-
-	// Signal the game controller that the boss fight has ended.
-	private void EndBossFight() {
-		var centerPosition = currentRoom.centerPosition;
+		var instance = enemyManager.SpawnBoss(currentRoom);
+		yield return new WaitUntil(() => instance == null);
+		yield return new WaitForSeconds(2.0f);
 		if (numberOfFloors > 0) {
+			var centerPosition = currentRoom.centerPosition;
 			var effectPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
             AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);

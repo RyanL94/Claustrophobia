@@ -41,7 +41,7 @@ public class MoveForward : MonoBehaviour {
     }
     //on collision reflect or destroys
     void OnCollisionEnter(Collision collision)
-    {        
+    {
         if (ricochet < 1)
         {
             Explode();
@@ -65,8 +65,14 @@ public class MoveForward : MonoBehaviour {
             
         }
     }
+
+    private void Collide()
+    {
+        
+    }
+
     //destroy bullet
-    void Explode()
+    private void Explode()
     {
         if (bulletExplosion != null)
         {

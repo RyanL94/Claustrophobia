@@ -1639,7 +1639,7 @@ MonoBehaviour:
   roomEnemies:
   - {fileID: 1009531895103672, guid: 29054ed1a43fbfe41b82a75982ac9fd5, type: 2}
   bosses:
-  - {fileID: 1009531895103672, guid: 29054ed1a43fbfe41b82a75982ac9fd5, type: 2}
+  - {fileID: 1536882586679172, guid: 0c3958b7af5854fa6840dc5fb6d03e08, type: 2}
   spawnConfiguration:
     enemiesPerFloor:
       min: 20
