@@ -260,7 +260,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1009531895103672}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children:
   - {fileID: 4239695938400162}
@@ -451,6 +451,10 @@ MonoBehaviour:
   onDeathEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 2}
   effectOffset: {x: 0, y: 1, z: 0}
   effectScale: 0.25
+  onDamageSound: {fileID: 0}
+  onDeathSound: {fileID: 0}
+  soundVolume: 0
+  rend: {fileID: 137916582367136148}
 --- !u!114 &114631296062257078
 MonoBehaviour:
   m_ObjectHideFlags: 1
