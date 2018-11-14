@@ -148,7 +148,7 @@ public class EnemyManager : MonoBehaviour {
 	private IEnumerator Timer() {
 		while (true) {
 			yield return new WaitForSeconds(timerConfiguration.currentFrequency);
-			AudioSource.PlayClipAtPoint(tremorSoundEffect, game.player.transform.position, soundVolume);
+			AudioSource.PlayClipAtPoint(tremorSoundEffect, game.camera.transform.position, soundVolume);
 			yield return new WaitForSeconds(3.0f);
 			game.camera.Shake();
 			yield return new WaitForSeconds(0.25f);

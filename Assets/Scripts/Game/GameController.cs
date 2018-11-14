@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public EnemyManager enemyManager; // script which manages enemy spawns
 	public TerrainManager terrain; // game terrain
 	public PlayerController player; // player game object
+	public GameObject boss; // boss game object
 	public int numberOfFloors; // number of floors to traverse to win the game
     public List<GameObject> powerUps; // items to find in chests
 	public IntRange itemCost; // cost of items in the shop
@@ -92,8 +93,10 @@ public class GameController : MonoBehaviour {
 	// Start the boss fight and create a passage to the next floor upon beating it.
 	private IEnumerator BossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
-		var instance = enemyManager.SpawnBoss(currentRoom);
-		yield return new WaitUntil(() => instance == null);
+		boss = enemyManager.SpawnBoss(currentRoom);
+		hud.DisplayBossHealth();
+		yield return new WaitUntil(() => boss == null);
+		hud.HideBossHealth();
 		yield return new WaitForSeconds(2.0f);
 		if (numberOfFloors > 0) {
 			var centerPosition = currentRoom.centerPosition;

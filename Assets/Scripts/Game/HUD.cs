@@ -11,9 +11,12 @@ public class HUD : MonoBehaviour {
     public Text itemName;
     public Text itemDescription;
     public float itemBannerDuration;
+    public Text money;
+    public Text healthText;
+    public Text ammoText;
 	public Slider healthBar;
 	public Slider ammoBar;
-    public Text money;
+    public Slider bossHealthBar;
 	public float updateSpeed;
 
 	private GameController game;
@@ -22,6 +25,8 @@ public class HUD : MonoBehaviour {
 
     public GameObject pauseMenu;
     private Animator itemBannerAnimator;
+    private Animator bossHealthAnimator;
+    private Damageable bossHealth;
     private bool paused = false;
 
 	void Start() {
@@ -34,6 +39,8 @@ public class HUD : MonoBehaviour {
 		ammoBar.value = player.ammo;
         pauseMenu.SetActive(false);
         itemBannerAnimator = itemBanner.GetComponent<Animator>();
+        bossHealthAnimator = bossHealthBar.GetComponent<Animator>();
+        bossHealthAnimator.CrossFadeInFixedTime("Transparent", 0);
 	}
 	
 	void Update() {
@@ -44,10 +51,15 @@ public class HUD : MonoBehaviour {
         var progression = Time.deltaTime * updateSpeed;
 		if (playerHealth.health != healthBar.value) {
 			healthBar.value = Mathf.Lerp(healthBar.value, playerHealth.health, progression);
+            healthText.text = string.Format("{0} / {1}", playerHealth.health, healthBar.maxValue);
 		}
 		if (player.ammo != ammoBar.value) {
 			ammoBar.value = Mathf.Lerp(ammoBar.value, player.ammo, progression);
+            ammoText.text = string.Format("{0} / {1}", Mathf.Floor(player.ammo), ammoBar.maxValue);
 		}
+        if (game.boss != null && bossHealth.health != bossHealthBar.value) {
+            bossHealthBar.value = Mathf.Lerp(bossHealthBar.value, bossHealth.health, progression);
+        }
         money.text = player.money.ToString() + " G";
 	}
 
@@ -92,6 +104,17 @@ public class HUD : MonoBehaviour {
         itemName.text = string.Format("NEW POWER UP! {0}", name);
         itemDescription.text = description;
         StartCoroutine(DisplayItemHelper());
+    }
+
+    public void DisplayBossHealth() {
+        bossHealth = game.boss.GetComponent<Damageable>();
+        bossHealthBar.maxValue = bossHealth.health;
+        bossHealthBar.value = bossHealth.health;
+        bossHealthAnimator.CrossFadeInFixedTime("Opaque", 0.5f);
+    }
+
+    public void HideBossHealth() {
+        bossHealthAnimator.CrossFadeInFixedTime("Transparent", 0.5f);
     }
 
     private IEnumerator DisplayItemHelper() {

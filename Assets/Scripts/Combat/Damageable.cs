@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour {
+    public bool invulnerable = false;
     public float health = 1; //Default value. Can be changed per item in the editor.
     public List<string> collisionTags;
     public GameObject onDamageEffect;
@@ -48,8 +49,11 @@ public class Damageable : MonoBehaviour {
     }
 
     private void CheckCollision(GameObject collider) {
-        if (collisionTags.Contains(collider.tag) && Time.time > immuneUntil) {
+        if (!invulnerable && collisionTags.Contains(collider.tag) && Time.time > immuneUntil) {
             var attack = collider.gameObject.GetComponent<Attack>();
+            if (attack.activated) {
+                return;
+            }
             health -= attack.damage;
             immuneUntil = Time.time + immuneDuration;
             if (onDamageAction != null) {
@@ -58,15 +62,13 @@ public class Damageable : MonoBehaviour {
             PlaySound(onDamageSound);
             DisplayEffect(onDamageEffect);
             if (health <= 0) {
-                if (onDamageAction != null) {
-                    onDeathAction();
-                }
                 PlaySound(onDeathSound);
                 DisplayEffect(onDeathEffect);
-                gameObject.transform.parent = null;
-                Destroy(gameObject);
-                if (gameObject.tag == "Player") {
-                    game.OnPlayerDeath();
+                if (onDeathAction != null) {
+                    onDeathAction();
+                } else {
+                    gameObject.transform.parent = null;
+                    Destroy(gameObject);
                 }
             }
             if (collider.name == "MeleeAttack" && gameObject.tag == "Enemy") {

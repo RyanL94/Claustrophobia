@@ -48,13 +48,21 @@ public class PlayerController : MonoBehaviour {
     public int gunDamage;
     public int swordDamage;
 
+    private GameController game;
+
     // Use this for initialization
     void Start ()
     {
+        game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         speed = maxSpeed;
         lookAtMouseRotation = GameObject.Find("GunEnd");
         maxAmmo = ammo;
         var damageable = GetComponent<Damageable>();
+        damageable.OnDeath(() => {
+            game.OnPlayerDeath();
+            transform.parent = null;
+            Destroy(gameObject);
+        });
     }
 
     // Update is called once per frame

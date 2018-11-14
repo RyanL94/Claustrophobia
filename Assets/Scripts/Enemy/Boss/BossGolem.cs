@@ -50,8 +50,6 @@ public class BossGolem : Enemy {
     int meleeTimer, rangedTimer, specialTimer;
     bool doingMelee;
 
-    public float deathHealth;
-
     static Vector3 destination;
     private float distanceToTarget;
 
@@ -71,22 +69,21 @@ public class BossGolem : Enemy {
         doingMelee = false;
 
         healthGetter = GetComponent<Damageable>();
+        Invoke("Activate", 12.0f);
+        healthGetter.OnDeath(() => {
+            bossActive = false;
+            AnimReset();
+            walking = false;
+            dead = true;
+            GetComponent<Attack>().activated = true;
+            transform.parent = null;
+            Destroy(gameObject, 5);
+        });
     }
 
     void Update()
     {
         if (bossActive == true && doingMelee == false) Pathfinding();
-
-        bossHealth = healthGetter.health;
-
-        if (bossHealth <= deathHealth)
-        {
-            bossActive = false;
-            AnimReset();
-            walking = false;
-            dead = true;
-            Destroy(gameObject, 5);
-        }
 
         if (meleeTimer < meleeCooldown)
         {
@@ -123,6 +120,11 @@ public class BossGolem : Enemy {
             AnimReset();
             dead = true;
         }*/
+    }
+
+    void Activate()
+    {
+        healthGetter.invulnerable = false;
     }
 
     void UpdateAnimator() // does this need to be updated every frame or just initialized ?
