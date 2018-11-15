@@ -27,7 +27,11 @@ public class Compass : MonoBehaviour {
 		try {
 			var direction = target - player.position;
 			var angle = Vector3.Angle(Vector3.forward, direction);
-			transform.rotation = Quaternion.Euler(0, 0, angle);
+			if (direction.x > 0) {
+				transform.rotation = Quaternion.Euler(0, 0, -angle);
+			} else {
+				transform.rotation = Quaternion.Euler(0, 0, angle);
+			}
 		} catch (Exception) {
 
 		}

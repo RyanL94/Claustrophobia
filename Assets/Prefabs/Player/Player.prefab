@@ -1814,7 +1814,7 @@ Transform:
   m_GameObject: {fileID: 1962986215527108}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 4047266492100252}
   m_RootOrder: 0
@@ -1985,7 +1985,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: bae371eb9f47ecf46a90549869ab16b5, type: 3}
+  - {fileID: 2100000, guid: 3261842b9181f49abaab9941c2cedb12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2055,7 +2055,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 75dd0171f4951c846b76dc7b10246fe2, type: 3}
+  - {fileID: 2100000, guid: 3261842b9181f49abaab9941c2cedb12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2255,6 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activated: 0
   damage: 10
 --- !u!114 &114563717253565534
 MonoBehaviour:
@@ -2278,6 +2279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614dfcd3d70614d41a92af06f493ecb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulnerable: 0
   health: 100
   collisionTags:
   - Enemy
@@ -2289,6 +2291,7 @@ MonoBehaviour:
   onDamageSound: {fileID: 8300000, guid: 2d07eba8eab06cb45898cb11da4a54e2, type: 3}
   onDeathSound: {fileID: 8300000, guid: b609e6e269cd1c841ae9fb606ce774c4, type: 3}
   soundVolume: 0.75
+  renderer: {fileID: 137686129875981416}
 --- !u!137 &137686129875981416
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

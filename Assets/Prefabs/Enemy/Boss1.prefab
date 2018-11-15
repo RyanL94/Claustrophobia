@@ -5333,13 +5333,15 @@ MonoBehaviour:
   health: 200
   collisionTags:
   - PlayerAttack
-  onDamageEffect: {fileID: 0}
+  onDamageEffect: {fileID: 1654855424475032, guid: a97415c6b57076f41a6621a7b51d63a3,
+    type: 2}
   onDeathEffect: {fileID: 0}
   effectOffset: {x: 0, y: 0, z: 0}
-  effectScale: 0
+  effectScale: 0.6
   onDamageSound: {fileID: 0}
   onDeathSound: {fileID: 0}
   soundVolume: 0
+  renderer: {fileID: 0}
 --- !u!114 &114249568498122106
 MonoBehaviour:
   m_ObjectHideFlags: 1

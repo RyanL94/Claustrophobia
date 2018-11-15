@@ -475,7 +475,7 @@ MonoBehaviour:
   onDamageSound: {fileID: 0}
   onDeathSound: {fileID: 0}
   soundVolume: 0
-  rend: {fileID: 137916582367136148}
+  renderer: {fileID: 137916582367136148}
 --- !u!114 &114631296062257078
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,10 +16,10 @@ public class Damageable : MonoBehaviour {
     public float soundVolume;
 
     //for changing color upon hit
-    public Renderer rend;
+    public new Renderer renderer;
     private bool colorChange = false;
 
-    public static float immuneDuration = 0.5f;
+    public static float immuneDuration = 0.3f;
 
     private float immuneUntil;
     private Action onDamageAction;
@@ -33,11 +33,10 @@ public class Damageable : MonoBehaviour {
 
     IEnumerator DisplayDamage()
     {
-        {
-            rend.material.color = Color.red;
-            yield return new WaitForSeconds(immuneDuration);
-            rend.material.color = Color.white;
-
+        if (renderer != null) {
+            renderer.material.color = Color.red;
+            yield return new WaitForSeconds(immuneDuration / 2);
+            renderer.material.color = Color.white;
         }
     }
 

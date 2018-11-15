@@ -82,7 +82,7 @@ public class LoadSceneScript : MonoBehaviour {
         creditCanvis.SetActive(true);
         optionsCanvis.SetActive(false);
         positionPage = new Vector3(0, 500, 0) * Screen.height/600 + startingPosition;
-        positionButton = new Vector3(0, 50, 0) * Screen.height/600 + returnButtonPossition;
+        positionButton = new Vector3(0, 75, 0) * Screen.height/600 + returnButtonPossition;
     }
 
     public void GoToOptions()
@@ -90,7 +90,7 @@ public class LoadSceneScript : MonoBehaviour {
         creditCanvis.SetActive(false);
         optionsCanvis.SetActive(true);
         positionPage = new Vector3(0,500,0) * Screen.height/600 + startingPosition;
-        positionButton = new Vector3(0, 50, 0) * Screen.height/600 + returnButtonPossition;
+        positionButton = new Vector3(0, 75, 0) * Screen.height/600 + returnButtonPossition;
     }
 
     public void GoToMainPage()
@@ -109,7 +109,7 @@ public class LoadSceneScript : MonoBehaviour {
 
     private void ScrollToNectPage(Vector3 position)
     {
-        transform.position = Vector3.MoveTowards(transform.position, position, 15);
+        transform.position = Vector3.MoveTowards(transform.position, position, 25);
     }
 
     private void ReturnButtonDisplay(Vector3 position)
