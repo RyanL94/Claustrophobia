@@ -586,10 +586,11 @@ MonoBehaviour:
   onDamageEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
   onDeathEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 2}
   effectOffset: {x: 0, y: 0.5, z: 0}
-  effectScale: 1.5
+  effectScale: 0.5
   onDamageSound: {fileID: 0}
   onDeathSound: {fileID: 0}
   soundVolume: 0
+  rend: {fileID: 137776164015765070}
 --- !u!114 &114883457188977346
 MonoBehaviour:
   m_ObjectHideFlags: 1

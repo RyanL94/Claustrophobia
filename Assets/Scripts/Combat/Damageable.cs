@@ -15,6 +15,10 @@ public class Damageable : MonoBehaviour {
     public AudioClip onDeathSound;
     public float soundVolume;
 
+    //for changing color upon hit
+    public Renderer rend;
+    private bool colorChange = false;
+
     public static float immuneDuration = 0.5f;
 
     private float immuneUntil;
@@ -25,6 +29,16 @@ public class Damageable : MonoBehaviour {
     void Start() {
         game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         immuneUntil = Time.time;
+    }
+
+    IEnumerator DisplayDamage()
+    {
+        {
+            rend.material.color = Color.red;
+            yield return new WaitForSeconds(immuneDuration);
+            rend.material.color = Color.white;
+
+        }
     }
 
     // if colliding remove health
@@ -56,6 +70,9 @@ public class Damageable : MonoBehaviour {
             }
             health -= attack.damage;
             immuneUntil = Time.time + immuneDuration;
+            //change color
+            StartCoroutine(DisplayDamage());
+
             if (onDamageAction != null) {
                 onDamageAction();
             }
@@ -92,4 +109,5 @@ public class Damageable : MonoBehaviour {
             AudioSource.PlayClipAtPoint(clip, transform.position, soundVolume);
         }
     }
+
 }
