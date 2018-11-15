@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void OnPlayerDeath() {
-		StartCoroutine(OnPlayerDeathHelper());
+		StartCoroutine(GameOver());
 	}
 
 	private IEnumerator CreateNewFloorHelper() {
@@ -53,13 +53,6 @@ public class GameController : MonoBehaviour {
 		enemyManager.Initialize();
 		hud.compass.Initialize();
 		transition.FadeOut();
-	}
-
-	private IEnumerator OnPlayerDeathHelper() {
-		yield return new WaitForSeconds(3.0f);
-		transition.FadeIn();
-		yield return new WaitForSeconds(transition.duration);
-		SceneManager.LoadScene("Menu");
 	}
 
 	// Center the player on the floor, putting him in the spawn room.
@@ -91,6 +84,26 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	private IEnumerator Victory() {
+		yield return new WaitForSeconds(1.0f);
+		transition.FadeIn();
+		
+		// insert victory screen here
+
+		yield return new WaitForSeconds(transition.duration);
+		SceneManager.LoadScene("Menu");
+	}
+
+	private IEnumerator GameOver() {
+		yield return new WaitForSeconds(3.0f);
+		transition.FadeIn();
+		
+		// insert game over screen here
+
+		yield return new WaitForSeconds(transition.duration);
+		SceneManager.LoadScene("Menu");
+	}
+
 	// Start the boss fight and create a passage to the next floor upon beating it.
 	private IEnumerator BossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
@@ -106,7 +119,7 @@ public class GameController : MonoBehaviour {
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);
 			terrain.Place(terrain.terrainBlocks.passage, centerPosition);
 		} else {
-			OnPlayerDeath(); // TODO: replace with victory screen
+			StartCoroutine(Victory());
 		}
 	}
 }
