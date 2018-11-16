@@ -107,6 +107,7 @@ public class GameController : MonoBehaviour {
 	// Start the boss fight and create a passage to the next floor upon beating it.
 	private IEnumerator BossFight() {
 		terrain.BlockRoomEntrances(currentRoom);
+		enemyManager.Clear();
 		boss = enemyManager.SpawnBoss(currentRoom);
 		hud.DisplayBossHealth();
 		yield return new WaitUntil(() => boss == null);
