@@ -49,9 +49,9 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds(transition.duration);
 		terrain.GenerateFloor();
 		CenterPlayerOnFloor();
+		hud.InitializeCompass();
 		--numberOfFloors;
 		enemyManager.Initialize();
-		hud.compass.Initialize();
 		transition.FadeOut();
 	}
 
