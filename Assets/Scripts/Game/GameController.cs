@@ -112,13 +112,19 @@ public class GameController : MonoBehaviour {
 		hud.DisplayBossHealth();
 		yield return new WaitUntil(() => boss == null);
 		hud.HideBossHealth();
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(0.25f);
 		if (numberOfFloors > 0) {
 			var centerPosition = currentRoom.centerPosition;
-			var effectPosition = LayoutGrid.ToWorldPosition(centerPosition, true);
+			var effectPosition = LayoutGrid.ToWorldPosition(centerPosition + new Vector2Int(0, 1), true);
             AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);
-			terrain.Place(terrain.terrainBlocks.passage, centerPosition);
+			terrain.PlaceProp(terrain.terrainProps.chest, centerPosition + new Vector2Int(0, 1));
+			
+			yield return new WaitForSeconds(4.0f);
+			effectPosition = LayoutGrid.ToWorldPosition(centerPosition - new Vector2Int(0, 1), true);
+            AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
+            Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);
+			terrain.Place(terrain.terrainBlocks.passage, centerPosition - new Vector2Int(0, 1));
 		} else {
 			StartCoroutine(Victory());
 		}
