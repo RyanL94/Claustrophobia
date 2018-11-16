@@ -47,10 +47,10 @@ public class GameController : MonoBehaviour {
 	private IEnumerator CreateNewFloorHelper() {
 		transition.FadeIn();
 		yield return new WaitForSeconds(transition.duration);
+		--numberOfFloors;
 		terrain.GenerateFloor();
 		CenterPlayerOnFloor();
 		hud.InitializeCompass();
-		--numberOfFloors;
 		enemyManager.Initialize();
 		transition.FadeOut();
 	}
