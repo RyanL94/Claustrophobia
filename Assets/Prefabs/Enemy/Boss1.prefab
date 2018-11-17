@@ -5338,8 +5338,8 @@ MonoBehaviour:
   onDeathEffect: {fileID: 0}
   effectOffset: {x: 0, y: 0, z: 0}
   effectScale: 0.6
-  onDamageSound: {fileID: 0}
-  onDeathSound: {fileID: 0}
+  onDamageSound: {fileID: 8300000, guid: 6f99f23011bae734298459c8e3696c1c, type: 3}
+  onDeathSound: {fileID: 8300000, guid: b609e6e269cd1c841ae9fb606ce774c4, type: 3}
   soundVolume: 0
   renderer: {fileID: 0}
 --- !u!114 &114249568498122106

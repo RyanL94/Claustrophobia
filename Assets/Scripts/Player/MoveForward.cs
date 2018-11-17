@@ -25,7 +25,7 @@ public class MoveForward : MonoBehaviour {
 
     void FixedUpdate () {
         //if life time
-        if (Time.time > lifeTime && bulletDistance != 0)
+        if (Time.time > lifeTime && !(bulletDistance >= 0))
         {
             Explode();
         }
@@ -42,7 +42,7 @@ public class MoveForward : MonoBehaviour {
     //on collision reflect or destroys
     void OnCollisionEnter(Collision collision)
     {
-        if (ricochet < 1)
+        if (ricochet < 1 || collision.collider.tag == "Enemy")
         {
             Explode();
         }

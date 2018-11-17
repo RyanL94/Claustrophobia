@@ -115,8 +115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet_speed: 400
   ricochet: 0
-  bulletExplosion: {fileID: 0}
-  bulletRicochet: {fileID: 0}
+  bulletExplosion: {fileID: 1000010608846784, guid: 6747b1742d70743a8aff8594e708b2f7,
+    type: 2}
+  bulletRicochet: {fileID: 1533915724919962, guid: 223798e11cc18e44f91fe986d6a1660d,
+    type: 2}
   bulletDistance: 0
 --- !u!114 &114994275261000652
 MonoBehaviour:
@@ -129,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activated: 0
   damage: 20
 --- !u!135 &135488186841193208
 SphereCollider:
