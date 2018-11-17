@@ -2178,9 +2178,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 0.9168532, b: 0.7877358, a: 1}
-  m_Intensity: 2
+  m_Intensity: 3
   m_Range: 10
-  m_SpotAngle: 58.6
+  m_SpotAngle: 75
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -2234,7 +2234,7 @@ MonoBehaviour:
   maxSpeed: 3
   minSpeed: 1
   dashTime: 0.125
-  swordDelay: 0.5
+  swordDelay: 0.75
   ricochet: 0
   precision: 15
   bulletNumber: 1

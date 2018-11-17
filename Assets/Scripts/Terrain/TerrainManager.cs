@@ -148,7 +148,17 @@ public class TerrainManager : LayoutGrid {
         GenerateRoom(RoomType.Spawn, terrainBlocks.room, centered:true, minSize:true);
         GenerateRoom(RoomType.Item, terrainBlocks.room, singleEntrance:true);
         GenerateRoom(RoomType.Shop, terrainBlocks.room, singleEntrance:true);
-        GenerateRoom(RoomType.Boss, terrainBlocks.boss, maxSize:true, singleEntrance:true);
+        switch (game.numberOfFloors) {
+            case 0:
+                GenerateRoom(RoomType.Boss, terrainBlocks.boss, maxSize:true, singleEntrance:true, fillOffset:true);
+                break;
+            case 1:
+                GenerateRoom(RoomType.Boss, terrainBlocks.boss, maxSize:true, singleEntrance:true, fillHalfOffset:true);
+                break;
+            default:
+                GenerateRoom(RoomType.Boss, terrainBlocks.boss, maxSize:true, singleEntrance:true);
+                break;
+        }
         while (rooms.Count < floorConfiguration.roomCount) {
             GenerateRoom(RoomType.Enemy, terrainBlocks.room);
         }
@@ -194,7 +204,9 @@ public class TerrainManager : LayoutGrid {
                               bool noEntrances=false,
                               bool singleEntrance=false,
                               int minEntranceCount=2,
-                              int maxEntranceCount=4) {
+                              int maxEntranceCount=4,
+                              bool fillOffset=false,
+                              bool fillHalfOffset=false) {
         Vector2Int layoutPosition;
         Vector2Int positionOffset;
         Vector2Int size;
@@ -219,10 +231,19 @@ public class TerrainManager : LayoutGrid {
                 ) * 2
             );
         }
+        if (fillHalfOffset) {
+            positionOffset = new Vector2Int(0, 0);
+        } else if (fillOffset) {
+            positionOffset = new Vector2Int(-floorConfiguration.roomMaxOffset.x, -floorConfiguration.roomMaxOffset.y);
+        }
         roomLayoutPositions.Add(layoutPosition);
         availableRoomPositions.Remove(layoutPosition);
         var gridPosition = floorConfiguration.ToGridPosition(layoutPosition) + positionOffset;
-        if (minSize) {
+        if (fillHalfOffset) {
+            size = floorConfiguration.roomMaxSize + floorConfiguration.roomMaxOffset;
+        } else if (fillOffset) {
+            size = floorConfiguration.roomMaxSize + floorConfiguration.roomMaxOffset + floorConfiguration.roomMaxOffset;            
+        } else if (minSize) {
             size = floorConfiguration.roomMinSize;
         } else if (maxSize) {
             size = floorConfiguration.roomMaxSize;

@@ -96,6 +96,15 @@ public class EnemyManager : MonoBehaviour {
 		StartCoroutine(timer);
 	}
 
+	// Clear all  existing enemies.
+	public void Clear() {
+		while (transform.childCount > 0) {
+			var child = transform.GetChild(0);
+			child.parent = null;
+			Destroy(child.gameObject);
+		}
+	}
+
 	// Action to perform on block breaking.
 	public void OnBreak(Vector2Int blockPosition) {
 		if (Random.value <= spawnConfiguration.currentSpawnRate) {

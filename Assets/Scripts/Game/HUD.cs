@@ -17,7 +17,7 @@ public class HUD : MonoBehaviour {
 	public Slider healthBar;
 	public Slider ammoBar;
     public Slider bossHealthBar;
-    public Compass compass;
+    public CanvasGroup compass;
 	public float updateSpeed;
 
 	private GameController game;
@@ -63,6 +63,12 @@ public class HUD : MonoBehaviour {
         }
         money.text = player.money.ToString() + " G";
 	}
+
+    public void InitializeCompass() {
+        foreach (Transform child in compass.transform) {
+            child.GetComponent<Compass>().Initialize();
+        }
+    }
 
     // Pause game and display menu
     private void pauseGame() {
