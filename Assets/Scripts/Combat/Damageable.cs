@@ -108,5 +108,4 @@ public class Damageable : MonoBehaviour {
             AudioSource.PlayClipAtPoint(clip, transform.position, soundVolume);
         }
     }
-
 }
