@@ -2231,19 +2231,19 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
   soundVolume: 0.6
   money: 15
-  maxSpeed: 20
-  minSpeed: 20
+  maxSpeed: 3
+  minSpeed: 3
   dashTime: 0.125
   swordDelay: 0.75
   ricochet: 0
   precision: 15
   bulletNumber: 1
-  ammo: 7
+  ammo: 5
   ammoGainPerHit: 0.5
   fireDelay: 1
   bulletDistance: 0
   gunDamage: 20
-  swordDamage: 30
+  swordDamage: 10
 --- !u!114 &114322022901463552
 MonoBehaviour:
   m_ObjectHideFlags: 1

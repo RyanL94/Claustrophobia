@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114023326913755264}
   - component: {fileID: 114160188257208964}
   m_Layer: 0
-  m_Name: Golden Boots
+  m_Name: HermesBootsGolden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

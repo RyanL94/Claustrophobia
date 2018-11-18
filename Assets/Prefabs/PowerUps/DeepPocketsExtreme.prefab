@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114357053441744868}
   - component: {fileID: 114658367523051010}
   m_Layer: 0
-  m_Name: VeryDeepPockets
+  m_Name: DeepPocketsExtreme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

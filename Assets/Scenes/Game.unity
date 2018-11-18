@@ -527,10 +527,10 @@ MonoBehaviour:
   - {fileID: 1469598487450926, guid: 549c0b7b1dd5c4d11a05667a684e466d, type: 2}
   - {fileID: 1492999545235360, guid: dc17792f7c28f4a018bbf1c698db8aaf, type: 2}
   - {fileID: 1229057854899582, guid: b72c83ccbaeac4d36b31e44059c6fa3f, type: 2}
-  - {fileID: 1205049740924758, guid: c73a55c24bd6e407fb4d3ef7fcb8ed08, type: 2}
+  - {fileID: 0}
   - {fileID: 1978248937080444, guid: b1640c741d39d47298fb6482bc13b5ae, type: 2}
   - {fileID: 1838084029696576, guid: 1741335bbdff9439db81528288460a94, type: 2}
-  - {fileID: 1836010962884624, guid: 0201a07d57bae41db8624af5b28562f6, type: 2}
+  - {fileID: 0}
   itemCost:
     min: 10
     max: 15
