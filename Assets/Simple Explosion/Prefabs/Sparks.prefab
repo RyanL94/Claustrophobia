@@ -86,8 +86,8 @@ EllipsoidParticleEmitter:
   maxSize: 0.1
   minEnergy: 1
   maxEnergy: 1.5
-  minEmission: 20
-  maxEmission: 20
+  minEmission: 5
+  maxEmission: 5
   worldVelocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   rndVelocity: {x: 8, y: 8, z: 8}

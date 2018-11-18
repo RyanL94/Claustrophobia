@@ -11,7 +11,7 @@ public class PowerUp : MonoBehaviour {
     public float maxSpeed;
     public float minSpeed;
     public float dashTime;
-    public float swordDelay; // must have a min limit
+    public float swordDelay;
     public int ricochet;
     public float precision;
     public int bulletNumber;
@@ -68,7 +68,15 @@ public class PowerUp : MonoBehaviour {
         player.swordDelay += swordDelay;
         player.ricochet += ricochet;
         player.precision += precision;
+        if (player.precision < 0)
+        {
+            player.precision = 0;
+        }
         player.bulletNumber += bulletNumber;
+        if (player.bulletNumber < 1)
+        {
+            player.bulletNumber = 1;
+        }
         player.ammo += ammo;
         player.ammoGainPerHit += ammoGainPerHit;
         player.fireDelay += fireDelay;
