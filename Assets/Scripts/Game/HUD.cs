@@ -18,13 +18,14 @@ public class HUD : MonoBehaviour {
 	public Slider ammoBar;
     public Slider bossHealthBar;
     public CanvasGroup compass;
-	public float updateSpeed;
+    public GameObject pauseMenu;
+    public GameObject endGame;
+    public float updateSpeed;
 
 	private GameController game;
 	private PlayerController player;
 	private Damageable playerHealth;
 
-    public GameObject pauseMenu;
     private Animator itemBannerAnimator;
     private Animator bossHealthAnimator;
     private Damageable bossHealth;
@@ -39,6 +40,8 @@ public class HUD : MonoBehaviour {
 		ammoBar.maxValue = player.ammo;
 		ammoBar.value = player.ammo;
         pauseMenu.SetActive(false);
+        endGame.transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+        endGame.transform.GetChild(1).GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
         itemBannerAnimator = itemBanner.GetComponent<Animator>();
         bossHealthAnimator = bossHealthBar.GetComponent<Animator>();
         bossHealthAnimator.CrossFadeInFixedTime("Transparent", 0);
@@ -122,6 +125,16 @@ public class HUD : MonoBehaviour {
 
     public void HideBossHealth() {
         bossHealthAnimator.CrossFadeInFixedTime("Transparent", 0.5f);
+    }
+
+    public void GameOver()
+    {
+        endGame.transform.GetChild(1).GetComponent<Image>().CrossFadeAlpha(1.0f, 4.0f, false);
+    }
+
+    public void Victory()
+    {
+        endGame.transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(1.0f, 4.0f, false);
     }
 
     private IEnumerator DisplayItemHelper() {
