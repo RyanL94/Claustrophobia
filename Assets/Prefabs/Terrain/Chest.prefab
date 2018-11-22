@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33572639727928442}
   - component: {fileID: 23440576809168996}
   - component: {fileID: 64253520418720360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33566939484803872}
   - component: {fileID: 23542616017400346}
   - component: {fileID: 64827192606565558}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 95785987599279136}
   - component: {fileID: 135251550526095224}
   - component: {fileID: 114444806809288900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
