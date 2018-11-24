@@ -12,6 +12,7 @@ TagManager:
   - EnemyProjectile
   - Enemy
   - FxTemporaire
+  - Soundtrack
   layers:
   - Default
   - TransparentFX

@@ -9,34 +9,34 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1469598487450926}
+  m_RootGameObject: {fileID: 1375769198803216}
   m_IsPrefabAsset: 1
---- !u!1 &1469598487450926
+--- !u!1 &1375769198803216
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4512997391045156}
-  - component: {fileID: 33805124266127118}
-  - component: {fileID: 23022139260009934}
-  - component: {fileID: 135074068619718890}
-  - component: {fileID: 114842391152670600}
-  - component: {fileID: 114593248287769198}
+  - component: {fileID: 4533482958922014}
+  - component: {fileID: 33076708525086074}
+  - component: {fileID: 23030641210308906}
+  - component: {fileID: 135545674449237200}
+  - component: {fileID: 114972190013459384}
+  - component: {fileID: 114345522930925454}
   m_Layer: 0
-  m_Name: Enraged
+  m_Name: HandCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4512997391045156
+--- !u!4 &4533482958922014
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469598487450926}
+  m_GameObject: {fileID: 1375769198803216}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
@@ -44,12 +44,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!23 &23022139260009934
+--- !u!23 &23030641210308906
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469598487450926}
+  m_GameObject: {fileID: 1375769198803216}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5a9e6cf91cbfc1a4fbc9470cca37b97a, type: 2}
+  - {fileID: 2100000, guid: 640dc2f025ee433489ca50d9f685de47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,47 +79,47 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33805124266127118
+--- !u!33 &33076708525086074
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469598487450926}
-  m_Mesh: {fileID: 4300000, guid: d5201c54bfe2c0242acafec0421e0d8e, type: 3}
---- !u!114 &114593248287769198
+  m_GameObject: {fileID: 1375769198803216}
+  m_Mesh: {fileID: 4300000, guid: 3be870bd3141f9741b70abdfb4242cb6, type: 3}
+--- !u!114 &114345522930925454
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469598487450926}
+  m_GameObject: {fileID: 1375769198803216}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02439c1c78bf341838277fb3035cafc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Enraged
-  description: Attack speed up, health down
+  name: Hand Cannon
+  description: Explosive rounds
   effect: {fileID: 100000, guid: aa3fed151f536ee49b583c6a3ac4a2e1, type: 2}
-  health: -20
+  health: 0
   maxSpeed: 0
   minSpeed: 0
   dashTime: 0
-  swordDelay: -0.25
+  swordDelay: 0
   ricochet: 0
   precision: 0
   bulletNumber: 0
-  ammo: 0
+  ammo: -2
   ammoGainPerHit: 0
-  fireDelay: 0
+  fireDelay: 2
   bulletDistance: 0
-  gunDamage: 0
-  swordDamage: 3
---- !u!114 &114842391152670600
+  gunDamage: 50
+  swordDamage: 0
+--- !u!114 &114972190013459384
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469598487450926}
+  m_GameObject: {fileID: 1375769198803216}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
@@ -137,12 +137,12 @@ MonoBehaviour:
   endScale: {x: 1.5, y: 1.5, z: 1.5}
   scaleSpeed: 1
   scaleRate: 0.5
---- !u!135 &135074068619718890
+--- !u!135 &135545674449237200
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469598487450926}
+  m_GameObject: {fileID: 1375769198803216}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
