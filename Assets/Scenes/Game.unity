@@ -2010,7 +2010,7 @@ MonoBehaviour:
     ramp: 3
     range: {x: 5, y: 5}
   tremorSoundEffect: {fileID: 8300000, guid: 26e0c6e51b52a4a1aa6ba895dcc25e98, type: 3}
-  soundVolume: 0.5
+  soundVolume: 0.25
 --- !u!4 &1263778238
 Transform:
   m_ObjectHideFlags: 0
@@ -3174,11 +3174,6 @@ Prefab:
     - target: {fileID: 4767490036970002, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
       propertyPath: m_RootOrder
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114164999493037840, guid: 8c09278dc843e15429e2fd0dde74b51a,
-        type: 2}
-      propertyPath: bulletDistance
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}

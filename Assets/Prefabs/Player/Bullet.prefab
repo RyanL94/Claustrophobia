@@ -115,9 +115,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet_speed: 400
   ricochet: 0
-  bulletExplosion: {fileID: 1000010608846784, guid: 6747b1742d70743a8aff8594e708b2f7,
+  bulletExplosion: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
     type: 2}
-  bulletRicochet: {fileID: 1533915724919962, guid: 223798e11cc18e44f91fe986d6a1660d,
+  bulletRicochet: {fileID: 1995403933065894, guid: 4961a16ba01e09547be3e1c9d16d5ad0,
     type: 2}
   bulletDistance: 0
 --- !u!114 &114994275261000652
@@ -139,7 +139,7 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156961584385186}
-  m_Material: {fileID: 13400000, guid: 4f712e4a3b4674adc808d9065e0dafa1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

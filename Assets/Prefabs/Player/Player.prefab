@@ -2229,7 +2229,7 @@ MonoBehaviour:
   dashSound: {fileID: 8300000, guid: 26f0f934fb9804a4dbd72fa47aff5791, type: 3}
   swingSound: {fileID: 8300000, guid: a529f901bd51a994ab50b87aa4784457, type: 3}
   fireSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
-  soundVolume: 0.6
+  soundVolume: 0.5
   money: 15
   maxSpeed: 3
   minSpeed: 3
@@ -2241,7 +2241,7 @@ MonoBehaviour:
   ammo: 5
   ammoGainPerHit: 0.5
   fireDelay: 1
-  bulletDistance: 0
+  bulletDistance: 0.2
   gunDamage: 20
   swordDamage: 10
 --- !u!114 &114322022901463552
