@@ -137,7 +137,7 @@ public class EnemyManager : MonoBehaviour {
 
 	// Spawn the boss.
 	public GameObject SpawnBoss(Room room) {
-		var boss = bosses[0];
+		var boss = bosses[game.numberOfFloors];
 		return Spawn(boss, room.centerPosition + Vector2Int.up);
 	}
 

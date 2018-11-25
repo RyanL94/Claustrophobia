@@ -202,7 +202,7 @@ public class GameController : MonoBehaviour {
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);
 			terrain.PlaceProp(terrain.terrainProps.chest, centerPosition + new Vector2Int(0, 1));
 			
-			yield return new WaitForSeconds(4.0f);
+			yield return new WaitForSeconds(3.0f);
 			effectPosition = LayoutGrid.ToWorldPosition(centerPosition - new Vector2Int(0, 1), true);
             AudioSource.PlayClipAtPoint(terrain.breakSoundEffect, effectPosition, terrain.soundVolume);
             Instantiate(terrain.breakEffect, effectPosition, Quaternion.identity);

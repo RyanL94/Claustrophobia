@@ -1086,6 +1086,7 @@ GameObject:
   - component: {fileID: 95226675820142616}
   - component: {fileID: 114152199979206294}
   - component: {fileID: 114680741469517902}
+  - component: {fileID: 114277376385502786}
   m_Layer: 0
   m_Name: Boss3
   m_TagString: Enemy
@@ -5341,6 +5342,19 @@ MonoBehaviour:
   onDeathSound: {fileID: 8300000, guid: b609e6e269cd1c841ae9fb606ce774c4, type: 3}
   soundVolume: 0
   renderer: {fileID: 0}
+--- !u!114 &114277376385502786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514233359068076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deactivated: 0
+  damage: 20
 --- !u!114 &114680741469517902
 MonoBehaviour:
   m_ObjectHideFlags: 1
