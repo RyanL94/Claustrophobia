@@ -5356,7 +5356,7 @@ MonoBehaviour:
   rayCastOffset: 0.5
   rayDistance: 3
   rotate: 15
-  speed: 1
+  speed: 1.3
   meleeCooldown: 241
   rangedCooldown: 40
   ultraCooldown: 900
