@@ -64,10 +64,10 @@ public class Damageable : MonoBehaviour {
     private void CheckCollision(GameObject collider) {
         if (!invulnerable && collisionTags.Contains(collider.tag) && Time.time > immuneUntil) {
             var attack = collider.gameObject.GetComponent<Attack>();
-            if (attack.activated) {
+            if (attack.deactivated) {
                 return;
             }
-            health -= attack.damage;
+            health = Mathf.Max(health - attack.damage, 0);
             immuneUntil = Time.time + immuneDuration;
             //change color
             StartCoroutine(DisplayDamage());

@@ -191,8 +191,9 @@ GameObject:
   - component: {fileID: 114883457188977346}
   - component: {fileID: 114603567747641288}
   - component: {fileID: 114506682071723214}
+  - component: {fileID: 114232900144374060}
   m_Layer: 0
-  m_Name: MeleeEnemy1
+  m_Name: RoomEnemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,6 +556,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114232900144374060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1665826588543470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087db55c71b53b84db72088478009a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LootTable:
+  - name: Gold
+    item: {fileID: 1795507040959094, guid: 5bed97a1c18fb4664b65eccfeed1b119, type: 2}
+    dropRate: 25
+  - name: Health
+    item: {fileID: 1375969828680474, guid: fc1f86a34848b4f00b763b17e9d91f8c, type: 2}
+    dropRate: 75
+  dropChance: 50
 --- !u!114 &114506682071723214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -566,7 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activated: 0
+  deactivated: 0
   damage: 10
 --- !u!114 &114603567747641288
 MonoBehaviour:

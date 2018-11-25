@@ -102,6 +102,9 @@ public class BasicRangedEnemy : Enemy
                 transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             }
         }
+
+        // prevent the kiting movement from moving the enemy upwards
+        transform.position = new Vector3(transform.position.x, 0.25f, transform.position.z);
     }
 
     void Attack()

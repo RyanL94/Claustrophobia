@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - FxTemporaire
   - Soundtrack
+  - EnemyExplosion
   layers:
   - Default
   - TransparentFX

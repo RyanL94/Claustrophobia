@@ -272,6 +272,7 @@ MonoBehaviour:
     roomCount: 10
   breakableByTag:
   - PlayerAttack
+  - EnemyExplosion
   breakEffect: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
     type: 2}
   breakSoundEffect: {fileID: 8300000, guid: f296e6d0025cf48da8a7ac0985fa21dc, type: 3}
@@ -1981,25 +1982,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainEnemies:
-  - {fileID: 1665826588543470, guid: 2545c2e3ab32f5d4f884e683efd1949b, type: 2}
+  - {fileID: 1009531895103672, guid: 2585d0c5d67ad4bcf8224983ce4eb397, type: 2}
   mazeEnemies:
   - {fileID: 1665826588543470, guid: 2545c2e3ab32f5d4f884e683efd1949b, type: 2}
+  - {fileID: 1665826588543470, guid: bd64ab8ad80f4495299047769880fa7f, type: 2}
+  - {fileID: 1665826588543470, guid: 60d9f96f0796a435aa86448aa72215ba, type: 2}
+  - {fileID: 1665826588543470, guid: 46a0b45a5927e47ffbcebfe2598788db, type: 2}
+  - {fileID: 1009531895103672, guid: 98cfb86793ade475f80202e00181ca9e, type: 2}
+  - {fileID: 1150294057763596, guid: 0251af85a3b55654ea63fff31e5e7109, type: 2}
   roomEnemies:
+  - {fileID: 1665826588543470, guid: 912e51acc35914380aab759d4846272d, type: 2}
   - {fileID: 1009531895103672, guid: 29054ed1a43fbfe41b82a75982ac9fd5, type: 2}
+  - {fileID: 1009531895103672, guid: fa273736cedaf41c595401e6df120f6c, type: 2}
+  - {fileID: 1009531895103672, guid: 952f28b5fe0004f62ab6140f16f1d17b, type: 2}
   bosses:
   - {fileID: 1536882586679172, guid: 0c3958b7af5854fa6840dc5fb6d03e08, type: 2}
   spawnConfiguration:
     enemiesPerFloor:
-      min: 30
-      max: 40
+      min: 40
+      max: 50
     enemiesPerRoom:
-      min: 3
-      max: 5
+      min: 2
+      max: 4
     spawnRate:
       min: 0.2
       max: 0.8
     RampDuration: 300
-    breakRampIncrease: 10
+    breakRampIncrease: 20
   timerConfiguration:
     blocksDestroyed:
       min: 1
@@ -2113,6 +2122,7 @@ GameObject:
   - component: {fileID: 1293179919}
   - component: {fileID: 1293179921}
   - component: {fileID: 1293179920}
+  - component: {fileID: 1293179922}
   m_Layer: 5
   m_Name: Victory
   m_TagString: Untagged
@@ -2172,6 +2182,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1293179918}
   m_CullTransparentMesh: 0
+--- !u!114 &1293179922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1293179918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1296448464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3175,6 +3199,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4498054650249138, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498054650249138, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498054650249138, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c09278dc843e15429e2fd0dde74b51a, type: 2}
   m_IsPrefabAsset: 0
@@ -4061,6 +4097,7 @@ GameObject:
   - component: {fileID: 2060613443}
   - component: {fileID: 2060613445}
   - component: {fileID: 2060613444}
+  - component: {fileID: 2060613446}
   m_Layer: 5
   m_Name: Game Over
   m_TagString: Untagged
@@ -4120,6 +4157,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2060613442}
   m_CullTransparentMesh: 0
+--- !u!114 &2060613446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2060613442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2133806357
 GameObject:
   m_ObjectHideFlags: 0

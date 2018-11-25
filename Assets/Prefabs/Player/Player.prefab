@@ -2284,6 +2284,7 @@ MonoBehaviour:
   collisionTags:
   - Enemy
   - EnemyProjectile
+  - EnemyExplosion
   onDamageEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
   onDeathEffect: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 2}
   effectOffset: {x: 0, y: 2, z: 0}

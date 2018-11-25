@@ -22,12 +22,11 @@ GameObject:
   - component: {fileID: 95075370082616626}
   - component: {fileID: 54064856070342274}
   - component: {fileID: 65611860653913142}
-  - component: {fileID: 114434070916389982}
+  - component: {fileID: 114924063634688460}
   - component: {fileID: 114467638103624896}
   - component: {fileID: 114631296062257078}
-  - component: {fileID: 114231875344574202}
   m_Layer: 0
-  m_Name: RangedEnemy1
+  m_Name: TerrainEnemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,8 +260,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1009531895103672}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 40, y: 40, z: 40}
   m_Children:
   - {fileID: 4239695938400162}
   - {fileID: 4735841282947140}
@@ -376,10 +375,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &65611860653913142
 BoxCollider:
@@ -411,48 +410,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114231875344574202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009531895103672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087db55c71b53b84db72088478009a7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LootTable:
-  - name: Gold
-    item: {fileID: 1795507040959094, guid: 5bed97a1c18fb4664b65eccfeed1b119, type: 2}
-    dropRate: 75
-  - name: Health
-    item: {fileID: 1375969828680474, guid: fc1f86a34848b4f00b763b17e9d91f8c, type: 2}
-    dropRate: 25
-  dropChance: 50
---- !u!114 &114434070916389982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009531895103672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc85c1d050b21c4d8d8a8f653c06d16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationalDamp: 5
-  rayCastOffset: 0.5
-  rayDistance: 3
-  rotate: 15
-  speed: 2.5
-  attackCooldown: 75
-  aggroRange: 8
-  kiteDistance: 2.5
-  approachDistance: 4.5
-  Projectile: {fileID: 1393229010526812, guid: 2705830f974e76e4fadfdf07af627db7, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  mazeDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &114467638103624896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -465,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnerable: 0
-  health: 20
+  health: 35
   collisionTags:
   - PlayerAttack
   onDamageEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
@@ -487,8 +444,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activated: 0
-  damage: 10
+  deactivated: 0
+  damage: 15
+--- !u!114 &114924063634688460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1009531895103672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641551cde1812394f844257d1228f5dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationalDamp: 5
+  rayCastOffset: 0.5
+  rayDistance: 3
+  rotate: 15
+  speed: 1.5
+  attackCooldown: 150
+  direction: {x: 0, y: 0, z: 0}
+  mazeDirection: {x: 0, y: 0, z: 0}
+  aggroRange: 6
+  inRoom: 1
 --- !u!137 &137916582367136148
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -504,7 +482,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: e7730fe5ddfc2304e9ef19c1777dff95, type: 2}
+  - {fileID: 2100000, guid: e45b40dde5630f3488fd950d7ca4f260, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

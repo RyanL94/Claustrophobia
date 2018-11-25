@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour {
 
-	public bool activated = false;
+	public bool deactivated = false;
 	public int damage;
 }

@@ -791,8 +791,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activated: 0
-  damage: 10
+  deactivated: 1
+  damage: 0
 --- !u!114 &114912844380817090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnerable: 0
-  health: 30
+  health: 20
   collisionTags:
   - PlayerAttack
   onDamageEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}

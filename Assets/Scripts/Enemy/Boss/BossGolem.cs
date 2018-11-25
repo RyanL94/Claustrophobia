@@ -75,7 +75,7 @@ public class BossGolem : Enemy {
             AnimReset();
             walking = false;
             dead = true;
-            GetComponent<Attack>().activated = true;
+            GetComponent<Attack>().deactivated = true;
             transform.parent = null;
             Destroy(gameObject, 5);
         });
