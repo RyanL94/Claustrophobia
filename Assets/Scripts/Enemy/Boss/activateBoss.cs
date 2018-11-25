@@ -8,5 +8,6 @@ public class activateBoss : StateMachineBehaviour
     {
         BossGolem.bossActive = true;
         BossGolem2.bossActive = true;
+        BossGolem3.bossActive = true;
     }
 }

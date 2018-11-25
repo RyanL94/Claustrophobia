@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossGolem2 : Enemy {
+public class BossGolem3 : Enemy {
     Animator animator;
     bool idle;
     bool walking;
@@ -36,19 +36,21 @@ public class BossGolem2 : Enemy {
     [SerializeField]
     int rangedCooldown;
     [SerializeField]
+    int ultraCooldown;
+    [SerializeField]
     int specialCooldown;
     [SerializeField]
     float attackRange;
     [SerializeField]
     float chaseDistance;
     [SerializeField]
-    GameObject Projectile, meleeHitbox, FallingRock;
+    GameObject Projectile, meleeHitbox, FallingRock, ultraProj;
 
     //val stuff
     public Vector3 direction, mazeDirection; //these are only public for testing purposes. Make private on release.
 
-    int meleeTimer, rangedTimer, specialTimer;
-    bool doingMelee;
+    int meleeTimer, rangedTimer, specialTimer, ultraTimer;
+    bool doingMelee, doingUltra;
 
     static Vector3 destination;
     private float distanceToTarget;
@@ -83,7 +85,7 @@ public class BossGolem2 : Enemy {
 
     void Update()
     {
-        if (bossActive == true && doingMelee == false) Pathfinding();
+        if (bossActive == true && doingMelee == false && doingUltra == false) Pathfinding();
 
         if (meleeTimer < meleeCooldown)
         {
@@ -108,6 +110,26 @@ public class BossGolem2 : Enemy {
         if (specialTimer < specialCooldown)
         {
             specialTimer++;
+        }
+
+        if (ultraTimer < ultraCooldown)
+        {
+            ultraTimer++;
+        }
+
+        if (doingUltra == true)
+        {
+            smashing = true;
+            Debug.Log("smashing = " + smashing);
+            transform.rotation = Quaternion.LookRotation(GameObject.Find("Player").transform.position - transform.position, Vector3.up); //face player
+            if (ultraTimer == 150)
+            {
+                Instantiate(ultraProj, transform.position, Random.rotation);
+            }
+            if (ultraTimer == 233)
+            {
+                doingUltra = false;
+            }
         }
 
         //Debug.Log("Walking = " + walking);
@@ -148,6 +170,7 @@ public class BossGolem2 : Enemy {
         distanceToTarget = Vector3.Distance(destination, transform.position);
 
         specialAttack();
+        ultraAttack();
     
         if (distanceToTarget < attackRange)
         {
@@ -157,7 +180,6 @@ public class BossGolem2 : Enemy {
         {
             //Debug.Log("walk towards player");
             AnimReset();
-            walking = true;
             transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Player").transform.position, speed * 0.75f * Time.deltaTime);
         }
         else
@@ -182,6 +204,19 @@ public class BossGolem2 : Enemy {
             Instantiate(FallingRock, GameObject.Find("Player").transform.position, Random.rotation);
             //Debug.Log("special attack");
             specialTimer = 0;
+        }
+    }
+
+    void ultraAttack()
+    {
+        if (ultraTimer >= ultraCooldown)
+        {
+            Debug.Log("triggered ultra");
+            if (smashing == false) AnimReset();
+            smashing = true;
+            //Debug.Log("ultra attack");
+            ultraTimer = 0;
+            doingUltra = true;
         }
     }
 
