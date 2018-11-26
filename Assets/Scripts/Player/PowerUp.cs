@@ -77,6 +77,7 @@ public class PowerUp : MonoBehaviour {
         {
             player.bulletNumber = 1;
         }
+        player.maxAmmo += ammo;
         player.ammo += ammo;
         player.ammoGainPerHit += ammoGainPerHit;
         player.fireDelay += fireDelay;

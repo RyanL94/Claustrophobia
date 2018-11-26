@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour {
     float cooldownTimer;
     private GameObject lookAtMouseRotation;
 
-    private float maxAmmo;
     private float swordDelayTime;
     private float startDashTime;
     private float speed;
@@ -41,6 +40,7 @@ public class PlayerController : MonoBehaviour {
     public int ricochet;
     public float precision;
     public int bulletNumber;
+    public float maxAmmo;
     public float ammo;
     public float ammoGainPerHit;
     public float fireDelay;
