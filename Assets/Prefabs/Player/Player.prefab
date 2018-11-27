@@ -1462,7 +1462,7 @@ Transform:
   m_GameObject: {fileID: 1411798393775670}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 11, y: 11, z: 11}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children: []
   m_Father: {fileID: 4767490036970002}
   m_RootOrder: 0
@@ -2230,7 +2230,7 @@ MonoBehaviour:
   swingSound: {fileID: 8300000, guid: a529f901bd51a994ab50b87aa4784457, type: 3}
   fireSound: {fileID: 8300000, guid: 5f65f7a864d7742fda4f10edfde922d2, type: 3}
   soundVolume: 0.5
-  money: 15
+  money: 10
   maxSpeed: 3
   minSpeed: 3
   dashTime: 0.125
@@ -2238,6 +2238,7 @@ MonoBehaviour:
   ricochet: 0
   precision: 15
   bulletNumber: 1
+  maxAmmo: 0
   ammo: 5
   ammoGainPerHit: 0.5
   fireDelay: 1
@@ -2255,7 +2256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280b22b09a5648dbb7a4083ed030850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activated: 0
+  deactivated: 0
   damage: 10
 --- !u!114 &114563717253565534
 MonoBehaviour:

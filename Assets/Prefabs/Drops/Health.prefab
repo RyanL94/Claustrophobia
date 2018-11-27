@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpEffect: {fileID: 100004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 2}
-  health: 10
+  health: 15
 --- !u!135 &135485321156646882
 SphereCollider:
   m_ObjectHideFlags: 1

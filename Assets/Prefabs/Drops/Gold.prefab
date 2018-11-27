@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpEffect: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 2}
-  gold: 1
+  gold: 3
 --- !u!114 &114659389809339916
 MonoBehaviour:
   m_ObjectHideFlags: 1
