@@ -19,7 +19,7 @@ public class Damageable : MonoBehaviour {
     public new Renderer renderer;
     private bool colorChange = false;
 
-    public static float immuneDuration = 0.3f;
+    public static float immuneDuration = 0.5f;
 
     private float immuneUntil;
     private Action onDamageAction;
@@ -62,7 +62,7 @@ public class Damageable : MonoBehaviour {
     }
 
     private void CheckCollision(GameObject collider) {
-        if (!invulnerable && collisionTags.Contains(collider.tag) && Time.time > immuneUntil) {
+        if (!invulnerable && collisionTags.Contains(collider.tag) && (Time.time > immuneUntil || gameObject.tag != "Player")) {
             var attack = collider.gameObject.GetComponent<Attack>();
             if (attack.deactivated) {
                 return;
