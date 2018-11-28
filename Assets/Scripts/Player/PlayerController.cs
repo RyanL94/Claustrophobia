@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     float cooldownTimer;
     private GameObject lookAtMouseRotation;
 
+    private float dashCooldown = 1.0f;
+    private float nextDash;
     private float swordDelayTime;
     private float startDashTime;
     private float speed;
@@ -125,12 +127,13 @@ public class PlayerController : MonoBehaviour {
             }
 
             //make player do a dash
-            if (Input.GetKeyDown(KeyCode.Space) && !dash)
+            if (Input.GetKeyDown(KeyCode.Space) && !dash && Time.time >= nextDash)
             {
                 AudioSource.PlayClipAtPoint(dashSound, transform.position, soundVolume);
                 dash = true;
                 startDashTime = Time.time + dashTime;
                 Decelarate();
+                nextDash = Time.time + dashCooldown;
             }
 
     }
@@ -169,7 +172,7 @@ public class PlayerController : MonoBehaviour {
         for (int number = 0; number < bulletNumber; number++)
         {
             AudioSource.PlayClipAtPoint(fireSound, transform.position, soundVolume);
-            GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position, lookAtMouseRotation.transform.rotation);
+            GameObject bulletObject = (GameObject)Instantiate(bulletPrefab, gunBarel.transform.position + (Vector3.down * 0.15f), lookAtMouseRotation.transform.rotation);
             Physics.IgnoreCollision(bulletObject.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
             //add randum roation 
             bulletObject.transform.eulerAngles = new Vector3(lookAtMouseRotation.transform.eulerAngles.x, lookAtMouseRotation.transform.eulerAngles.y + Random.Range(-precision, precision), lookAtMouseRotation.transform.eulerAngles.z);

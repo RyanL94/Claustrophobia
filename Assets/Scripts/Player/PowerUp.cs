@@ -86,9 +86,10 @@ public class PowerUp : MonoBehaviour {
         player.swordDamage += swordDamage;
 
         // change player health
-        player.GetComponent<Damageable>().health += health;
+        player.GetComponent<Damageable>().health = Mathf.Max(player.GetComponent<Damageable>().health + health, 1);
         game.hud.healthBar.maxValue += health;
         game.hud.ammoBar.maxValue += ammo;
+        game.hud.ForceUpdate();
         transform.parent = null;
         Destroy(gameObject);
         

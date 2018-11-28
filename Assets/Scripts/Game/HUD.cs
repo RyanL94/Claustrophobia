@@ -30,6 +30,7 @@ public class HUD : MonoBehaviour {
     private Animator bossHealthAnimator;
     private Damageable bossHealth;
     private bool paused = false;
+    private bool forceUpdate = false;
 
 	void Start() {
 		game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
@@ -53,11 +54,11 @@ public class HUD : MonoBehaviour {
         }
 
         var progression = Time.deltaTime * updateSpeed;
-		if (playerHealth.health != healthBar.value) {
+		if (playerHealth.health != healthBar.value || forceUpdate) {
 			healthBar.value = Mathf.Lerp(healthBar.value, playerHealth.health, progression);
             healthText.text = string.Format("{0} / {1}", playerHealth.health, healthBar.maxValue);
 		}
-		if (player.ammo != ammoBar.value) {
+		if (player.ammo != ammoBar.value || forceUpdate) {
 			ammoBar.value = Mathf.Lerp(ammoBar.value, player.ammo, progression);
             ammoText.text = string.Format("{0} / {1}", Mathf.Floor(player.ammo), ammoBar.maxValue);
 		}
@@ -65,7 +66,12 @@ public class HUD : MonoBehaviour {
             bossHealthBar.value = Mathf.Lerp(bossHealthBar.value, bossHealth.health, progression);
         }
         money.text = player.money.ToString() + " G";
+        forceUpdate = false;
 	}
+
+    public void ForceUpdate() {
+        forceUpdate = true;
+    }
 
     public void InitializeCompass() {
         foreach (Transform child in compass.transform) {
