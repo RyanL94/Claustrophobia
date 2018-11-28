@@ -112,7 +112,7 @@ MonoBehaviour:
   ammoGainPerHit: 0
   fireDelay: 0
   bulletDistance: 0
-  gunDamage: 0
+  gunDamage: -5
   swordDamage: 0
 --- !u!114 &114746645236039432
 MonoBehaviour:

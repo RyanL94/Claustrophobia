@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour {
     public bool invulnerable = false;
+    public bool delay = false;
     public float health = 1; //Default value. Can be changed per item in the editor.
     public List<string> collisionTags;
     public GameObject onDamageEffect;
@@ -19,7 +20,7 @@ public class Damageable : MonoBehaviour {
     public new Renderer renderer;
     private bool colorChange = false;
 
-    public static float immuneDuration = 0.5f;
+    public static float immuneDuration = 0.75f;
 
     private float immuneUntil;
     private Action onDamageAction;
@@ -29,13 +30,22 @@ public class Damageable : MonoBehaviour {
     void Start() {
         game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         immuneUntil = Time.time;
+        if (delay) {
+            StartCoroutine(DelayActivation());
+        }
     }
+
+    private IEnumerator DelayActivation() {
+		invulnerable = true;
+		yield return new WaitForSeconds(0.25f);
+		invulnerable = false;
+	}
 
     IEnumerator DisplayDamage()
     {
         if (renderer != null) {
             renderer.material.color = Color.red;
-            yield return new WaitForSeconds(immuneDuration / 2);
+            yield return new WaitForSeconds(0.2f);
             renderer.material.color = Color.white;
         }
     }

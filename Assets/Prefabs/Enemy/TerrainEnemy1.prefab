@@ -422,6 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnerable: 0
+  delay: 1
   health: 35
   collisionTags:
   - PlayerAttack
@@ -445,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deactivated: 0
+  delay: 1
   damage: 15
 --- !u!114 &114924063634688460
 MonoBehaviour:
