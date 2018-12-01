@@ -123,6 +123,7 @@ MonoBehaviour:
   name: Metal Bullets
   description: Stronger Bouncing Shots
   effect: {fileID: 100000, guid: aa3fed151f536ee49b583c6a3ac4a2e1, type: 2}
+  sound: {fileID: 8300000, guid: ff22e943da24249f79b9254243475586, type: 3}
   health: 0
   maxSpeed: 0
   minSpeed: 0

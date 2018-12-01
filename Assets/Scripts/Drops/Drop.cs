@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Drop : MonoBehaviour {
 
 	public GameObject pickUpEffect;
+	public AudioClip pickUpSound;
 	protected GameController game;
 
 	void Awake() {
@@ -20,5 +21,6 @@ public abstract class Drop : MonoBehaviour {
 
 	protected virtual void Take() {
 		Instantiate(pickUpEffect, game.player.transform);
+		AudioSource.PlayClipAtPoint(pickUpSound, transform.position, 0.15f);
 	}
 }

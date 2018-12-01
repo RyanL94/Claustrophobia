@@ -91,7 +91,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1205049740924758}
+  m_GameObject: {fileID: 1907162968858768}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02439c1c78bf341838277fb3035cafc5, type: 3}
@@ -100,6 +100,7 @@ MonoBehaviour:
   name: Quick Fingers
   description: Double shot
   effect: {fileID: 100000, guid: aa3fed151f536ee49b583c6a3ac4a2e1, type: 2}
+  sound: {fileID: 8300000, guid: ff22e943da24249f79b9254243475586, type: 3}
   health: 0
   maxSpeed: 0
   minSpeed: 0
@@ -114,12 +115,41 @@ MonoBehaviour:
   bulletDistance: 0
   gunDamage: 0
   swordDamage: 0
+--- !u!114 &114724759932348312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1907162968858768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02439c1c78bf341838277fb3035cafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Bullseye Boosted
+  description: Bullet Damages 20 more
+  effect: {fileID: 100000, guid: aa3fed151f536ee49b583c6a3ac4a2e1, type: 2}
+  sound: {fileID: 0}
+  health: 0
+  maxSpeed: 0
+  minSpeed: 0
+  dashTime: 0
+  swordDelay: 0
+  ricochet: 0
+  precision: -10
+  bulletNumber: 0
+  ammo: 0
+  ammoGainPerHit: 0
+  fireDelay: 0
+  bulletDistance: 0
+  gunDamage: 20
+  swordDamage: 0
 --- !u!114 &114822843454340520
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1205049740924758}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
@@ -137,34 +167,6 @@ MonoBehaviour:
   endScale: {x: 1.5, y: 1.5, z: 1.5}
   scaleSpeed: 1
   scaleRate: 0.5
---- !u!114 &114724759932348312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1907162968858768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02439c1c78bf341838277fb3035cafc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Bullseye Boosted
-  description: Bullet Damages 20 more
-  effect: {fileID: 100000, guid: aa3fed151f536ee49b583c6a3ac4a2e1, type: 2}
-  health: 0
-  maxSpeed: 0
-  minSpeed: 0
-  dashTime: 0
-  swordDelay: 0
-  ricochet: 0
-  precision: -10
-  bulletNumber: 0
-  ammo: 0
-  ammoGainPerHit: 0
-  fireDelay: 0
-  bulletDistance: 0
-  gunDamage: 20
-  swordDamage: 0
 --- !u!135 &135344349580480756
 SphereCollider:
   m_ObjectHideFlags: 1

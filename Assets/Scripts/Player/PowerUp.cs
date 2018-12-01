@@ -6,6 +6,7 @@ public class PowerUp : MonoBehaviour {
     public new string name;
     public string description;
     public GameObject effect;
+    public AudioClip sound;
 
     public float health;
     public float maxSpeed;
@@ -94,6 +95,7 @@ public class PowerUp : MonoBehaviour {
         Destroy(gameObject);
         
         Instantiate(effect, player.transform);
+        AudioSource.PlayClipAtPoint(sound, transform.position, 0.25f);
         game.hud.popUp.Hide();
         game.hud.DisplayItem(name, description);
     }

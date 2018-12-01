@@ -10,7 +10,7 @@
 # Description
 Claustrophobia, Team R's game project, developped in partial fulfillment of the requirements of COMP376 XX for fall 2018.
 
-**The project was developed and tested with [`Unity`](https://unity3d.com/) 2018.2.16f1-1.**
+**The project was developed and tested with [`Unity`](https://unity3d.com/) 2018.2.17f1.**
 
 # Running
 To open the game project, open the source folder at the Unity home screen.
